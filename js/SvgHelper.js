@@ -1,4 +1,6 @@
 function loadSVGPlusReset(svgString) {
+  console.log("loadSVGPlusReset")
+
   allRemove();
   fabric.loadSVGFromString(svgString, function (objects, options) {
     var canvasUsableHeight = canvas.height - svgPagging;
@@ -13,6 +15,11 @@ function loadSVGPlusReset(svgString) {
     clipAreaCoords.width = options.width * scaleToFit;
     clipAreaCoords.height = options.height * scaleToFit;
     canvas.backgroundColor = 'white';
+
+    console.log("loadSVGPlusReset clipAreaCoords.left",clipAreaCoords.left)
+    console.log("loadSVGPlusReset clipAreaCoords.top",clipAreaCoords.top)
+    console.log("loadSVGPlusReset clipAreaCoords.width",clipAreaCoords.width)
+    console.log("loadSVGPlusReset clipAreaCoords.height",clipAreaCoords.height)
 
     objects.forEach(function (obj) {
       obj.scaleX = scaleToFit;
@@ -38,6 +45,9 @@ function loadSVGPlusReset(svgString) {
 };
 
 function loadSVGReadOnly(svgString) {
+  console.log("loadSVGReadOnly")
+
+
   fabric.loadSVGFromString(svgString, function (objects, options) {
     var canvasUsableHeight = canvas.height - svgPagging;
     var overallScaleX = canvas.width / options.width;
@@ -46,15 +56,6 @@ function loadSVGReadOnly(svgString) {
     var offsetX = (canvas.width - options.width * scaleToFit) / 2;
     var offsetY = (svgPagging / 2) + (canvasUsableHeight - options.height * scaleToFit) / 2;
 
-    clipAreaCoords.left = offsetX;
-    clipAreaCoords.top = offsetY;
-    clipAreaCoords.width = options.width * scaleToFit;
-    clipAreaCoords.height = options.height * scaleToFit;
-    canvas.backgroundColor = 'white';
-
-
-    
-    // Apply the scaling and positioning to each object
     var scaledObjects = objects.map(function (obj) {
       obj.scaleX = scaleToFit;
       obj.scaleY = scaleToFit;

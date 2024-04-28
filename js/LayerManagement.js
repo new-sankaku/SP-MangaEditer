@@ -1,10 +1,12 @@
 function updateLayerPanel() {
+  console.log( "updateLayerPanel" );
   var layers = canvas.getObjects();
   var layerContent = document.getElementById("layer-content");
   layerContent.innerHTML = "";
 
   layers.slice().reverse().forEach(function (layer, index) {
     if (!layer.excludeFromLayerPanel) {
+      console.log("if (!layer.excludeFromLayerPanel) { : layer.excludeFromLayerPanel", layer.excludeFromLayerPanel );
       var layerDiv = document.createElement("div");
       var previewDiv = document.createElement("div");
       var nameDiv = document.createElement("div");

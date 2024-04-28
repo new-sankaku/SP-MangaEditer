@@ -1,4 +1,8 @@
-body, div, input, button, label {
+body,
+div,
+input,
+button,
+label {
     font-family: 'Open Sans', Arial, sans-serif;
     color: #333;
 }
@@ -12,24 +16,32 @@ body {
 }
 
 
-/* SVG preview area */
-#svg-preview-area {
-    min-width: 12vw; 
-    width: 15vw;
-    height: auto;
-    flex-direction: column;
-    overflow-y: auto; 
-    overflow-x: hidden; 
-    padding: 5px;
-    margin-right: 20px;
-
+#svg-container, #speech-bubble-area1, #dummy-area2, #dummy-area3, #dummy-area4 {
+    width: 200px;
+    min-width: 200px;
+    height: 750px;
+    min-height: 750px;
+    margin-right: 10px;
     background: #ffffff;
-    margin-bottom: 10px;
-    border: 2px solid #e0e0e0;  
+    border: 2px solid #e0e0e0;
+    box-sizing: border-box;
 }
-
-.svg-preview {
-    width: 5vw; 
+#svg-preview-area, #speech-bubble-svg-preview-area1, #dummy-svg-preview-area2  , #dummy-svg-preview-area3  , #dummy-svg-preview-area4  {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    box-sizing: border-box;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.svg-preview  {
+    width: 45%;
+    height: 45%;
     height: auto;
     margin-left: 5px;
     margin-top: 5px;
@@ -45,7 +57,7 @@ button {
     border: 1px solid #444;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;  
+    transition: all 0.2s ease-in-out;
 }
 
 button:hover {
@@ -55,33 +67,26 @@ button:hover {
 
 button:active {
     background: #111;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3); 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 
 
 #canvas-area {
-    width: 750px;
-    height: 900px;
-    flex: 0 0 45%;
     margin-right: 20px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #canvas-container {
-    width: 750px;
-    height: 900px;
+
     box-shadow: 0 2px 4px rgba(110, 110, 110, 0.1);
     background: white;
     position: relative;
 }
 
 #mangaImageCanvas {
-    width: 750px;
-    height: 900px;
     border: 3px dashed #4d4d4d;
 }
 
@@ -93,11 +98,13 @@ button:active {
 
 #layer-panel {
     flex: 0 0 20%;
-    margin-right: 20px;
-    height: 40%;
+    margin-right: 10px;
+    height: auto;
+    max-width: 200px;
+    min-width: 200px;
 }
 
-#layer-header {
+#area-header {
     padding: 5px;
     background: #ddd;
     color: #333;
@@ -107,7 +114,7 @@ button:active {
 #layer-content {
     overflow-y: auto;
     border: 2px solid #4d4d4d;
-    height: 460px;
+    height: 500px;
 }
 
 .layer-item {
@@ -143,24 +150,28 @@ button:active {
 }
 
 #controls {
-    flex: 0 0 10%;
     margin-right: 20px;
-
-    height: 40%;
+    width: 140px;
+    min-width: 140px;
+    height: 80%;
+    min-height: 300px;
 }
 
 #controls .control {
     margin-bottom: 10px;
+    width: 100%;
 }
 
+
 label {
-    display: block; 
-    margin-bottom: 5px; 
+    display: block;
+    margin-bottom: 5px;
 }
 
 input[type="range"] {
-    width: 100%; 
+    width: 100%;
 }
+
 .custom-file-upload {
     display: inline-block;
     padding: 5px;
@@ -180,7 +191,7 @@ input[type="range"] {
 
 .custom-file-upload:active {
     background: #111;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .custom-file-upload i {
@@ -190,8 +201,31 @@ input[type="range"] {
 #file-input {
     display: none;
 }
+#sidebar {
+    margin-right: 5px;
+    width: 50px;
+    height: 800px;
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+}
 
+#sidebar i {
+    width: 30px;
+    height: 30px;
+    margin: 20px 0;
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
 
-
-
-
+#sidebar i:hover, #sidebar i.active {
+    color: #000; 
+    transform: scale(1.1); 
+}

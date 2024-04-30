@@ -23,7 +23,7 @@ function cropAndDownload() {
 		multiplier: 3, 
 		left: clipAreaCoords.left,
 		top: clipAreaCoords.top,
-		width: clipAreaCoords.width+2,
+		width: clipAreaCoords.width,
 		height: clipAreaCoords.height
 	});
 

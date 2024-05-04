@@ -1,7 +1,7 @@
 
 
 function updateLayerPanel() {
-  console.log("updateLayerPanel");
+  // console.log("updateLayerPanel");
   var layers = canvas.getObjects();
   var layerContent = document.getElementById("layer-content");
   layerContent.innerHTML = "";
@@ -13,7 +13,7 @@ function updateLayerPanel() {
       var nameDiv = document.createElement("div");
       var deleteButton = document.createElement("button");
 
-      console.log("layer.type", layer.type);
+      // console.log("layer.type", layer.type);
 
       if (["image", "rect", "circle", "path", "group", "polygon"].includes(layer.type)) {
         var tempCanvas = document.createElement("canvas");
@@ -29,12 +29,39 @@ function updateLayerPanel() {
           var groupScaleFactor = Math.min(100 / layer.width, 100 / layer.height);
           tempCtx.save();
           tempCtx.translate(50, 50);
-          tempCtx.scale(groupScaleFactor, groupScaleFactor);
+          tempCtx.scale(0.1,0.1);
           tempCtx.translate(-layer.width / 2, -layer.height / 2);
-          layer.render(tempCtx);
+        
+          layer.getObjects().forEach(function (obj) {
+            tempCtx.save();
+            tempCtx.translate(obj.left, obj.top);
+        
+            if (["rect", "circle", "polygon"].includes(obj.type)) {
+              var tempCanvas = obj.toCanvasElement();
+              tempCtx.drawImage(tempCanvas, -obj.width / 2, -obj.height / 2, obj.width, obj.height);
+            } else if (obj.type === "path") {
+              var path = new fabric.Path(obj.path);
+              path.left = -obj.width / 2;
+              path.top = -obj.height / 2;
+              path.render(tempCtx);
+            } else {
+              tempCtx.translate(-obj.width / 2, -obj.height / 2);
+              obj.render(tempCtx);
+            }
+        
+            tempCtx.restore();
+          });
+        
           tempCtx.restore();
+        } else if (layer.type === "rect" || layer.type === "circle" || layer.type === "path" || layer.type === "polygon"  ) {
+          var tempCanvas = layer.toCanvasElement();
+          tempCtx.drawImage(tempCanvas, 0, 0, 100, 100);
 
-        } else {
+        }else if (layer.type === "path"  ) {
+          var path = new fabric.Path(layer.path);
+          path.render(tempCtx);
+        
+        }else {
           layer.render(tempCtx);
         }
 
@@ -54,7 +81,7 @@ function updateLayerPanel() {
       }
 
       nameDiv.className = "layer-name";
-      nameDiv.textContent = nameDiv.textContent || layer.name || `Layer ${index + 1}`;
+      nameDiv.textContent = nameDiv.textContent || layer.name || layer.type + ` ${index + 1}`;
 
       deleteButton.textContent = "✕";
       deleteButton.className = "delete-layer-button";
@@ -81,9 +108,9 @@ function updateLayerPanel() {
 
 function removeLayer(layer) {
   canvas.remove(layer);
-  if (layer === currentImage) {
-    currentImage = null;
-  }
+  // if (layer === currentImage) {
+  //   currentImage = null;
+  // }
   updateLayerPanel();
   if (canvas.getActiveObject() === layer) {
     canvas.discardActiveObject();

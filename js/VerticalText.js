@@ -5,7 +5,7 @@ const textInput = document.getElementById("textInput");
 let isDragging = false;
 let offsetX, offsetY;
 
-console.log("openButton", openButton);
+// console.log("openButton", openButton);
 openButton.addEventListener("click", function () {
   const selectedObject = canvas.getActiveObject();
   if (selectedObject && selectedObject.type === "verticalText") {
@@ -67,7 +67,7 @@ fabric.Object.prototype.verticalText = fabric.VerticalText;
 
 let textGroup;
 function createVerticalText(textString, options) {
-
+  var selectedFont = document.getElementById('fontSelector').value;
   const ignoreRegex = /[･･･…ー（）｛｝「」(){}『』【】[\]]/;
   // move a little to the right
   const reverceRegex = /[、。，A-Za-z0-9!"#$%&'()=~{`+*}_?><]/;
@@ -89,6 +89,7 @@ function createVerticalText(textString, options) {
       originX: isIgnored ? "right" : "left",
       originY: "bottom",
       fill: options.color,
+      fontFamily: selectedFont, 
       angle: isIgnored ? 90 : 0,
     });
 

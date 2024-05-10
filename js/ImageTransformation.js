@@ -15,22 +15,6 @@ function flipVertically() {
 	}
 }
 
-function cropAndDownload() {
-	var cropped = canvas.toDataURL({
-		format: 'png',
-		multiplier: 3, 
-		left: clipAreaCoords.left,
-		top: clipAreaCoords.top,
-		width: clipAreaCoords.width,
-		height: clipAreaCoords.height
-	});
-
-	var link = document.createElement('a');
-	link.download = 'cropped-image.png';
-	link.href = cropped;
-	link.click();
-}
-
 function allRemove() {
 	canvas.clear();
 	updateLayerPanel();

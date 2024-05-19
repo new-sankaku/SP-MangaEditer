@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric.js Drawing Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+        }
+        .toolbox {
+            margin-bottom: 10px;
+        }
+        .toolbox button, .toolbox select, .toolbox input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbox">
+        <button id="draw">ペンツール</button>
+        <button id="clear">クリア</button>
+        <label for="brush-width">ペンの太さ: </label>
+        <input type="range" id="brush-width" min="1" max="50" value="5">
+        <label for="brush-color">ペンの色: </label>
+        <input type="color" id="brush-color" value="#000000">
+        <label for="brush-type">ペンの種類: </label>
+        <select id="brush-type">
+            <option value="Pencil">鉛筆</option>
+            <option value="Circle">円形</option>
+            <option value="Spray">スプレー</option>
+        </select>
+    </div>
+    <canvas id="c" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = new fabric.Canvas('c');
+        let isDrawingMode = false;
+
+        // ペンツールボタンのクリックイベント
+        document.getElementById('draw').onclick = function() {
+            isDrawingMode = !isDrawingMode;
+            canvas.isDrawingMode = isDrawingMode;
+            this.textContent = isDrawingMode ? '描画モードを終了' : 'ペンツール';
+        };
+
+        // クリアボタンのクリックイベント
+        document.getElementById('clear').onclick = function() {
+            canvas.clear();
+        };
+
+        // デフォルトのペン設定
+        canvas.freeDrawingBrush.width = 5;
+        canvas.freeDrawingBrush.color = '#000000';
+
+        // ペンの太さを変更
+        document.getElementById('brush-width').onchange = function() {
+            canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+        };
+
+        // ペンの色を変更
+        document.getElementById('brush-color').onchange = function() {
+            canvas.freeDrawingBrush.color = this.value;
+        };
+
+        // ペンの種類を変更
+        document.getElementById('brush-type').onchange = function() {
+            const brushType = this.value;
+            if (brushType === 'Pencil') {
+                canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+            } else if (brushType === 'Circle') {
+                canvas.freeDrawingBrush = new fabric.CircleBrush(canvas);
+            } else if (brushType === 'Spray') {
+                canvas.freeDrawingBrush = new fabric.SprayBrush(canvas);
+            }
+
+            // 再設定後に色と太さを適用
+            canvas.freeDrawingBrush.width = parseInt(document.getElementById('brush-width').value, 10) || 1;
+            canvas.freeDrawingBrush.color = document.getElementById('brush-color').value;
+        };
+    </script>
+</body>
+</html>

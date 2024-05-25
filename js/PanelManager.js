@@ -315,107 +315,6 @@ function loadSVGPlusReset(svgString) {
   updateLayerPanel();
 }
 
-/** Sppech bubble */
-function loadSVGReadOnly(svgString) {
-  var applyColor = document.getElementById("applyColorChange").checked;
-  var fillColor = document.getElementById("bubbleFillColor").value;
-  var strokeColor = document.getElementById("bubbleStrokeColor").value;
-
-  fabric.loadSVGFromString(svgString, function (objects, options) {
-    var canvasUsableHeight = canvas.height * 0.3 - svgPagging;
-    var overallScaleX = (canvas.width * 0.3) / options.width;
-    var overallScaleY = canvasUsableHeight / options.height;
-    var scaleToFit = Math.min(overallScaleX, overallScaleY);
-    var offsetX = (canvas.width - options.width * scaleToFit) / 2;
-    var offsetY = svgPagging / 2 + (canvasUsableHeight - options.height * scaleToFit) / 2;
-
-    var scaledObjects = objects.map(function (obj) {
-      obj.scaleX = scaleToFit;
-      obj.scaleY = scaleToFit;
-      obj.top = obj.top * scaleToFit + offsetY;
-      obj.left = obj.left * scaleToFit + offsetX;
-      obj.strokeWidth = 2;
-      if (applyColor) {
-        obj.set({
-          fill: fillColor,
-          stroke: strokeColor,
-        });
-      }
-
-      return obj;
-    });
-
-    var group = new fabric.Group(scaledObjects, {
-      left: offsetX,
-      top: offsetY,
-      selectable: true,
-      hasControls: true,
-      lockMovementX: false,
-      lockMovementY: false,
-      lockRotation: false,
-      lockScalingX: false,
-      lockScalingY: false,
-      
-    });
-
-    canvas.add(group);
-    canvas.renderAll();
-    updateLayerPanel();
-  });
-}
-
-/** load svg. */
-const previewAreaVertical = document.getElementById(
-  "svg-preview-area-vertical"
-);
-const previewAreaLandscape = document.getElementById(
-  "svg-preview-area-landscape"
-);
-const speechBubbleArea = document.getElementById(
-  "speech-bubble-svg-preview-area1"
-);
-
-window.onload = function () {
-  previewAreaVertical.innerHTML = "";
-
-  /** Load vertical manga panel image. */
-  MangaPanelsImage_Vertical.forEach((item) => {
-    const img = document.createElement("img");
-    img.src = "data:image/svg+xml;utf8," + encodeURIComponent(item.svg);
-    img.classList.add("svg-preview");
-    img.alt = item.name;
-    img.addEventListener("click", function () {
-      loadSVGPlusReset(item.svg);
-    });
-    previewAreaVertical.appendChild(img);
-  });
-
-  /** Load landscape manga panel image. */
-  previewAreaLandscape.innerHTML = "";
-  MangaPanelsImage_Landscape.forEach((item) => {
-    const img = document.createElement("img");
-    img.src = "data:image/svg+xml;utf8," + encodeURIComponent(item.svg);
-    img.classList.add("svg-preview");
-    img.alt = item.name;
-    img.addEventListener("click", function () {
-      loadSVGPlusReset(item.svg);
-    });
-    previewAreaLandscape.appendChild(img);
-  });
-
-  /** Load speech bubble manga panel image. */
-  // speechBubbleArea.innerHTML = "";
-  SpeechBubble.forEach((item) => {
-    const img = document.createElement("img");
-    img.src = "data:image/svg+xml;utf8," + encodeURIComponent(item.svg);
-    img.classList.add("svg-preview");
-    img.alt = item.name;
-    img.addEventListener("click", function () {
-      loadSVGReadOnly(item.svg);
-    });
-    speechBubbleArea.appendChild(img);
-  });
-};
 
 /** Disallow drag-on-drop. */
 document.addEventListener("DOMContentLoaded", function () {
@@ -461,6 +360,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function addSquare() {
+
+  var strokeWidthScale = canvas.width / 700;
+  var strokeWidth = 2 * strokeWidthScale;
+
   var square = new fabric.Polygon(
     [
       { x: 0, y: 0 },
@@ -472,7 +375,7 @@ function addSquare() {
       left: 50,
       top: 50,
       fill: "#FFFFFF",
-      strokeWidth: 2,
+      strokeWidth: strokeWidth,
       strokeUniform: true,
       stroke: "black",
       objectCaching: false,
@@ -489,16 +392,18 @@ function addSquare() {
     }
   );
   canvas.add(square);
+  updateLayerPanel();
 }
 
 function addPentagon() {
-  var side = 150; // 五角形の一辺の長さ
-  var angle = 54; // 中心から頂点までの角度（度数法）
+  var side = 150;
+  var angle = 54;
 
-  // 五角形の各頂点の計算
+  var strokeWidthScale = canvas.width / 700;
+  var strokeWidth = 2 * strokeWidthScale;
+
   var points = [];
   for (var i = 0; i < 5; i++) {
-    // 角度をラジアンに変換し、頂点の座標を計算
     var x = side * Math.cos((Math.PI / 180) * (angle + i * 72));
     var y = side * Math.sin((Math.PI / 180) * (angle + i * 72));
     points.push({ x: x, y: y });
@@ -508,7 +413,7 @@ function addPentagon() {
     left: 150,
     top: 150,
     fill: "#FFFFFF",
-    strokeWidth: 2,
+    strokeWidth: strokeWidth,
     strokeUniform: true,
     stroke: "black",
     objectCaching: false,
@@ -525,6 +430,8 @@ function addPentagon() {
   });
 
   canvas.add(pentagon);
+  updateLayerPanel();
+
 }
 
 function Edit() {
@@ -554,6 +461,7 @@ function Edit() {
   }
   poly.hasBorders = !poly.edit;
   canvas.requestRenderAll();
+  updateLayerPanel();
 }
 
 function changeStrokeWidth(value) {

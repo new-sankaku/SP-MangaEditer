@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.getElementById('SD_WebUI_pingCheck').addEventListener('change', function() {
+    sdwebui_checkAPIStatus();
+});
+
 var StableDiffusionWebUI_API_ping      = 'http://' + stableDiffusionWebUIHost + ':' + stableDiffusionWebUIPort + '/internal/ping'
 var StableDiffusionWebUI_API_sampler   = 'http://' + stableDiffusionWebUIHost + ':' + stableDiffusionWebUIPort + '/sdapi/v1/samplers'
 var StableDiffusionWebUI_API_scheduler = 'http://' + stableDiffusionWebUIHost + ':' + stableDiffusionWebUIPort + '/sdapi/v1/schedulers'
@@ -245,7 +249,7 @@ async function sdwebui_fetchText2Image(layer) {
       denoising_strength:text2img_basePrompt.text2img_basePrompt_hr_denoising_strength,
     });
   }
-  console.log("requestData", requestData);
+  // console.log("requestData", requestData);
   
   try {
       const response = await fetch(url, {
@@ -257,7 +261,7 @@ async function sdwebui_fetchText2Image(layer) {
           body: JSON.stringify(requestData)
       });
       const data = await response.json();
-      console.log("response", data);
+      // console.log("response", data);
       return data.images[0];
   } catch (error) {
       createToast("Text2Image Error.", "check SD WebUI!")

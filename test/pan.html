@@ -20,6 +20,7 @@
 <body>
     <div class="toolbox">
         <button id="draw">ペンツール</button>
+        <button id="eraser">消しゴム</button>
         <button id="clear">クリア</button>
         <label for="brush-width">ペンの太さ: </label>
         <input type="range" id="brush-width" min="1" max="50" value="5">
@@ -31,6 +32,16 @@
             <option value="Circle">円形</option>
             <option value="Spray">スプレー</option>
         </select>
+        <label for="brush-opacity">透明度: </label>
+        <input type="range" id="brush-opacity" min="0" max="1" step="0.1" value="1">
+        <label for="line-style">線のスタイル: </label>
+        <select id="line-style">
+            <option value="solid">実線</option>
+            <option value="dashed">破線</option>
+            <option value="dotted">点線</option>
+        </select>
+        <label for="bg-color">背景色: </label>
+        <input type="color" id="bg-color" value="#ffffff">
     </div>
     <canvas id="c" width="800" height="600"></canvas>
 
@@ -40,9 +51,21 @@
 
         // ペンツールボタンのクリックイベント
         document.getElementById('draw').onclick = function() {
-            isDrawingMode = !isDrawingMode;
-            canvas.isDrawingMode = isDrawingMode;
-            this.textContent = isDrawingMode ? '描画モードを終了' : 'ペンツール';
+            isDrawingMode = true;
+            canvas.isDrawingMode = true;
+            applyBrushSettings();
+        };
+
+        // 消しゴムツールのクリックイベント
+        document.getElementById('eraser').onclick = function() {
+            isDrawingMode = true;
+            canvas.isDrawingMode = true;
+            const eraserBrush = new fabric.PencilBrush(canvas);
+            eraserBrush.color = 'rgba(255, 255, 255, 1)';
+            eraserBrush.strokeLineCap = 'round';
+            eraserBrush.globalCompositeOperation = 'destination-out';
+            canvas.freeDrawingBrush = eraserBrush;
+            applyBrushSettings();
         };
 
         // クリアボタンのクリックイベント
@@ -53,15 +76,21 @@
         // デフォルトのペン設定
         canvas.freeDrawingBrush.width = 5;
         canvas.freeDrawingBrush.color = '#000000';
+        canvas.freeDrawingBrush.opacity = 1;
 
         // ペンの太さを変更
         document.getElementById('brush-width').onchange = function() {
-            canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+            applyBrushSettings();
         };
 
         // ペンの色を変更
         document.getElementById('brush-color').onchange = function() {
-            canvas.freeDrawingBrush.color = this.value;
+            applyBrushSettings();
+        };
+
+        // ペンの透明度を変更
+        document.getElementById('brush-opacity').onchange = function() {
+            applyBrushSettings();
         };
 
         // ペンの種類を変更
@@ -74,11 +103,41 @@
             } else if (brushType === 'Spray') {
                 canvas.freeDrawingBrush = new fabric.SprayBrush(canvas);
             }
-
-            // 再設定後に色と太さを適用
-            canvas.freeDrawingBrush.width = parseInt(document.getElementById('brush-width').value, 10) || 1;
-            canvas.freeDrawingBrush.color = document.getElementById('brush-color').value;
+            applyBrushSettings();
         };
+
+        // ペンの線スタイルを変更
+        document.getElementById('line-style').onchange = function() {
+            applyBrushSettings();
+        };
+
+        // 背景色の変更
+        document.getElementById('bg-color').onchange = function() {
+            canvas.backgroundColor = this.value;
+            canvas.renderAll();
+        };
+
+        // ペン設定の適用
+        function applyBrushSettings() {
+            if (!canvas.freeDrawingBrush) return;
+
+            const brushWidth = parseInt(document.getElementById('brush-width').value, 10) || 1;
+            canvas.freeDrawingBrush.width = brushWidth;
+            canvas.freeDrawingBrush.color = document.getElementById('brush-color').value;
+            canvas.freeDrawingBrush.opacity = parseFloat(document.getElementById('brush-opacity').value);
+
+            const lineStyle = document.getElementById('line-style').value;
+            if (lineStyle === 'solid') {
+                canvas.freeDrawingBrush.strokeDashArray = null;
+            } else if (lineStyle === 'dashed') {
+                canvas.freeDrawingBrush.strokeDashArray = [brushWidth * 4, brushWidth * 4];
+            } else if (lineStyle === 'dotted') {
+                canvas.freeDrawingBrush.strokeDashArray = [brushWidth, brushWidth * 4];
+            }
+        }
+
+        // 初期設定適用
+        applyBrushSettings();
     </script>
 </body>
 </html>

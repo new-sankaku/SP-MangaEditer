@@ -1,5 +1,3 @@
-
-
 function updateLayerPanel() {
   var layers = canvas.getObjects();
   var layerContent = document.getElementById("layer-content");
@@ -8,27 +6,40 @@ function updateLayerPanel() {
   layers.slice().reverse().forEach(function (layer, index) {
     if (!layer.excludeFromLayerPanel) {
       var layerDiv = document.createElement("div");
-      var nameDiv = document.createElement("div");
+      var previewDiv = document.createElement("div");
+      var detailsDiv = document.createElement("div");
+      var nameTextArea = document.createElement("textarea");
+      var buttonsDiv = document.createElement("div");
       var deleteButton = document.createElement("button");
 
+      layerDiv.className = "layer-item";
+      previewDiv.className = "layer-preview";
+      detailsDiv.className = "layer-details";
+      nameTextArea.className = "layer-name";
+      buttonsDiv.className = "layer-buttons";
+
       if (["image", "rect", "circle", "path", "group", "polygon"].includes(layer.type)) {
-        putPreviewImage(layer, layerDiv);
+        putPreviewImage(layer, previewDiv);
       } else if (layer.type === "text" || layer.type === "textbox") {
         var fullText = layer.text;
-        nameDiv.textContent = fullText.substring(0, 20);
+        nameTextArea.value = fullText.substring(0, 20);
       } else if (layer.type === "verticalText") {
         var fullText = layer.getObjects().map(obj => obj.text).join('');
-        nameDiv.textContent = fullText.substring(0, 15);
+        nameTextArea.value = fullText.substring(0, 15);
       }
 
-      nameDiv.className = "layer-name";
-      nameDiv.textContent = layer.name || nameDiv.textContent || layer.type + ` ${index + 1}`;
-      nameDiv.contentEditable = true; // テキストを編集可能にする
+      nameTextArea.value = layer.name || nameTextArea.value || layer.type + ` ${index + 1}`;
+      layer.name = nameTextArea.value;
+      nameTextArea.rows = 1; 
+      nameTextArea.style.resize = 'none'; 
+      nameTextArea.style.width = '100%';  
+      nameTextArea.style.boxSizing = 'border-box';  
+      nameTextArea.style.border = 'none'; 
+      nameTextArea.style.borderBottom = '1px solid #cccccc';
+      nameTextArea.style.outline = 'none';
 
-      // テキストが変更されたときの処理
-      nameDiv.onblur = function () {
-        layer.name = nameDiv.textContent;
-        saveState();
+      nameTextArea.oninput = function () {
+        layer.name = nameTextArea.value;
       };
 
       deleteButton.textContent = "✕";
@@ -38,9 +49,7 @@ function updateLayerPanel() {
         removeLayer(layer);
       };
 
-      layerDiv.setAttribute("data-id", layer.id);
-      layerDiv.className = "layer-item";
-      layerDiv.appendChild(nameDiv);
+      detailsDiv.appendChild(nameTextArea);
 
       if (layer.isPanel) {
         var t2iButton = document.createElement("button");
@@ -49,28 +58,61 @@ function updateLayerPanel() {
           e.stopPropagation();
           openfloatingWindowItem(layer);
         };
-        layerDiv.appendChild(t2iButton);
+        buttonsDiv.appendChild(t2iButton);
 
         var runButton = document.createElement("button");
         runButton.id = 'runButton-' + index;
         runButton.innerHTML = '<i class="material-icons">add_photo_alternate</i> Run';
         runButton.onclick = function (e) {
-            e.stopPropagation();
-            var areaHeader = document.querySelector('#layer-panel .area-header');
-            var spinner = document.createElement('span');
-            spinner.id = 'spinner-' + index;
-            spinner.className = 'spinner-border text-danger ms-1 spinner-border-sm';
-            areaHeader.appendChild(spinner);
-    
-            StableDiffusionWebUI_text2ImgaeProcessQueue(layer, spinner.id);
-            index++;
+          e.stopPropagation();
+          var areaHeader = document.querySelector('#layer-panel .area-header');
+          var spinner = document.createElement('span');
+          spinner.id = 'spinner-' + index;
+          spinner.className = 'spinner-border text-danger ms-1 spinner-border-sm';
+          areaHeader.appendChild(spinner);
+
+          StableDiffusionWebUI_text2ImgaeProcessQueue(layer, spinner.id);
+          index++;
         };
-    
-        
-        layerDiv.appendChild(runButton);
+
+        buttonsDiv.appendChild(runButton);
       }
 
-      layerDiv.appendChild(deleteButton);
+      //一旦蓋閉じ
+      if (false && layer.type == 'image') {
+        var i2iButton = document.createElement("button");
+        i2iButton.innerHTML = '<i class="material-icons">settings</i> I2I';
+        i2iButton.onclick = function (e) {
+          e.stopPropagation();
+          openfloatingWindowItem(layer);
+        };
+        buttonsDiv.appendChild(i2iButton);
+
+        var runButton = document.createElement("button");
+        runButton.id = 'runButton-' + index;
+        runButton.innerHTML = '<i class="material-icons">add_photo_alternate</i> Run';
+        runButton.onclick = function (e) {
+          e.stopPropagation();
+          var areaHeader = document.querySelector('#layer-panel .area-header');
+          var spinner = document.createElement('span');
+          spinner.id = 'spinner-' + index;
+          spinner.className = 'spinner-border text-danger ms-1 spinner-border-sm';
+          areaHeader.appendChild(spinner);
+
+          //I2Iにする
+          StableDiffusionWebUI_text2ImgaeProcessQueue(layer, spinner.id);
+          index++;
+        };
+
+        buttonsDiv.appendChild(runButton);
+      }
+
+      buttonsDiv.appendChild(deleteButton);
+
+      layerDiv.setAttribute("data-id", layer.id);
+      layerDiv.appendChild(previewDiv);
+      layerDiv.appendChild(detailsDiv);
+      detailsDiv.appendChild(buttonsDiv);
 
       layerDiv.onclick = function () {
         canvas.setActiveObject(layer);
@@ -83,6 +125,7 @@ function updateLayerPanel() {
     }
   });
 }
+
 
 function calculateCenter(layer) {
   //console.log("calculateCenter:", layer.left, layer.width, layer.top, layer.height );
@@ -265,6 +308,7 @@ function updateControls(activeObject) {
     document.getElementById("left-control").value = 0;
     document.getElementById("skewX-control").value = 0;
     document.getElementById("skewY-control").value = 0;
+    document.getElementById("opacity-control").value = 1;
     
     document.getElementById("angleValue").innerText = 0.0.toFixed(1);
     document.getElementById("scaleValue").innerText = 1.0.toFixed(2);
@@ -272,6 +316,7 @@ function updateControls(activeObject) {
     document.getElementById("leftValue").innerText = 0.0.toFixed(1);
     document.getElementById("skewXValue").innerText = 0.0.toFixed(1);
     document.getElementById("skewYValue").innerText = 0.0.toFixed(1);
+    document.getElementById("opacityValue").innerText = 1.0.toFixed(1)*100;
     
     // 新たに追加されたコントロールのデフォルト値を設定
     document.getElementById("sepiaEffect").checked = false;
@@ -304,6 +349,7 @@ function updateControls(activeObject) {
   document.getElementById("left-control").value = activeObject.left || 0;
   document.getElementById("skewX-control").value = activeObject.skewX || 0;
   document.getElementById("skewY-control").value = activeObject.skewY || 0;
+  document.getElementById("opacity-control").value = activeObject.opacity*100 || 100;
   
   document.getElementById("angleValue").innerText = (activeObject.angle || 0).toFixed(1);
   document.getElementById("scaleValue").innerText = (activeObject.scaleX || 1.0).toFixed(2);
@@ -311,6 +357,7 @@ function updateControls(activeObject) {
   document.getElementById("leftValue").innerText = (activeObject.left || 0).toFixed(1);
   document.getElementById("skewXValue").innerText = (activeObject.skewX || 0).toFixed(1);
   document.getElementById("skewYValue").innerText = (activeObject.skewY || 0).toFixed(1);
+  document.getElementById("opacityValue").innerText = (activeObject.opacity*100 || 100).toFixed(1);
   
   // 新たに追加されたコントロールの値を設定
   var filters = activeObject.filters || [];

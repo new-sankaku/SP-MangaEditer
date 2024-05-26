@@ -76,6 +76,20 @@ function updateLayerPanel() {
         };
 
         buttonsDiv.appendChild(runButton);
+
+        var runButton = document.createElement("button");
+        runButton.innerHTML = '<i class="material-icons">recycling</i> Seed';
+        runButton.onclick = function (e) {
+          e.stopPropagation();
+          
+          if( layer.tempSeed ){
+            layer.text2img_seed = layer.tempSeed;
+            createToast("Recycling Seed", layer.text2img_seed);
+          }else{
+            createToast("Nothing Seed", "");
+          }
+        };
+        buttonsDiv.appendChild(runButton);
       }
 
       //一旦蓋閉じ
@@ -110,7 +124,11 @@ function updateLayerPanel() {
       buttonsDiv.appendChild(deleteButton);
 
       layerDiv.setAttribute("data-id", layer.id);
-      layerDiv.appendChild(previewDiv);
+
+      if (["image", "rect", "circle", "path", "group", "polygon"].includes(layer.type)) {
+        layerDiv.appendChild(previewDiv);
+      }
+
       layerDiv.appendChild(detailsDiv);
       detailsDiv.appendChild(buttonsDiv);
 

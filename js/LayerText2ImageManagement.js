@@ -184,73 +184,75 @@ function closefloatingWindowItem(floatingWindowItem) {
 function openText2ImageBaseFloatingWindow() {
   const floatingWindow = document.createElement("div");
   floatingWindow.className = "floating-windowPromptClass";
-  floatingWindow.style.cursor = "move"; 
-  floatingWindow.innerHTML = `
-      <h4>Text2Image Base Settings</h4>
-      <div class="form-group">
-          <label>Prompt:</label>
-          <textarea id="text2img_basePrompt_prompt" rows="3">${text2img_basePrompt.text2img_prompt}</textarea>
-      </div>
-      <div class="form-group">
-          <label>Negative Prompt:</label>
-          <textarea id="text2img_basePrompt_negativePrompt" rows="3">${text2img_basePrompt.text2img_negativePrompt}</textarea>
-      </div>
-      
-      <hr>
+  floatingWindow.style.cursor = "move";
 
-      <div class="form-group form-row">
-          <label>Seed:</label>
-          <input type="number" id="text2img_basePrompt_seed"  min="-2" value="${text2img_basePrompt.text2img_seed}">
-      </div>
-      <div class="form-group form-row">
-          <label>CFG Scale:</label>
-          <input type="number" id="text2img_basePrompt_cfg_scale" min="1" value="${text2img_basePrompt.text2img_cfg_scale}">
-      </div>
-      <div class="form-group form-row">
-          <label>Width:</label>
-          <input type="number" id="text2img_basePrompt_width" step="8" min="0" value="${text2img_basePrompt.text2img_width}">
-      </div>
-      <div class="form-group form-row">
-          <label>Height:</label>
-          <input type="number" id="text2img_basePrompt_height" step="8"  min="0" value="${text2img_basePrompt.text2img_height}">
-      </div>
-      <div class="form-group form-row">
-          <label>Sampling Method:</label>
-          <select id="text2img_basePrompt_samplingMethod"></select>
-      </div>
-      <div class="form-group form-row">
-          <label>Sampling Steps:</label>
-          <input type="number" id="text2img_basePrompt_samplingSteps" value="${text2img_basePrompt.text2img_samplingSteps}">
-      </div>
-      <div class="form-group form-row">
-        <label>Model:</label>
-        <select id="text2img_basePrompt_model"></select>
-      </div>
+  // TODO: Quite a bad way of handling multiple api models I think, to be looked at.
+    floatingWindow.innerHTML = `
+        <h4>Text2Image Base Settings</h4>
+        <div class="form-group">
+            <label>Prompt:</label>
+            <textarea id="text2img_basePrompt_prompt" rows="3">${text2img_basePrompt.text2img_prompt}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Negative Prompt:</label>
+            <textarea id="text2img_basePrompt_negativePrompt" rows="3">${text2img_basePrompt.text2img_negativePrompt}</textarea>
+        </div>
+        
+        <hr>
 
-      <hr>
+        <div class="form-group form-row">
+            <label>Seed:</label>
+            <input type="number" id="text2img_basePrompt_seed"  min="-2" value="${text2img_basePrompt.text2img_seed}">
+        </div>
+        <div class="form-group form-row">
+            <label>CFG Scale:</label>
+            <input type="number" id="text2img_basePrompt_cfg_scale" min="1" value="${text2img_basePrompt.text2img_cfg_scale}">
+        </div>
+        <div class="form-group form-row">
+            <label>Width:</label>
+            <input type="number" id="text2img_basePrompt_width" step="8" min="0" value="${text2img_basePrompt.text2img_width}">
+        </div>
+        <div class="form-group form-row">
+            <label>Height:</label>
+            <input type="number" id="text2img_basePrompt_height" step="8"  min="0" value="${text2img_basePrompt.text2img_height}">
+        </div>
+        <div class="form-group form-row">
+            <label>Sampling Method:</label>
+            <select id="text2img_basePrompt_samplingMethod"></select>
+        </div>
+        <div class="form-group form-row">
+            <label>Sampling Steps:</label>
+            <input type="number" id="text2img_basePrompt_samplingSteps" value="${text2img_basePrompt.text2img_samplingSteps}">
+        </div>
+        <div class="form-group form-row">
+          <label>Model:</label>
+          <select id="text2img_basePrompt_model"></select>
+        </div>
 
-      <h7>Hires. fix</h7>
-      <div class="form-group form-row">
-          <label>Upscaler:</label>
-          <select id="text2img_basePrompt_hr_upscaler"></select>
-      </div>
+        <hr>
 
-      <div class="form-group form-row">
-        <label>Scale:</label>
-        <input type="number" id="text2img_basePrompt_hr_scale" step="0.1"  min="1.0" max="4" value="${text2img_basePrompt.text2img_basePrompt_hr_scale}">
-      </div>
-      <div class="form-group form-row">
-        <label>Denoising Strength:</label>
-        <input type="number" id="text2img_basePrompt_hr_denoising_strength" step="0.01" min="0" max="1.0" value="${text2img_basePrompt.text2img_basePrompt_hr_denoising_strength}">
-      </div>
-      <div class="form-group form-row">
-        <label>Step:</label>
-        <input type="number" id="text2img_basePrompt_hr_step" step="1" min="1" max="150" value="${text2img_basePrompt.text2img_basePrompt_hr_step}">
-      </div>
+        <h7>Hires. fix</h7>
+        <div class="form-group form-row">
+            <label>Upscaler:</label>
+            <select id="text2img_basePrompt_hr_upscaler"></select>
+        </div>
 
-      <button id="baseSaveButton">Save</button>
-      <button id="baseCloseButton">Close</button>
-  `;
+        <div class="form-group form-row">
+          <label>Scale:</label>
+          <input type="number" id="text2img_basePrompt_hr_scale" step="0.1"  min="1.0" max="4" value="${text2img_basePrompt.text2img_basePrompt_hr_scale}">
+        </div>
+        <div class="form-group form-row">
+          <label>Denoising Strength:</label>
+          <input type="number" id="text2img_basePrompt_hr_denoising_strength" step="0.01" min="0" max="1.0" value="${text2img_basePrompt.text2img_basePrompt_hr_denoising_strength}">
+        </div>
+        <div class="form-group form-row">
+          <label>Step:</label>
+          <input type="number" id="text2img_basePrompt_hr_step" step="1" min="1" max="150" value="${text2img_basePrompt.text2img_basePrompt_hr_step}">
+        </div>
+
+        <button id="baseSaveButton">Save</button>
+        <button id="baseCloseButton">Close</button>
+    `;
 
   document.body.appendChild(floatingWindow);
 
@@ -267,10 +269,17 @@ function openText2ImageBaseFloatingWindow() {
     }
   });
 
-  makeDraggable(floatingWindow); 
-  fetchModels();
-  fetchSampler();
-  fetchUpscaler();
+  makeDraggable(floatingWindow);
+  // Fetch A1111 models 
+  if (API_mode == apis.A1111) {
+    fetchSD_Models();
+    fetchSD_Sampler();
+    fetchSD_Upscaler();
+  }else if( API_mode == apis.COMFYUI ){
+    comufyModels();
+    comufySampler();
+    comufyUpscaler();
+  }
 
   var baseSaveButton = floatingWindow.querySelector("#baseSaveButton");
   baseSaveButton.onclick = function () {
@@ -307,5 +316,7 @@ function updateText2ImgBasePrompt(floatingWindow) {
   console.log('Updated selectedModel:', selectedModel);
   closefloatingWindowItem(floatingWindow);
 
-  sendModelToServer();
+  // Only in A1111 do we need to apply model change as its done during queue prompt automatically in comfyui
+  if (API_mode == apis.A1111) 
+    sendModelToServer();
 }

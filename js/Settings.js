@@ -8,6 +8,10 @@ var canvas = new fabric.Canvas("mangaImageCanvas", {
   skipOffscreen: false,
   renderer: fabric.isWebglSupported ? "webgl" : "canvas",
 });
+document.addEventListener("DOMContentLoaded", function() {
+  loadBookSize(210, 297);
+
+});
 
 const mode = localStorage.getItem('mode') || 'light-mode';
 if (mode === 'dark-mode') {
@@ -30,6 +34,9 @@ document.getElementById('marginFromPanel').addEventListener('input', function() 
 
 var sdWebUIPort = 7860;
 var sdWebUIHost = "127.0.0.1";
+
+var comfyuiPort = 8188;
+var comfyuiHost = "127.0.0.1";
 
 const text2img_basePrompt = {
   text2img_prompt               : "masterpiece, best quality, 1girl, simple background, ",

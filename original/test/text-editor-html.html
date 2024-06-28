@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改良版テキストエディター</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 15px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            font-size: 24px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #output {
+            display: inline-block;
+            white-space: pre;
+            padding: 0;
+            margin-bottom: 20px;
+            border: 2px dashed #000;
+            font-size: 24px;
+            line-height: 1.2;
+            transform-origin: top left;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        label {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        input[type="color"],
+        input[type="number"],
+        input[type="range"] {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+        }
+
+        select {
+            font-size: 12px;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            width: 100%;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <textarea id="input">New Text. あいうえお。
+Second line. かきくけこ。
+Third line. さしすせそ。</textarea>
+        <div id="output"></div>
+        <div class="controls">
+            <div>
+                <div class="control-group">
+                    <button id="bold">B</button>
+                    <button id="italic">I</button>
+                    <button id="underline">U</button>
+                </div>
+                <div class="control-group">
+                    <label for="fontSize">サイズ:</label>
+                    <input type="number" id="fontSize" value="40" min="1" max="100">
+                </div>
+                <div class="control-group">
+                    <label for="textColor">色:</label>
+                    <input type="color" id="textColor" value="#000000">
+                </div>
+                <div class="control-group">
+                    <label for="outlineWidth">輪郭幅:</label>
+                    <input type="number" id="outlineWidth" value="0" min="0" max="10">
+                </div>
+                <div class="control-group">
+                    <label for="outlineColor">輪郭色:</label>
+                    <input type="color" id="outlineColor" value="#FF0000">
+                </div>
+            </div>
+            <div>
+                <div class="control-group">
+                    <label for="letterSpacing">文字間隔:</label>
+                    <input type="number" id="letterSpacing" value="0" min="-5" max="20">
+                </div>
+                <div class="control-group">
+                    <label for="lineHeight">行高:</label>
+                    <input type="number" id="lineHeight" value="1.2" min="0.5" max="3" step="0.1">
+                </div>
+                <div class="control-group">
+                    <label>位置:</label>
+                    <button id="alignLeft">左</button>
+                    <button id="alignCenter">中</button>
+                    <button id="alignRight">右</button>
+                </div>
+                <div class="control-group">
+                    <label for="shadowColor">シャドウ色:</label>
+                    <input type="color" id="shadowColor" value="#808080">
+                </div>
+                <div class="control-group">
+                    <label for="shadowOffsetX">シャドウX:</label>
+                    <input type="number" id="shadowOffsetX" value="0" min="-50" max="50">
+                </div>
+                <div class="control-group">
+                    <label for="shadowOffsetY">シャドウY:</label>
+                    <input type="number" id="shadowOffsetY" value="0" min="-50" max="50">
+                </div>
+                <div class="control-group">
+                    <label for="shadowBlur">シャドウブラー:</label>
+                    <input type="number" id="shadowBlur" value="0" min="0" max="50">
+                </div>
+            </div>
+            <div>
+                <div class="control-group">
+                    <label for="bgColorStart">背景開始色:</label>
+                    <input type="color" id="bgColorStart" value="#FF3D00">
+                </div>
+                <div class="control-group">
+                    <label for="bgColorEnd">背景終了色:</label>
+                    <input type="color" id="bgColorEnd" value="#0091EA">
+                </div>
+                <div class="control-group">
+                    <label for="angle">角度:</label>
+                    <input type="range" id="angle" value="45" min="0" max="360">
+                    <span id="angleValue">45deg</span>
+                </div>
+                <div class="control-group">
+                    <label for="startPos">開始位置:</label>
+                    <input type="range" id="startPos" value="0" min="0" max="100">
+                    <span id="startPosValue">0%</span>
+                </div>
+                <div class="control-group">
+                    <label for="middlePos">中間位置:</label>
+                    <input type="range" id="middlePos" value="50" min="0" max="100">
+                    <span id="middlePosValue">50%</span>
+                </div>
+                <div class="control-group">
+                    <label for="endPos">終了位置:</label>
+                    <input type="range" id="endPos" value="100" min="0" max="100">
+                    <span id="endPosValue">100%</span>
+                </div>
+                <div class="control-group">
+                    <label for="repeatInterval">繰り返し間隔 (px):</label>
+                    <input type="number" id="repeatInterval" value="100" min="1" max="1000">
+                </div>
+                <div class="control-group">
+                    <label for="gradientType">グラデーションタイプ:</label>
+                    <label>
+                        <input type="radio" name="gradientType" value="none" checked> 無し
+                    </label>
+                    <label>
+                        <input type="radio" name="gradientType" value="linear"> Linear
+                    </label>
+                    <label>
+                        <input type="radio" name="gradientType" value="repeating"> Repeating
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="textClip"> テキストクリップを有効にする
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="setTransparent"> 透明色を設定
+                    </label>
+                </div>
+                <div class="control-group">
+                    <button id="download">画像保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info" class="info"></div>
+
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+        const controls = document.querySelectorAll('button, input, select');
+        const downloadBtn = document.getElementById('download');
+        const gradientTypeInputs = document.querySelectorAll('input[name="gradientType"]');
+        const textClipCheckbox = document.getElementById('textClip');
+        const setTransparentCheckbox = document.getElementById('setTransparent');
+        const repeatIntervalInput = document.getElementById('repeatInterval');
+        const info = document.getElementById('info');
+
+        let isBold = false;
+        let isItalic = false;
+        let isUnderline = false;
+
+        function updateOutput() {
+            let text = input.value;
+            text = text.replace(/\n/g, '<br>');
+
+            output.innerHTML = text;
+            applyStyles();
+            updateInfo();
+        }
+
+        function applyStyles() {
+            const styles = {
+                fontWeight: isBold ? 'bold' : 'normal',
+                fontStyle: isItalic ? 'italic' : 'normal',
+                textDecoration: isUnderline ? 'underline' : 'none',
+                fontSize: `${document.getElementById('fontSize').value}px`,
+                letterSpacing: `${document.getElementById('letterSpacing').value}px`,
+                lineHeight: document.getElementById('lineHeight').value,
+                textAlign: output.style.textAlign,
+                padding: '0',
+                margin: '0',
+            };
+
+            const shadowStyle = `${document.getElementById('shadowOffsetX').value}px ${document.getElementById('shadowOffsetY').value}px ${document.getElementById('shadowBlur').value}px ${document.getElementById('shadowColor').value}`;
+            const outlineWidth = parseInt(document.getElementById('outlineWidth').value);
+            const outlineColor = document.getElementById('outlineColor').value;
+
+            if (outlineWidth > 0) {
+                let textShadow = `${shadowStyle}, `;
+                for (let i = 0; i < 360; i += 45) {
+                    const x = Math.round(Math.cos(i * Math.PI / 180) * outlineWidth);
+                    const y = Math.round(Math.sin(i * Math.PI / 180) * outlineWidth);
+                    textShadow += `${x}px ${y}px 0 ${outlineColor}, `;
+                }
+                output.style.textShadow = textShadow.slice(0, -2);
+            } else {
+                output.style.textShadow = shadowStyle;
+            }
+
+            Object.assign(output.style, styles);
+
+            const bgColorStart = document.getElementById('bgColorStart').value;
+            const bgColorEnd = document.getElementById('bgColorEnd').value;
+            const angle = document.getElementById('angle').value;
+            const startPos = document.getElementById('startPos').value;
+            const middlePos = document.getElementById('middlePos').value;
+            const endPos = document.getElementById('endPos').value;
+            const repeatInterval = parseInt(repeatIntervalInput.value);
+
+            const gradientType = document.querySelector('input[name="gradientType"]:checked').value;
+            if (gradientType === 'linear') {
+                output.style.background = `linear-gradient(${angle}deg, ${bgColorStart} ${startPos}%, ${bgColorEnd} ${middlePos}%, ${bgColorStart} ${endPos}%)`;
+            } else if (gradientType === 'repeating') {
+                output.style.background = `repeating-linear-gradient(${angle}deg, ${bgColorStart} ${startPos}%, ${bgColorEnd} ${middlePos}%, ${bgColorStart} ${repeatInterval}px)`;
+            } else {
+                output.style.background = '';
+            }
+
+            if (textClipCheckbox.checked) {
+                output.style.color = 'transparent';
+                output.style.webkitBackgroundClip = 'text';
+                output.style.backgroundClip = 'text';
+            } else if (setTransparentCheckbox.checked) {
+                output.style.color = 'transparent';
+                output.style.webkitBackgroundClip = '';
+                output.style.backgroundClip = '';
+            } else {
+                output.style.color = document.getElementById('textColor').value;
+                output.style.webkitBackgroundClip = '';
+                output.style.backgroundClip = '';
+            }
+
+            document.getElementById('angleValue').innerText = `${angle}deg`;
+            document.getElementById('startPosValue').innerText = `${startPos}%`;
+            document.getElementById('middlePosValue').innerText = `${middlePos}%`;
+            document.getElementById('endPosValue').innerText = `${endPos}%`;
+        }
+
+        function updateInfo() {
+            const styles = window.getComputedStyle(output);
+            let infoText = '現在のCSS設定:\n';
+            infoText += `font-weight: ${styles.fontWeight};\n`;
+            infoText += `font-style: ${styles.fontStyle};\n`;
+            infoText += `text-decoration: ${styles.textDecoration};\n`;
+            infoText += `font-size: ${styles.fontSize};\n`;
+            infoText += `letter-spacing: ${styles.letterSpacing};\n`;
+            infoText += `line-height: ${styles.lineHeight};\n`;
+            infoText += `text-align: ${styles.textAlign};\n`;
+            infoText += `color: ${styles.color};\n`;
+            infoText += `text-shadow: ${styles.textShadow};\n`;
+            infoText += `background: ${styles.background};\n`;
+            infoText += `-webkit-background-clip: ${styles.webkitBackgroundClip};\n`;
+            infoText += `background-clip: ${styles.backgroundClip};\n`;
+
+            info.textContent = infoText;
+        }
+
+        controls.forEach(control => {
+            if (['bold', 'italic', 'underline'].includes(control.id)) {
+                control.addEventListener('click', (e) => {
+                    switch (e.target.id) {
+                        case 'bold': isBold = !isBold; break;
+                        case 'italic': isItalic = !isItalic; break;
+                        case 'underline': isUnderline = !isUnderline; break;
+                    }
+                    updateOutput();
+                });
+            } else {
+                control.addEventListener('input', updateOutput);
+            }
+        });
+
+        gradientTypeInputs.forEach(input => {
+            input.addEventListener('change', updateOutput);
+        });
+
+        textClipCheckbox.addEventListener('change', updateOutput);
+        setTransparentCheckbox.addEventListener('change', updateOutput);
+        repeatIntervalInput.addEventListener('input', updateOutput);
+
+        input.addEventListener('input', updateOutput);
+
+        document.getElementById('alignLeft').addEventListener('click', () => {
+            output.style.textAlign = 'left';
+            updateOutput();
+        });
+        document.getElementById('alignCenter').addEventListener('click', () => {
+            output.style.textAlign = 'center';
+            updateOutput();
+        });
+        document.getElementById('alignRight').addEventListener('click', () => {
+            output.style.textAlign = 'right';
+            updateOutput();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const originalBorder = output.style.border;
+            const originalBackground = output.style.backgroundColor;
+            output.style.border = 'none';
+            output.style.backgroundColor = 'transparent';
+
+            html2canvas(output, {
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'text_image.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                output.style.border = originalBorder;
+                output.style.backgroundColor = originalBackground;
+            });
+        });
+
+        updateOutput();
+    </script>
+</body>
+
+</html>

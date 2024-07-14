@@ -68,3 +68,23 @@ jobs:
         git commit -m 'Minify files and copy non-minified items from original directory' || echo "No changes to commit"
         git pull --rebase origin main
         git push
+
+    - name: Deploy Pages
+      id: deploy_pages
+      uses: actions/deploy-pages@v4
+
+    - name: Check deployment status
+      if: always()
+      run: |
+        DEPLOYMENT_STATUS=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                               -H "Accept: application/vnd.github.v3+json" \
+                               https://api.github.com/repos/${{ github.repository }}/pages/deployments/${{ steps.deploy_pages.outputs.deployment_id }} | jq -r '.status')
+        echo "Deployment status: $DEPLOYMENT_STATUS"
+        if [ "$DEPLOYMENT_STATUS" != "active" ]; then
+          echo "Canceling deployment..."
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/pages/deployments/${{ steps.deploy_pages.outputs.deployment_id }}/cancel
+        else
+          echo "Deployment already active, no need to cancel."
+        fi

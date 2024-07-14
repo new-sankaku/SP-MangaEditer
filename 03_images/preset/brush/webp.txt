@@ -1,1 +1,0 @@
-ffmpeg -i Circle.png -vf scale=100:40 Circle.webp

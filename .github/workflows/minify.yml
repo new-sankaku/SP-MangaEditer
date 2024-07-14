@@ -22,48 +22,71 @@ jobs:
 
     - name: Minify HTML files
       run: |
+        echo "Starting HTML minification process"
         find original -type f -name "*.html" | while read file; do
           dir=$(dirname "${file#original/}")
-          echo "Creating directory: $dir"
+          echo "Processing file: $file"
+          echo "Target directory: $dir"
           mkdir -p "$dir"
           echo "Minifying $file to ${file#original/}"
           html-minifier-terser "$file" -o "${file#original/}" --collapse-whitespace --remove-comments --minify-css true --minify-js true
+          echo "Minification complete. Output file: ${file#original/}"
+          echo "File content after minification:"
+          cat "${file#original/}"
         done
 
     - name: Minify CSS files
       run: |
+        echo "Starting CSS minification process"
         find original -type f -name "*.css" | while read file; do
           dir=$(dirname "${file#original/}")
-          echo "Creating directory: $dir"
+          echo "Processing file: $file"
+          echo "Target directory: $dir"
           mkdir -p "$dir"
           echo "Minifying $file to ${file#original/}"
           cleancss -o "${file#original/}" "$file"
+          echo "Minification complete. Output file: ${file#original/}"
+          echo "File content after minification:"
+          cat "${file#original/}"
         done
 
     - name: Minify JS files
       run: |
+        echo "Starting JS minification process"
         find original -type f -name "*.js" | while read file; do
           dir=$(dirname "${file#original/}")
-          echo "Creating directory: $dir"
+          echo "Processing file: $file"
+          echo "Target directory: $dir"
           mkdir -p "$dir"
           echo "Minifying $file to ${file#original/}"
           terser "$file" -o "${file#original/}"
+          echo "Minification complete. Output file: ${file#original/}"
+          echo "File content after minification:"
+          cat "${file#original/}"
         done
 
     - name: Copy non-minified files and folders
       run: |
+        echo "Starting copy process for non-minified files and folders"
         find original -maxdepth 1 -mindepth 1 | while read item; do
           if [[ "$item" != *"/css" && "$item" != *"/html" && "$item" != *"/js" && "$item" != *"/test" && "$item" != *"/third" && "$item" != *"/index.html" ]]; then
-            echo "Copying $item"
+            echo "Copying $item to root directory"
             cp -r "$item" .
+            echo "Copy complete for $item"
           fi
         done
+
+    - name: List files in root directory
+      run: |
+        echo "Contents of root directory after all operations:"
+        ls -R
 
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add .
+        echo "Git status:"
         git status
         git commit -m 'Minify files and copy non-minified items from original directory' || echo "No changes to commit"
         git pull --rebase origin main

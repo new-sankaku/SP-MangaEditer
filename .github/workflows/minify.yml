@@ -69,7 +69,7 @@ jobs:
       run: |
         echo "Starting copy process for non-minified files and folders"
         find original -maxdepth 1 -mindepth 1 | while read item; do
-          if [[ "$item" != *"/css" && "$item" != *"/html" && "$item" != *"/js" && "$item" != *"/test" && "$item" != *"/third" && "$item" != *"/index.html" ]]; then
+          if [[ "$item" != *"/css" && "$item" != *"/html" && "$item" != *"/js" && "$item" != *"/test" && "$item" != *"/third" ]]; then
             echo "Copying $item to root directory"
             cp -r "$item" .
             echo "Copy complete for $item"

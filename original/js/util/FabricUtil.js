@@ -8,6 +8,12 @@ function isPanelType(activeObject) {
 function isImage(activeObject) {
   return (activeObject && (activeObject.type === "image"));
 }
+function haveClipPath(activeObject){
+  if (activeObject.clipPath) {
+    return true;
+  }
+  return false;
+}
 
 function isText(activeObject) {
   return (activeObject && (activeObject.type === 'i-text' || activeObject.type === "text" || activeObject.type === "textbox" || activeObject.type === "verticalText"));
@@ -300,6 +306,28 @@ function setGUID(targetFrame, imageObject) {
   targetFrame.guids.push(guid);
 }
 
+function removeGUID(targetFrame, imageObject) {
+  var guid = imageObject.guid;
+
+  if (!targetFrame.guids) {
+    targetFrame.guids = [];
+    imageObject.guid = null;
+    return;
+  }
+
+  if (!guid) {
+    imageObject.guid = null;
+    return;
+  }
+  var index = targetFrame.guids.indexOf(guid);
+  
+  if (index !== -1) {
+    targetFrame.guids.splice(index, 1);
+  }
+  updateLayerPanel();
+}
+
+
 
 function getGUID(activeObject) {
   if (!activeObject) {
@@ -371,4 +399,83 @@ function getObjectByGUID(searchGuid) {
   var layers = canvas.getObjects();
   var matchingObject = layers.find(layer => layer.guid === guid);
   return matchingObject;
+}
+
+function removeClipPath(activeObject, action) {
+  // let clipPath = activeObject.clipPath;
+  // if (!clipPath || !clipPath.points) {
+  //   console.error('ClipPath or clipPath.points not found');
+  //   return;
+  // }
+
+  // const canvas = activeObject.canvas;
+  // const canvasWidth = canvas.getWidth();
+  // const canvasHeight = canvas.getHeight();
+
+  // function calculatePoint(point) {
+  //   return {
+  //     x: clipPath.left + point.x * clipPath.scaleX,
+  //     y: clipPath.top + point.y * clipPath.scaleY
+  //   };
+  // }
+
+  // let points = [];
+  // for (let i = 0; i < clipPath.points.length; i++) {
+  //   points.push(calculatePoint(clipPath.points[i]));
+  // }
+
+  // let minX = points[0].x, maxX = points[0].x;
+  // let minY = points[0].y, maxY = points[0].y;
+  // for (let i = 1; i < points.length; i++) {
+  //   minX = Math.min(minX, points[i].x);
+  //   maxX = Math.max(maxX, points[i].x);
+  //   minY = Math.min(minY, points[i].y);
+  //   maxY = Math.max(maxY, points[i].y);
+  // }
+
+  // let leftTop = { x: minX, y: minY };
+  // let rightTop = { x: maxX, y: minY };
+  // let rightBottom = { x: maxX, y: maxY };
+  // let leftBottom = { x: minX, y: maxY };
+  // var nextPoints = [];
+
+  switch (action) {
+    case 'clearAllClipPaths':
+      activeObject.clipPath = undefined;
+      activeObject.removeSettings();
+      break;
+    // case 'clearTopClipPath':
+    //   leftTop.y  = 0;
+    //   rightTop.y = 0;
+    //   break;
+    // case 'clearBottomClipPath':
+    //   leftTop.y  = canvas.getHeight();
+    //   rightTop.y = canvas.getHeight();
+    //   break;
+    // case 'clearLeftClipPath':
+    //   leftTop.x  = 0;
+    //   rightTop.x = 0;
+    //   break;
+    // case 'clearRightClipPath':
+    //   leftTop.x  = canvas.getWidth();;
+    //   rightTop.x = canvas.getWidth();;
+    //   break;
+    default:
+      console.error(`[removeClipPath] Error: Unknown action "${action}"`);
+      return;
+  }
+
+  if (activeObject.clipPath) {
+    activeObject.clipPath.initial = {
+      left: clipPath.left,
+      top: clipPath.top,
+      scaleX: clipPath.scaleX,
+      scaleY: clipPath.scaleY,
+      canvasWidth: canvasWidth,
+      canvasHeight: canvasHeight,
+    };
+  }
+  if (canvas) {
+    canvas.requestRenderAll();
+  }
 }

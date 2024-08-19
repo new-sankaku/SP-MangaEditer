@@ -1,1 +1,74 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SNS投稿リンク</title></head><body><button id="tweetButton">Tweetする</button> <button id="facebookButton">Facebookで共有</button> <button id="linkedinButton">LinkedInで共有</button> <button id="instagramButton">Instagramで共有</button> <button id="pinterestButton">Pinterestで共有</button> <button id="redditButton">Redditで共有</button><script>function openWindow(e){var t=screen.width/2-360,n=screen.height/2-360;window.open(e,"ShareWindow","toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=720, height=720, top="+n+", left="+t)}document.getElementById("tweetButton").addEventListener("click",(function(){openWindow("https://twitter.com/intent/tweet?text="+encodeURIComponent("ここにあなたの投稿内容を入力してください"))})),document.getElementById("facebookButton").addEventListener("click",(function(){openWindow("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent("https://www.example.com"))})),document.getElementById("linkedinButton").addEventListener("click",(function(){openWindow("https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent("https://www.example.com")+"&title="+encodeURIComponent("ここにタイトルを入力")+"&summary="+encodeURIComponent("ここに概要を入力")+"&source="+encodeURIComponent("ここにソースを入力"))})),document.getElementById("instagramButton").addEventListener("click",(function(){openWindow("https://www.instagram.com/")})),document.getElementById("pinterestButton").addEventListener("click",(function(){openWindow("https://pinterest.com/pin/create/button/?url="+encodeURIComponent("https://www.example.com")+"&media="+encodeURIComponent("https://www.example.com/image.jpg")+"&description="+encodeURIComponent("ここに説明を入力"))})),document.getElementById("redditButton").addEventListener("click",(function(){openWindow("https://www.reddit.com/r/StableDiffusion/submit?url="+encodeURIComponent("https://www.example.com")+"&title="+encodeURIComponent("ここにタイトルを入力"))}))</script></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNS投稿リンク</title>
+</head>
+<body>
+    <button id="tweetButton">Tweetする</button>
+    <button id="facebookButton">Facebookで共有</button>
+    <button id="linkedinButton">LinkedInで共有</button>
+    <button id="instagramButton">Instagramで共有</button>
+    <button id="pinterestButton">Pinterestで共有</button>
+    <button id="redditButton">Redditで共有</button>
+
+    <script>
+        function openWindow(url) {
+            var width = 720;
+            var height = 720;
+            var left = (screen.width / 2) - (width / 2);
+            var top = (screen.height / 2) - (height / 2);
+            window.open(url, 'ShareWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+        }
+
+        document.getElementById('tweetButton').addEventListener('click', function() {
+            var tweetText = "ここにあなたの投稿内容を入力してください";
+            var tweetUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetText);
+            openWindow(tweetUrl);
+        });
+
+        document.getElementById('facebookButton').addEventListener('click', function() {
+            var shareUrl = "https://www.example.com"; // 共有するURLを入力
+            var facebookUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareUrl);
+            openWindow(facebookUrl);
+        });
+
+        document.getElementById('linkedinButton').addEventListener('click', function() {
+            var shareUrl = "https://www.example.com"; // 共有するURLを入力
+            var title = "ここにタイトルを入力";
+            var summary = "ここに概要を入力";
+            var source = "ここにソースを入力";
+            var linkedinUrl = "https://www.linkedin.com/shareArticle?mini=true&url=" + encodeURIComponent(shareUrl) +
+                              "&title=" + encodeURIComponent(title) +
+                              "&summary=" + encodeURIComponent(summary) +
+                              "&source=" + encodeURIComponent(source);
+            openWindow(linkedinUrl);
+        });
+
+        document.getElementById('instagramButton').addEventListener('click', function() {
+            // Instagramは直接URLで投稿をシェアする方法がないため、アプリに誘導するリンクを開きます
+            var instagramUrl = "https://www.instagram.com/";
+            openWindow(instagramUrl);
+        });
+
+        document.getElementById('pinterestButton').addEventListener('click', function() {
+            var shareUrl = "https://www.example.com"; // 共有するURLを入力
+            var mediaUrl = "https://www.example.com/image.jpg"; // 共有する画像のURLを入力
+            var description = "ここに説明を入力";
+            var pinterestUrl = "https://pinterest.com/pin/create/button/?url=" + encodeURIComponent(shareUrl) +
+                               "&media=" + encodeURIComponent(mediaUrl) +
+                               "&description=" + encodeURIComponent(description);
+            openWindow(pinterestUrl);
+        });
+
+        document.getElementById('redditButton').addEventListener('click', function() {
+            var shareUrl = "https://www.example.com"; // 共有するURLを入力
+            var title = "ここにタイトルを入力";
+            var redditUrl = "https://www.reddit.com/r/StableDiffusion/submit?url=" + encodeURIComponent(shareUrl) +
+                            "&title=" + encodeURIComponent(title);
+            openWindow(redditUrl);
+        });
+    </script>
+</body>
+</html>

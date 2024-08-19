@@ -1,1 +1,208 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>リアルタイム3D球体パターン - 2D Canvas</title><style>body{margin:0;overflow:hidden}#controls{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.7);padding:10px}label{display:inline-block;width:120px}</style></head><body><div id="controls"><select id="patternType"><option value="wireframe">ワイヤーフレーム</option><option value="points">点群</option><option value="spiral">スパイラル</option><option value="rings">リング</option></select><div id="paramControls"></div></div><canvas id="canvas"></canvas><script>const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d");let lastX,lastY,rotationX=0,rotationY=0,isDragging=!1,currentParams={},currentPatternType="wireframe";const patterns={wireframe:{params:{segments:{min:5,max:50,value:20,step:1}},draw:t=>{const{segments:e}=t;for(let t=0;t<=e;t++){drawCircle(t/e*Math.PI,e)}for(let t=0;t<=e;t++){drawMeridian(t/e*2*Math.PI,e)}}},points:{params:{points:{min:100,max:1e4,value:2e3,step:100}},draw:t=>{const{points:e}=t;for(let t=0;t<e;t++){const t=2*Math.random()*Math.PI,e=Math.acos(2*Math.random()-1),[n,a]=project(t,e);ctx.fillRect(n,a,1,1)}}},spiral:{params:{turns:{min:1,max:50,value:20,step:1},points:{min:100,max:1e4,value:2e3,step:100}},draw:t=>{const{turns:e,points:n}=t;ctx.beginPath();for(let t=0;t<n;t++){const a=t/(n-1),r=2*Math.PI*e*a,s=Math.acos(1-2*a),[o,i]=project(r,s);0===t?ctx.moveTo(o,i):ctx.lineTo(o,i)}ctx.stroke()}},rings:{params:{rings:{min:1,max:50,value:20,step:1},pointsPerRing:{min:10,max:1e3,value:100,step:10}},draw:t=>{const{rings:e,pointsPerRing:n}=t;for(let t=0;t<e;t++){const a=t/e*Math.PI;ctx.beginPath();for(let t=0;t<=n;t++){const e=t/n*2*Math.PI,[r,s]=project(e,a);0===t?ctx.moveTo(r,s):ctx.lineTo(r,s)}ctx.stroke()}}}};function project(t,e){const n=.4*Math.min(canvas.width,canvas.height);let a=Math.sin(e)*Math.cos(t),r=Math.cos(e),s=Math.sin(e)*Math.sin(t);const o=a,i=r*Math.cos(rotationX)-s*Math.sin(rotationX),c=r*Math.sin(rotationX)+s*Math.cos(rotationX);a=o*Math.cos(rotationY)+c*Math.sin(rotationY),r=i,s=-o*Math.sin(rotationY)+c*Math.cos(rotationY);const l=n/(n+s);return[a*l*n+canvas.width/2,r*l*n+canvas.height/2]}function drawCircle(t,e){ctx.beginPath();for(let n=0;n<=e;n++){const a=n/e*2*Math.PI,[r,s]=project(a,t);0===n?ctx.moveTo(r,s):ctx.lineTo(r,s)}ctx.stroke()}function drawMeridian(t,e){ctx.beginPath();for(let n=0;n<=e;n++){const a=n/e*Math.PI,[r,s]=project(t,a);0===n?ctx.moveTo(r,s):ctx.lineTo(r,s)}ctx.stroke()}function draw(){ctx.clearRect(0,0,canvas.width,canvas.height),ctx.strokeStyle="rgba(0, 0, 0, 0.3)",ctx.fillStyle="rgba(0, 0, 0, 0.3)",patterns[currentPatternType].draw(currentParams),requestAnimationFrame(draw)}function createControls(){const t=document.getElementById("paramControls");t.innerHTML="",Object.entries(patterns[currentPatternType].params).forEach((([e,n])=>{const a=document.createElement("div");a.innerHTML=`\n            <label for="${e}">${e}:</label>\n            <input type="range" id="${e}" min="${n.min}" max="${n.max}" value="${n.value}" step="${n.step}">\n            <span>${n.value}</span>\n        `,t.appendChild(a);const r=a.querySelector("input"),s=a.querySelector("span");r.addEventListener("input",(()=>{currentParams[e]=Number(r.value),s.textContent=r.value})),currentParams[e]=n.value}))}function resizeCanvas(){canvas.width=window.innerWidth,canvas.height=window.innerHeight}document.getElementById("patternType").addEventListener("change",(t=>{currentPatternType=t.target.value,createControls()})),canvas.addEventListener("mousedown",(t=>{isDragging=!0,lastX=t.clientX,lastY=t.clientY})),canvas.addEventListener("mousemove",(t=>{if(!isDragging)return;const e=t.clientX-lastX,n=t.clientY-lastY;rotationY+=.005*e,rotationX+=.005*n,lastX=t.clientX,lastY=t.clientY})),canvas.addEventListener("mouseup",(()=>isDragging=!1)),canvas.addEventListener("mouseleave",(()=>isDragging=!1)),window.addEventListener("resize",resizeCanvas),resizeCanvas(),createControls(),draw()</script></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リアルタイム3D球体パターン - 2D Canvas</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #controls { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.7); padding: 10px; }
+        label { display: inline-block; width: 120px; }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <select id="patternType">
+            <option value="wireframe">ワイヤーフレーム</option>
+            <option value="points">点群</option>
+            <option value="spiral">スパイラル</option>
+            <option value="rings">リング</option>
+        </select>
+        <div id="paramControls"></div>
+    </div>
+    <canvas id="canvas"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let rotationX = 0, rotationY = 0;
+let isDragging = false;
+let lastX, lastY;
+let currentParams = {};
+let currentPatternType = 'wireframe';
+
+const patterns = {
+    wireframe: {
+        params: { segments: { min: 5, max: 50, value: 20, step: 1 } },
+        draw: (params) => {
+            const { segments } = params;
+            for (let i = 0; i <= segments; i++) {
+                const phi = (i / segments) * Math.PI;
+                drawCircle(phi, segments);
+            }
+            for (let i = 0; i <= segments; i++) {
+                const theta = (i / segments) * 2 * Math.PI;
+                drawMeridian(theta, segments);
+            }
+        }
+    },
+    points: {
+        params: { points: { min: 100, max: 10000, value: 2000, step: 100 } },
+        draw: (params) => {
+            const { points } = params;
+            for (let i = 0; i < points; i++) {
+                const theta = Math.random() * 2 * Math.PI;
+                const phi = Math.acos(2 * Math.random() - 1);
+                const [x, y] = project(theta, phi);
+                ctx.fillRect(x, y, 1, 1);
+            }
+        }
+    },
+    spiral: {
+        params: { turns: { min: 1, max: 50, value: 20, step: 1 }, points: { min: 100, max: 10000, value: 2000, step: 100 } },
+        draw: (params) => {
+            const { turns, points } = params;
+            ctx.beginPath();
+            for (let i = 0; i < points; i++) {
+                const t = i / (points - 1);
+                const theta = 2 * Math.PI * turns * t;
+                const phi = Math.acos(1 - 2 * t);
+                const [x, y] = project(theta, phi);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+    },
+    rings: {
+        params: { rings: { min: 1, max: 50, value: 20, step: 1 }, pointsPerRing: { min: 10, max: 1000, value: 100, step: 10 } },
+        draw: (params) => {
+            const { rings, pointsPerRing } = params;
+            for (let i = 0; i < rings; i++) {
+                const phi = (i / rings) * Math.PI;
+                ctx.beginPath();
+                for (let j = 0; j <= pointsPerRing; j++) {
+                    const theta = (j / pointsPerRing) * 2 * Math.PI;
+                    const [x, y] = project(theta, phi);
+                    if (j === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+        }
+    }
+};
+
+function project(theta, phi) {
+    const radius = Math.min(canvas.width, canvas.height) * 0.4;
+    let x = Math.sin(phi) * Math.cos(theta);
+    let y = Math.cos(phi);
+    let z = Math.sin(phi) * Math.sin(theta);
+
+    // 回転
+    const rotatedX = x;
+    const rotatedY = y * Math.cos(rotationX) - z * Math.sin(rotationX);
+    const rotatedZ = y * Math.sin(rotationX) + z * Math.cos(rotationX);
+
+    x = rotatedX * Math.cos(rotationY) + rotatedZ * Math.sin(rotationY);
+    y = rotatedY;
+    z = -rotatedX * Math.sin(rotationY) + rotatedZ * Math.cos(rotationY);
+
+    // 投影
+    const scale = radius / (radius + z);
+    return [
+        x * scale * radius + canvas.width / 2,
+        y * scale * radius + canvas.height / 2
+    ];
+}
+
+function drawCircle(phi, segments) {
+    ctx.beginPath();
+    for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * 2 * Math.PI;
+        const [x, y] = project(theta, phi);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+}
+
+function drawMeridian(theta, segments) {
+    ctx.beginPath();
+    for (let i = 0; i <= segments; i++) {
+        const phi = (i / segments) * Math.PI;
+        const [x, y] = project(theta, phi);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+
+    patterns[currentPatternType].draw(currentParams);
+
+    requestAnimationFrame(draw);
+}
+
+function createControls() {
+    const paramControls = document.getElementById('paramControls');
+    paramControls.innerHTML = '';
+    Object.entries(patterns[currentPatternType].params).forEach(([key, param]) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <label for="${key}">${key}:</label>
+            <input type="range" id="${key}" min="${param.min}" max="${param.max}" value="${param.value}" step="${param.step}">
+            <span>${param.value}</span>
+        `;
+        paramControls.appendChild(div);
+        const input = div.querySelector('input');
+        const span = div.querySelector('span');
+        input.addEventListener('input', () => {
+            currentParams[key] = Number(input.value);
+            span.textContent = input.value;
+        });
+        currentParams[key] = param.value;
+    });
+}
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+document.getElementById('patternType').addEventListener('change', (e) => {
+    currentPatternType = e.target.value;
+    createControls();
+});
+
+canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    rotationY += dx * 0.005;
+    rotationX += dy * 0.005;
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
+
+canvas.addEventListener('mouseup', () => isDragging = false);
+canvas.addEventListener('mouseleave', () => isDragging = false);
+
+window.addEventListener('resize', resizeCanvas);
+
+resizeCanvas();
+createControls();
+draw();
+</script>
+</body>
+</html>

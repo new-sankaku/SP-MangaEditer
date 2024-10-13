@@ -83,8 +83,8 @@ canvas.on("object:moving", function (e) {
 });
 
 //CommonControl, ImageControlの更新処理
-canvas.on("selection:created", handleSelection);
-canvas.on("selection:updated", handleSelection);
+// canvas.on("selection:created", handleSelection);
+// canvas.on("selection:updated", handleSelection);
 
 //Textの更新処理
 canvas.on('selection:created', function(event) {
@@ -97,27 +97,6 @@ canvas.on('selection:updated', function(event) {
     updateTextControls(event.selected[0]);
   }
 });
-
-//縦書きTextのフローティングウインドウ表示処理
-canvas.on("selection:created", function () {
-  const selectedObject = canvas.getActiveObject();
-  if (isVerticalText(selectedObject)) {
-    openModalForEditing();
-  } else {
-    myWindow.style.display = "none";
-  }
-});
-canvas.on("selection:updated", function () {
-  const selectedObject = canvas.getActiveObject();
-  if (isVerticalText(selectedObject)) {
-    openModalForEditing();
-  } else {
-    myWindow.style.display = "none";
-  }
-});
-canvas.on("selection:cleared", closeWindow);
-
-
 
 function moveSettings(img, poly) {
   updateClipPath(img, poly);

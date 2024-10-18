@@ -4,6 +4,7 @@
 const resources = {
   ja: {
     translation: {
+"comfyUIdevelopment":"ComfyUIは開発中",
 "HorizontalText":"横書き",
 "VerticalText":"縦書き",
 
@@ -432,6 +433,7 @@ const resources = {
   },
 en: {
     translation: {
+"comfyUIdevelopment":"ComfyUI is under development",
 "HorizontalText": "Horizontal writing",
 "VerticalText": "Vertical writing",
 "esApiControls":"▼ External Services",
@@ -947,9 +949,10 @@ en: {
 
   ko: {
 translation: {
+"comfyUIdevelopment":"ComfyUI는 개발 중입니다",
 "HorizontalText": "가로쓰기",
 "VerticalText": "세로쓰기",
-  "esApiControls":"▼ 외부 서비스",
+"esApiControls":"▼ 외부 서비스",
 "esApiControlsByClose":"◀ 외부 서비스",
 "externalServices":"외부 서비스",
 "comfyUI": "ComfyUI",
@@ -1386,6 +1389,7 @@ translation: {
   },
   fr: {
     translation: {
+"comfyUIdevelopment":"ComfyUI est en cours de développement",
 "HorizontalText": "Écriture horizontale",
 "VerticalText": "Écriture verticale",
 "esApiControls":"▼ Services Externes",
@@ -1862,6 +1866,7 @@ translation: {
   },
   zh: {
     translation: {
+"comfyUIdevelopment":"ComfyUI正在开发中",
 "HorizontalText": "横写",
 "VerticalText": "竖写",
 "esApiControls":"▼ 外部服务",
@@ -2335,6 +2340,7 @@ translation: {
   },
   ru: {
     translation: {
+"comfyUIdevelopment":"ComfyUI находится в разработке",
 "HorizontalText": "Горизонтальное письмо",
 "VerticalText": "Вертикальное письмо",
 "esApiControls":"▼ Внешние Сервисы",
@@ -2760,6 +2766,7 @@ translation: {
   },
   es: {
     translation: {
+"comfyUIdevelopment":"ComfyUI está en desarrollo",
 "HorizontalText": "Escritura horizontal",
 "VerticalText": "Escritura vertical",
 "esApiControls":"▼ Servicios Externos",
@@ -3182,6 +3189,7 @@ translation: {
   },
   pt: {
     translation: {
+"comfyUIdevelopment":"ComfyUI está em desenvolvimento",
 "HorizontalText": "Escrita horizontal",
 "VerticalText": "Escrita vertical",
 "esApiControls":"▼ Serviços Externos",
@@ -3602,6 +3610,7 @@ translation: {
   },
 th: {
 translation: {
+"comfyUIdevelopment":"ComfyUI อยู่ระหว่างการพัฒนา",
 "HorizontalText": "การเขียนแนวนอน",
 "VerticalText": "การเขียนแนวตั้ง",
 "esApiControls":"▼ บริการภายนอก",
@@ -4067,6 +4076,7 @@ translation: {
   },
     "de": {
       "translation": {
+"comfyUIdevelopment":"ComfyUI befindet sich in der Entwicklung",
 "HorizontalText": "Horizontale Schrift",
 "VerticalText": "Vertikale Schrift",
 "esApiControls": "▼ Externe Dienste",

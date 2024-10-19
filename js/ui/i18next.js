@@ -4,10 +4,14 @@
 const resources = {
   ja: {
     translation: {
+"gradientLayer":"グラデーションんレイヤー",
+"fillLayer":"塗りレイヤー",
+"addLayer":"レイヤー追加",
+"addFillLayer":"塗りレイヤーを追加",
+"addGradientLayer":"グラデーションレイヤーを追加",
 "comfyUIdevelopment":"ComfyUIは開発中",
 "HorizontalText":"横書き",
 "VerticalText":"縦書き",
-
 "esApiControls":"▼ 外部サービス",
 "esApiControlsByClose":"◀ 外部サービス",
 "externalServices":"外部サービス",

@@ -4,6 +4,7 @@
 const resources = {
   ja: {
     translation: {
+"T2I_AllRun":"T2I All Run",
 "gradientLayer":"グラデーションんレイヤー",
 "fillLayer":"塗りレイヤー",
 "addLayer":"レイヤー追加",
@@ -437,7 +438,12 @@ const resources = {
   },
 en: {
     translation: {
-"comfyUIdevelopment":"ComfyUI is under development",
+      "gradientLayer": "Gradient Layer",
+      "fillLayer": "Fill Layer",
+      "addLayer": "Add Layer",
+      "addFillLayer": "Add Fill Layer",
+      "addGradientLayer": "Add Gradient Layer",
+      "comfyUIdevelopment":"ComfyUI is under development",
 "HorizontalText": "Horizontal writing",
 "VerticalText": "Vertical writing",
 "esApiControls":"▼ External Services",
@@ -953,7 +959,12 @@ en: {
 
   ko: {
 translation: {
-"comfyUIdevelopment":"ComfyUI는 개발 중입니다",
+  "gradientLayer": "그라데이션 레이어",
+  "fillLayer": "채우기 레이어",
+  "addLayer": "레이어 추가",
+  "addFillLayer": "채우기 레이어 추가",
+  "addGradientLayer": "그라데이션 레이어 추가",
+  "comfyUIdevelopment":"ComfyUI는 개발 중입니다",
 "HorizontalText": "가로쓰기",
 "VerticalText": "세로쓰기",
 "esApiControls":"▼ 외부 서비스",
@@ -1393,7 +1404,12 @@ translation: {
   },
   fr: {
     translation: {
-"comfyUIdevelopment":"ComfyUI est en cours de développement",
+      "gradientLayer": "Calque de dégradé",
+      "fillLayer": "Calque de remplissage",
+      "addLayer": "Ajouter un calque",
+      "addFillLayer": "Ajouter un calque de remplissage",
+      "addGradientLayer": "Ajouter un calque de dégradé",
+      "comfyUIdevelopment":"ComfyUI est en cours de développement",
 "HorizontalText": "Écriture horizontale",
 "VerticalText": "Écriture verticale",
 "esApiControls":"▼ Services Externes",
@@ -1870,7 +1886,12 @@ translation: {
   },
   zh: {
     translation: {
-"comfyUIdevelopment":"ComfyUI正在开发中",
+      "gradientLayer": "渐变图层",
+      "fillLayer": "填充图层",
+      "addLayer": "添加图层",
+      "addFillLayer": "添加填充图层",
+      "addGradientLayer": "添加渐变图层",
+      "comfyUIdevelopment":"ComfyUI正在开发中",
 "HorizontalText": "横写",
 "VerticalText": "竖写",
 "esApiControls":"▼ 外部服务",
@@ -2344,7 +2365,12 @@ translation: {
   },
   ru: {
     translation: {
-"comfyUIdevelopment":"ComfyUI находится в разработке",
+      "gradientLayer": "Градиентный слой",
+      "fillLayer": "Слой заливки",
+      "addLayer": "Добавить слой",
+      "addFillLayer": "Добавить слой заливки",
+      "addGradientLayer": "Добавить градиентный слой",
+      "comfyUIdevelopment":"ComfyUI находится в разработке",
 "HorizontalText": "Горизонтальное письмо",
 "VerticalText": "Вертикальное письмо",
 "esApiControls":"▼ Внешние Сервисы",
@@ -2770,7 +2796,12 @@ translation: {
   },
   es: {
     translation: {
-"comfyUIdevelopment":"ComfyUI está en desarrollo",
+      "gradientLayer": "Capa de degradado",
+      "fillLayer": "Capa de relleno",
+      "addLayer": "Añadir capa",
+      "addFillLayer": "Añadir capa de relleno",
+      "addGradientLayer": "Añadir capa de degradado",
+      "comfyUIdevelopment":"ComfyUI está en desarrollo",
 "HorizontalText": "Escritura horizontal",
 "VerticalText": "Escritura vertical",
 "esApiControls":"▼ Servicios Externos",
@@ -3193,7 +3224,12 @@ translation: {
   },
   pt: {
     translation: {
-"comfyUIdevelopment":"ComfyUI está em desenvolvimento",
+      "gradientLayer": "Camada de gradiente",
+      "fillLayer": "Camada de preenchimento",
+      "addLayer": "Adicionar camada",
+      "addFillLayer": "Adicionar camada de preenchimento",
+      "addGradientLayer": "Adicionar camada de gradiente",
+      "comfyUIdevelopment":"ComfyUI está em desenvolvimento",
 "HorizontalText": "Escrita horizontal",
 "VerticalText": "Escrita vertical",
 "esApiControls":"▼ Serviços Externos",
@@ -3614,7 +3650,12 @@ translation: {
   },
 th: {
 translation: {
-"comfyUIdevelopment":"ComfyUI อยู่ระหว่างการพัฒนา",
+  "gradientLayer": "เลเยอร์ไล่ระดับสี",
+  "fillLayer": "เลเยอร์เติมสี",
+  "addLayer": "เพิ่มเลเยอร์",
+  "addFillLayer": "เพิ่มเลเยอร์เติมสี",
+  "addGradientLayer": "เพิ่มเลเยอร์ไล่ระดับสี",
+  "comfyUIdevelopment":"ComfyUI อยู่ระหว่างการพัฒนา",
 "HorizontalText": "การเขียนแนวนอน",
 "VerticalText": "การเขียนแนวตั้ง",
 "esApiControls":"▼ บริการภายนอก",
@@ -4080,7 +4121,12 @@ translation: {
   },
     "de": {
       "translation": {
-"comfyUIdevelopment":"ComfyUI befindet sich in der Entwicklung",
+        "gradientLayer": "Verlaufsebene",
+        "fillLayer": "Füllungsebene",
+        "addLayer": "Ebene hinzufügen",
+        "addFillLayer": "Füllungsebene hinzufügen",
+        "addGradientLayer": "Verlaufsebene hinzufügen",
+        "comfyUIdevelopment":"ComfyUI befindet sich in der Entwicklung",
 "HorizontalText": "Horizontale Schrift",
 "VerticalText": "Vertikale Schrift",
 "esApiControls": "▼ Externe Dienste",

@@ -577,3 +577,119 @@ function createCanvasFromFabricImage(fabricImage) {
 
   return tempCanvas;
 }
+
+
+
+
+
+
+
+
+
+
+
+function enhanceDarkRegionsCPU(imageData, intensity) {
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const brightness = (r + g + b) / 3;
+    if (brightness < 200) {
+      const darkFactor = Math.max(0, 1 - Math.pow(intensity * 0.2, 1.5));
+      data[i] *= darkFactor;
+      data[i + 1] *= darkFactor;
+      data[i + 2] *= darkFactor;
+    }
+  }
+  return imageData;
+}
+
+
+
+
+
+async function fabricImage2ImageData(fabricImage) {
+  const img = fabricImage.getElement();
+  // console.log('Original image size:', {
+  //   naturalWidth: img.naturalWidth,
+  //   naturalHeight: img.naturalHeight,
+  //   width: fabricImage.width,
+  //   height: fabricImage.height,
+  //   scaleX: fabricImage.scaleX,
+  //   scaleY: fabricImage.scaleY
+  // });
+  // console.log('Canvas size:', {
+  //   width: canvas.width,
+  //   height: canvas.height
+  // });
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = img.naturalWidth;
+  tempCanvas.height = img.naturalHeight;
+  const tempCtx = tempCanvas.getContext('2d', {
+    alpha: true,
+    willReadFrequently: true
+  });
+  
+  tempCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+  return tempCtx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+}
+
+async function enhanceDarkImage() {
+  try {
+    const activeObject = canvas.getActiveObject();
+    if (!activeObject || !activeObject.isType('image')) 
+      throw new Error('画像が選択されていません');
+
+    const img = activeObject.getElement();
+    // console.log('Processing image with size:', {
+    //   naturalWidth: img.naturalWidth,
+    //   naturalHeight: img.naturalHeight
+    // });
+
+    const originalScaleX = activeObject.scaleX || 1;
+    const originalScaleY = activeObject.scaleY || 1;
+    
+    const intensity = parseFloat($('effectEnhanceDarkIntensity').value);
+
+    const originalImageData = await fabricImage2ImageData(activeObject);
+    const processedImageData = enhanceDarkRegionsCPU(originalImageData, intensity);
+
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = img.naturalWidth;
+    tempCanvas.height = img.naturalHeight;
+    // console.log('Processing canvas size:', {
+    //   width: tempCanvas.width,
+    //   height: tempCanvas.height
+    // });
+
+    const tempCtx = tempCanvas.getContext('2d', {
+      alpha: true,
+      willReadFrequently: true
+    });
+    tempCtx.imageSmoothingEnabled = true;
+    tempCtx.imageSmoothingQuality = 'high';
+    tempCtx.putImageData(processedImageData, 0, 0);
+    
+    const webpDataUrl = tempCanvas.toDataURL('image/webp', 1.0);
+    
+    fabric.Image.fromURL(webpDataUrl, img => {
+      img.set({
+        left: activeObject.left,
+        top: activeObject.top,
+        scaleX: originalScaleX,
+        scaleY: originalScaleY
+      });
+      copy(activeObject, img);
+      canvas.remove(activeObject);
+      canvas.add(img);
+      canvas.setActiveObject(img);
+      canvas.renderAll();
+      updateLayerPanel();
+    });
+
+  } catch(err) {
+    console.error(err);
+  }
+}

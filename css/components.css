@@ -1,20 +1,5 @@
 @import url('root.css');
 
-.left_area {
- font-size: var(--font-size-base);
- margin-right: var(--margin-right-base);
- max-width: var(--max-width-base);
- min-width: var(--min-width-base);
- box-sizing: border-box;
- overflow: hidden;
- height: calc(100vh - 8vh);
- max-height: calc(100vh - 8vh);
- overflow-y: auto;
- overflow-x: hidden;
- border: var(--boader-color-1px-solid-A);
-}
- 
-
 #text-area2-settings {
  /* display: flex; */
  flex-wrap: wrap;
@@ -255,12 +240,9 @@ button.selected {
  margin-bottom: 5px;
 }
 
-.left_area button .material-icons {
- font-size: 16px;
- vertical-align: middle;
-}
-prompt-manager-area
 
+
+#prompt-manager-area input[type="text"],
 #text-preview-area input[type="text"],
 #shape-preview-area input[type="text"],
 #panel-manager-items input[type="text"],
@@ -289,24 +271,6 @@ prompt-manager-area
   overflow-y: auto;
 }
 
-.left_area button img {
- width: 90%;
- display: block;
- margin: 0 auto;
-}
-
-.left_area label{
- margin: 1px;
-}
-
-.left_area hr {
- display: block;
- width: 92%;
- margin: 6px;
- text-align: left;
- border: var(--boader-color-1px-solid-A);
-}
-
 #layer-content button {
  font-size: var(--font-size-base);
  margin-right: var(--input-margin);
@@ -319,14 +283,3 @@ prompt-manager-area
  background: var(--svg-preview-background);
 }
 
-#vertical_textInput {
- width: 100%;
- height: var(--textarea-height);
- border: var(--boader-color-1px-solid-A);
- border-radius: var(--textarea-border-radius);
- box-sizing: border-box;
- resize: vertical;
- font-size: var(--font-size-base);
- writing-mode: vertical-rl;
- text-orientation: upright;
-}

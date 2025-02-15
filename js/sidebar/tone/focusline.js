@@ -7,8 +7,7 @@ var conf = null;
 var lines = null;
 
 function focusLineStart() {
-  console.log("focusLineStart");
-  var activeObject = getLastObject();
+  var activeObject = canvas.getActiveObject();
   tmpCanvasFL = document.createElement("canvas");
 
   if (isPanel(activeObject)) {
@@ -32,8 +31,6 @@ function focusLineStart() {
     crMin: 30,
     color: "#000000",
   };
-
-  console.log("focusLineStart updateFocusLine");
   updateFocusLine();
 }
 
@@ -172,7 +169,6 @@ function updateFocusLine() {
     conf.color
   );
 
-  console.log("updateFCFabricCanvas start");
   updateFCFabricCanvas();
 }
 
@@ -188,8 +184,6 @@ function addFCEventListener() {
     MODE_FOCUSING_LINE + "-line-width-expand",
   ].forEach((id) => {
     $(id).addEventListener("input", () => {
-      console.log("addFCEventListener updateFocusLine");
-
       updateFocusLine();
     });
   });
@@ -206,15 +200,13 @@ function updateFCFabricCanvas() {
   }
 
   var svgString = convertToSVG( tmpCanvasFL );
-  var activeObject = getLastObject();
+  var activeObject = canvas.getActiveObject();
   if (isPanel(activeObject)) {
     var canvasX = activeObject.left + (activeObject.width * activeObject.scaleX) / 2;
     var canvasY = activeObject.top + (activeObject.height * activeObject.scaleY) / 2;
     var obj = putImageInFrame(svgString, canvasX, canvasY, true);
     obj.name = 'Focus Line';
-    canvas.add(obj);
     nowFocusLine = obj;
-    updateLayerPanel();
   } else {
     fabric.loadSVGFromString(svgString, function (objects, options) {
       var svgGroup = fabric.util.groupSVGElements(objects, options);

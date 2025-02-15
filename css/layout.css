@@ -26,6 +26,12 @@
  transform-origin: top center;
 }
 
+#canvas-area {
+ min-width: var(--min-width-600);
+ width: var(--width-100);
+ margin-right: var(--margin-right-10);
+}
+
 #canvas-container {
  width: var(--width-100);
  min-width: var(--min-width-600);
@@ -68,6 +74,35 @@
 }
 
 
+#sidebar {
+ justify-content: flex-start;
+ gap: 15px;
+ margin-right: var(--margin-right-10);
+ width: 50px;
+ min-width: 50px;
+ height: 95vh;
+ max-height: 95vh;
+ background: var(--sidebar-gradient);
+ display: var(--display-flex);
+ flex-direction: column;
+ align-items: var(--align-items-center);
+ padding: var(--padding-10-0);
+ justify-content: flex-start;
+ gap: 5px;
+}
+
+#sidebar i {
+ margin-bottom: 10px;
+ padding: 7px;
+ color: var(--sidebar-icon-color);
+ transition: color 0.3s, transform 0.3s;
+}
+
+#sidebar i:hover,
+#sidebar i.active {
+ color: var(--text-color-C);
+ transform: var(--transform-scale-hover);
+}
 
 #download-buttons {
  font-size: var(--font-size-base);
@@ -179,46 +214,6 @@
  max-width: var(--max-width-150);
  width: var(--width-50);
 }
-.A1111_api_content li a {
-  width: 280px;
-  display: block;
-  color: var(--a-link);
-  text-decoration: underline;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.A1111_api_content li a:hover {
-  background-color: var(--button-hover-background);
-  color: var(--a-link-hover);
-}
-
-.Comfyui_api_content li a {
-  width: 280px;
-  display: block;
-  color: var(--a-link);
-  text-decoration: underline;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.Comfyui_api_content li a:hover {
-  background-color: var(--button-hover-background);
-  color: var(--a-link-hover);
-}
-
-.A1111_api_content li a::after,
-.Comfyui_api_content li a::after {
-  content: ' 🔗';
-  font-size: 0.9em;
-  color: inherit;
-}
-
-
 
 .dropdown-menu .dropdown-item input {
  flex: var(--flex-2);
@@ -278,3 +273,8 @@
  text-align: var(--text-align-center-bottom-bar-content);
 }
 
+
+#controls {
+  max-height: 100vh; 
+  overflow-y: auto;
+}

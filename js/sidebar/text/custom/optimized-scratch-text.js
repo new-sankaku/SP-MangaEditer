@@ -63,7 +63,7 @@ const textAttrs=isVertical?{
 };
 setAttributes(t2_scratch_mainText,textAttrs);
 const baseStyles={
-"font-family":baseStylesDefault,
+"font-family":`"${t2_fontT2Selector.value}","Noto Sans JP","Yu Gothic",sans-serif`,
 "font-size":`${fontSize}px`,
 "letter-spacing":`${t2_letterSpacing.value}em`
 };
@@ -108,15 +108,12 @@ t2_scratch_updateSvgSize();
 }
 function t2_scratch_updateSvgSize(){
 try{
-  const bbox=t2_scratch_mainText.getBBox();
-  const padding = Math.max(20, bbox.width * 0.1); 
-  const dims = {
-    viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
-    width: bbox.width + padding*2,
-    height: bbox.height + padding*2
-  };  
-  
-setAttributes(t2_scratch_textSvg,dims);
+const{x,y,width,height}=t2_scratch_mainText.getBBox();
+setAttributes(t2_scratch_textSvg,{
+viewBox:`${x} ${y} ${width} ${height}`,
+width:width,
+height:height
+});
 }catch(error){}
 }
 function t2_scratch_addSvg(left,top){

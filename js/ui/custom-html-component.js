@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function setupSlider(slider, classname, addButton=true){
-  if( slider.isSetupDone ){
-    return;
-  }
+function setupSlider(slider, classname){
+
+if( slider.isSetupDone ){
+  return;
+}
 
   const container = slider.closest(classname);
   const label = container.getAttribute('data-label');
@@ -22,20 +23,15 @@ function setupSlider(slider, classname, addButton=true){
   
   const valueButtons = document.createElement('div');
   valueButtons.className = 'slider-value-buttons';
-
-  let upButton = null;
-  let downButton = null;
-  if(addButton){
-    upButton = document.createElement('button');
-    upButton.className = 'slider-value-button';
-    upButton.textContent = '△';
-    downButton = document.createElement('button');
-    downButton.className = 'slider-value-button';
-    downButton.textContent = '▽';
-    valueButtons.appendChild(upButton);
-    valueButtons.appendChild(downButton);
-  }
-
+  const upButton = document.createElement('button');
+  upButton.className = 'slider-value-button';
+  upButton.textContent = '△';
+  const downButton = document.createElement('button');
+  downButton.className = 'slider-value-button';
+  downButton.textContent = '▽';
+  
+  valueButtons.appendChild(upButton);
+  valueButtons.appendChild(downButton);
   
   container.appendChild(sliderContainer);
   sliderContainer.appendChild(slider);
@@ -67,21 +63,19 @@ function setupSlider(slider, classname, addButton=true){
 
   slider.addEventListener('input', updateLabel);
 
-  if(addButton){
-    upButton.addEventListener('click', () => {
-      const step = parseFloat(slider.step) || 1;
+  upButton.addEventListener('click', () => {
+    const step = parseFloat(slider.step) || 1;
 
-        const newValue = Math.min(parseFloat(slider.value) + step, slider.max);
-        updateSlider(newValue);
-    });
+      const newValue = Math.min(parseFloat(slider.value) + step, slider.max);
+      updateSlider(newValue);
+  });
 
-    downButton.addEventListener('click', () => {
-      const step = parseFloat(slider.step) || 1;
+  downButton.addEventListener('click', () => {
+    const step = parseFloat(slider.step) || 1;
 
-        const newValue = Math.max(parseFloat(slider.value) - step, slider.min);
-        updateSlider(newValue);
-    });
-  }
+      const newValue = Math.max(parseFloat(slider.value) - step, slider.min);
+      updateSlider(newValue);
+  });
 
   updateLabel();
 

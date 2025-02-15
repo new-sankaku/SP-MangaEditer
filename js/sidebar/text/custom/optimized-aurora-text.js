@@ -92,13 +92,11 @@ t2_aurora_updateSvgSize();
 }
 function t2_aurora_updateSvgSize(){
 try{
-const bbox=t2_aurora_mainText.getBBox();
-const padding = Math.max(20, bbox.width * 0.1); 
-const dims = {
-  viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
-  width: bbox.width + padding*2,
-  height: bbox.height + padding*2
-};
+const{x,y,width,height}=t2_aurora_mainText.getBBox();
+const dims={
+  viewBox:`${0} ${0} ${width*1.25} ${height*1.25}`,
+  width:width*1.25,height:height
+  };
 setAttributes(t2_aurora_textSvg,dims);
 }catch(error){}
 }

@@ -78,11 +78,9 @@ const textAttrs=isVertical?{
 "dominant-baseline":"hanging","text-anchor":getSelectedValueByGroup("t2Align")
 };
 setAttributes(t2_shadow_mainText,textAttrs);
-const baseStyles = {
-  "font-family": baseStylesDefault
+const baseStyles={
+"font-family":`"${t2_fontT2Selector.value}","Noto Sans JP","Yu Gothic",sans-serif`
 };
-
-// console.log("baseStyles", JSON.stringify(baseStyles));
 const verticalStyles={
 "font-size":`${fontSize}px`,"fill":t2_fillColor.value,"fill-opacity":t2_fillOpacity.value,
 "letter-spacing":`${t2_letterSpacing.value}em`,"writing-mode":"vertical-rl",
@@ -108,8 +106,8 @@ fontSize:`${t2_fontSize.value}px`,fill:t2_fillColor.value,
 fillOpacity:t2_fillOpacity.value,letterSpacing:`${t2_letterSpacing.value}em`
 });
 if(t2_shadow_primaryShadowFlood){
-  // console.log("t2_shadow1Opacity.value", t2_shadow1Opacity);
-  // console.log("t2_shadow1Color.value  ", t2_shadow1Color);
+  console.log("t2_shadow1Opacity.value", t2_shadow1Opacity);
+  console.log("t2_shadow1Color.value  ", t2_shadow1Color);
 
 setAttributes(t2_shadow_primaryShadowFlood,{"flood-opacity":t2_shadow1Opacity.value,"flood-color":t2_shadow1Color.value});
 }
@@ -133,13 +131,14 @@ t2_shadow_updateSvgSize();
 }
 function t2_shadow_updateSvgSize(){
 try{
-const bbox = t2_shadow_mainText.getBBox();
-const padding = Math.max(20, bbox.width * 0.1); 
-const dims = {
-  viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
-  width: bbox.width + padding*2,
-  height: bbox.height + padding*2
-};
+const{x,y,width,height}=t2_shadow_mainText.getBBox();
+const maxShadowSize=Math.max(parseFloat(t2_shadow1Size.value)||1,parseFloat(t2_shadow2Size.value)||1);
+const fontSize=parseFloat(t2_fontSize.value)||40;
+const dims={
+  viewBox:`${x} ${y} ${width*1.1} ${height}`,
+  width:width*1.1,
+  height:height
+  };
 setAttributes(t2_shadow_textSvg,dims);
 }catch(error){}
 }

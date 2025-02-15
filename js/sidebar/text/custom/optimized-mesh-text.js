@@ -63,7 +63,7 @@ const fontSize=parseFloat(t2_fontSize.value);
 const lineHeight=parseFloat(t2_lineHeight.value);
 const isVertical=getSelectedValueByGroup("orientation_group")==="vertical";
 const baseStyles={
-"font-family":baseStylesDefault,
+"font-family":`"${t2_fontT2Selector.value}","Noto Sans JP","Yu Gothic",sans-serif`,
 "font-size":`${fontSize}px`,
 "letter-spacing":`${t2_letterSpacing.value}em`
 };
@@ -107,14 +107,11 @@ t2_mesh_updateSvgSize();
 }
 function t2_mesh_updateSvgSize(){
 try{
-const bbox=t2_mesh_mainText.getBBox();
-const padding = Math.max(20, bbox.width * 0.1); 
-const dims = {
-  viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
-  width: bbox.width + padding*2,
-  height: bbox.height + padding*2
-};  
-
+const{x,y,width,height}=t2_mesh_mainText.getBBox();
+const dims={
+viewBox:`${x} ${y} ${width} ${height}`,
+width:width,height:height
+};
 setAttributes(t2_mesh_textSvg,dims);
 }catch(error){}
 }

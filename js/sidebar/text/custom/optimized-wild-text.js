@@ -58,7 +58,7 @@ const textAttrs=isVertical?{
 };
 setAttributes(t2_wild_mainText,textAttrs);
 const baseStyles={
-"font-family":`"${t2_fontT2Selector.value}","Noto Sans JP","Yu Gothic",sans-serif`
+"font-family":baseStylesDefault
 };
 const verticalStyles={
 "font-size":`${fontSize}px`,"fill":t2_fillColor.value,"fill-opacity":t2_fillOpacity.value,
@@ -88,10 +88,12 @@ t2_wild_updateSvgSize();
 }
 function t2_wild_updateSvgSize(){
 try{
-const{x,y,width,height}=t2_wild_mainText.getBBox();
-const dims={
-viewBox:`${x} ${y} ${width} ${height}`,
-width:width,height:height
+const bbox=t2_wild_mainText.getBBox();
+const padding = Math.max(20, bbox.width * 0.1); 
+const dims = {
+  viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
+  width: bbox.width + padding*2,
+  height: bbox.height + padding*2
 };
 setAttributes(t2_wild_textSvg,dims);
 }catch(error){}

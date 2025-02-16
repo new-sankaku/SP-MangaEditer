@@ -61,7 +61,7 @@ const fontSize=parseFloat(t2_fontSize.value);
 const lineHeight=parseFloat(t2_lineHeight.value);
 const isVertical=getSelectedValueByGroup("orientation_group")==="vertical";
 const baseStyles={
-"font-family":`"${t2_fontT2Selector.value}","Noto Sans JP","Yu Gothic",sans-serif`,
+"font-family":baseStylesDefault,
 "font-size":`${fontSize}px`,
 "letter-spacing":`${t2_letterSpacing.value}em`
 };
@@ -105,12 +105,14 @@ t2_zebra_updateSvgSize();
 }
 function t2_zebra_updateSvgSize(){
 try{
-const{x,y,width,height}=t2_zebra_mainText.getBBox();
-const dims={
-viewBox:`${x} ${y} ${width*1.1} ${height}`,
-width:width*1.1,
-height:height
-};
+  const bbox=t2_zebra_mainText.getBBox();
+  const padding = Math.max(20, bbox.width * 0.1); 
+  const dims = {
+    viewBox: `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`,
+    width: bbox.width + padding*2,
+    height: bbox.height + padding*2
+  };  
+
 setAttributes(t2_zebra_textSvg,dims);
 }catch(error){}
 }

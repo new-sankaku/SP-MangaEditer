@@ -1,5 +1,4 @@
-function C2BWStartLight(){
-
+async function C2BWStartLight(){
   const filterValues = {
     brightness: 0.35,
     contrast: 0.35,
@@ -9,7 +8,7 @@ function C2BWStartLight(){
   };
   C2BWStart(filterValues);
 }
-function C2BWStartDark(){
+async function C2BWStartDark(){
   const filterValues = {
     brightness: 0.22,
     contrast: 0.22,
@@ -19,7 +18,7 @@ function C2BWStartDark(){
   };
   C2BWStart(filterValues);
 }
-function C2BWStartRough(){
+async function C2BWStartRough(){
   const filterValues = {
     brightness: 0.41,
     contrast: 0.41,
@@ -29,7 +28,7 @@ function C2BWStartRough(){
   };
   C2BWStart(filterValues);
 }
-function C2BWStartSimple(){
+async function C2BWStartSimple(){
   const filterValues = {
     brightness: 0.15,
     contrast: 0.15,
@@ -42,34 +41,51 @@ function C2BWStartSimple(){
 
 
 async function C2BWStart(filterValues) {
-  console.log(filterValues);
-  glfxReset();
-  
-  var activeObject = canvas.getActiveObject();
-  if (activeObject && activeObject.type === "image") {
 
-    if( filterValues.inkStrength ){
+  const loading = OP_showLoading({
+    icon: 'process',step: 'Step1',substep: 'Ink up',progress: 0
+  });
+  var activeObject = canvas.getActiveObject();
+  try {
+    // console.log(filterValues);
+    glfxReset();
+    if (activeObject && activeObject.type === "image") {
+
+      if( filterValues.inkStrength ){
+        glfxOriginalImage = activeObject.getElement();
+        await glfxApplyFilterToObject(activeObject, "glfxInk", filterValues);
+        if (glfxOriginalImage) {
+          glfxCopiedImage = glfxOriginalImage.cloneNode();
+          glfxApplyNoReset();
+        }
+      }
+
+      OP_updateLoadingState(loading, {
+        icon: 'process',step: 'Step2',substep: 'Brightness Contrast',progress: 50
+      });
+
       glfxOriginalImage = activeObject.getElement();
-      await glfxApplyFilterToObject(activeObject, "glfxInk", filterValues);
+      await glfxApplyFilterToObject(activeObject, "glfxBrightnessContrast", filterValues);
+      if (glfxOriginalImage) {
+        glfxCopiedImage = glfxOriginalImage.cloneNode();
+        glfxApplyNoReset();
+      }
+
+
+      OP_updateLoadingState(loading, {
+        icon: 'save',step: 'Step3',substep: 'Dot',progress: 100
+      });
+
+      glfxOriginalImage = activeObject.getElement();
+      await glfxApplyFilterToObject(activeObject, "glfxDotScreen", filterValues);
       if (glfxOriginalImage) {
         glfxCopiedImage = glfxOriginalImage.cloneNode();
         glfxApplyNoReset();
       }
     }
-
-    glfxOriginalImage = activeObject.getElement();
-    await glfxApplyFilterToObject(activeObject, "glfxBrightnessContrast", filterValues);
-    if (glfxOriginalImage) {
-      glfxCopiedImage = glfxOriginalImage.cloneNode();
-      glfxApplyNoReset();
-    }
-
-    glfxOriginalImage = activeObject.getElement();
-    await glfxApplyFilterToObject(activeObject, "glfxDotScreen", filterValues);
-    if (glfxOriginalImage) {
-      glfxCopiedImage = glfxOriginalImage.cloneNode();
-      glfxApplyNoReset();
-    }
+  } finally {
+    OP_hideLoading(loading);
+    saveStateByManual();
   }
 }
 

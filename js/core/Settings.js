@@ -8,8 +8,10 @@ const minCanvasSizeWidth = 600;
 const minCanvasSizeHeight = 400;
 
 var canvas = new fabric.Canvas("mangaImageCanvas", {
+  enableRetinaScaling: true,
   renderOnAddRemove: false,
-  skipOffscreen: false,
+  imageSmoothingEnabled: true,
+  skipOffscreen: true,
   renderer: fabric.isWebglSupported ? "webgl" : "canvas",
 });
 document.addEventListener("DOMContentLoaded", function() {
@@ -17,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function() {
   canvas.renderAll();
 });
 
-const mode = localStorage.getItem('mode') || 'dark-mode';
-if (mode === 'dark-mode') {
+// const mode = localStorage.getItem('mode') || 'dark-mode';
+// if (mode === 'dark-mode') {
   canvas.backgroundColor = "gray";
-}else{
-  canvas.backgroundColor = "white";
-}
+// }else{
+//   canvas.backgroundColor = "white";
+// }
 
 var svgPagging = 20;
 document.addEventListener('DOMContentLoaded', function() {
@@ -91,6 +93,7 @@ const commonProperties = [
 'initial', 
 'clipPath.initial',
 'name',
-"guids", "guid", "tempPrompt", "tempNegative", "tempSeed", "img2imgScale", "img2img_denoise", "canvasGuid", "isSpeechBubble","jstsGeom","text"
+"guids", "guid", "tempPrompt", "tempNegative", "tempSeed", "img2imgScale", "img2img_denoise", "canvasGuid", "isSpeechBubble","jstsGeom","text","selectable","customType"
+,"speechBubbleGrid","speechBubbleScale","speechBubbleViewBoxWidth","speechBubbleViewBoxHeight","speechBubbleRectX","speechBubbleRectY","speechBubbleRectWidth","speechBubbleRectHeight"
+,"baseScaleX","baseScaleY","lastLeft", "lastTop", "targetObject"
 ];
-

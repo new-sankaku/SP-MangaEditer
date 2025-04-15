@@ -1,2265 +1,544 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja">
 <head>
-    <title>Manga Editor Desu! Pro Edition: The Premier Standalone Manga Editing Platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manga Editor Desu! Pro Edition: The Premier Standalone Manga Editing Platform</title>
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#121111">
-    <link rel="apple-touch-icon" href="03_images/icon/icon_full_192_192.png">
-    <link rel="icon" href="03_images/icon/icon_full_192_192.png">
-    <link rel="shortcut icon" href="03_images/icon/icon_full_192_192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#121111">
+<link rel="apple-touch-icon" href="03_images/icon/icon_full_192_192.png">
+<link rel="icon" href="03_images/icon/icon_full_192_192.png">
+<link rel="shortcut icon" href="03_images/icon/icon_full_192_192.png">
 
-    <meta property="og:title" content="Manga Editor DESU!" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://new-sankaku.github.io/SP-MangaEditer/" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/new-sankaku/SP-MangaEditer/main/03_images/PagePreview/Git/Preview.png" />
-    <meta property="og:description" content="Manga Editor : SD WebUI, Forge, ComfyUI" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@hypersankaku2" />
-    <meta property="og:site_name" content="Manga Editor" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="ja_JP" />
-    <meta property="og:locale:alternate" content="ko_KR" />
-    <meta property="og:locale:alternate" content="fr_FR" />
-    <meta property="og:locale:alternate" content="zh_CN" />
-    <meta property="og:locale:alternate" content="ru_RU" />
-    <meta property="og:locale:alternate" content="es_ES" />
-    <meta property="og:locale:alternate" content="pt_BR" />
-    <meta property="og:locale:alternate" content="th_TH" />
-    <meta property="og:locale:alternate" content="de_DE" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Manga Editor Preview Image" />
-    <meta charset="UTF-8">
-    <meta name="description"
-        content="Discover Manga Editor Desu! Pro Edition, your ultimate online manga editing tool. Customize and enhance your manga with user-friendly panels, speech bubbles, and dynamic text effects. Perfect for both beginners and professional artists.">
-    <meta name="keywords"
-        content="manga editing, manga editor online, manga creation tool, comic editing software, digital manga editor, Stable diffusion web ui, Stable diffusion Forge, stable-diffusion-webui-simple-manga-maker">
+<meta property="og:title" content="Manga Editor DESU!" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://new-sankaku.github.io/SP-MangaEditer/" />
+<meta property="og:image" content="https://raw.githubusercontent.com/new-sankaku/SP-MangaEditer/main/03_images/PagePreview/Git/Preview.png" />
+<meta property="og:description" content="Manga Editor : SD WebUI, Forge, ComfyUI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@hypersankaku2" />
+<meta property="og:site_name" content="Manga Editor" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="ja_JP" />
+<meta property="og:locale:alternate" content="ko_KR" />
+<meta property="og:locale:alternate" content="fr_FR" />
+<meta property="og:locale:alternate" content="zh_CN" />
+<meta property="og:locale:alternate" content="ru_RU" />
+<meta property="og:locale:alternate" content="es_ES" />
+<meta property="og:locale:alternate" content="pt_BR" />
+<meta property="og:locale:alternate" content="th_TH" />
+<meta property="og:locale:alternate" content="de_DE" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Manga Editor Preview Image" />
+<meta charset="UTF-8">
+<meta name="description"
+    content="Discover Manga Editor Desu! Pro Edition, your ultimate online manga editing tool. Customize and enhance your manga with user-friendly panels, speech bubbles, and dynamic text effects. Perfect for both beginners and professional artists.">
+<meta name="keywords"
+    content="manga editing, manga editor online, manga creation tool, comic editing software, digital manga editor, Stable diffusion web ui, Stable diffusion Forge, stable-diffusion-webui-simple-manga-maker">
+
     <script async src="third/GoogleAnalytics/googleAnalytics.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Klee+One&family=M+PLUS+1p&family=Noto+Sans+JP:wght@100..900&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&family=ZCOOL+KuaiLe&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=East+Sea+Dokdo&family=IBM+Plex+Sans+KR&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Bungee+Shade&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Creepster&family=Permanent+Marker&family=Rubik+Mono+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
-
-    <div id="a" style="display:none">
-    </div>
-    <script>
-        
-
-const $ = (id) => document.getElementById(id);
-const $on = (element, event, callback) => element.addEventListener(event, callback);
-// function addEL(a, b, c, d = !1) { a.addEventListener(b, c, d) }
-
-        const e = $("a"), f = [
-"Initializing core system...","Sun network connection: Failed","Moon network connection: Successful","Authentication process: All green","CO2 emission reduction system: Started",
-"Layer launch: Completed","Canvas launch: Completed","Fabric.js launch: Completed","Effect function initialization: Completed",
-"Font download: Completed","Coordinate measurement: Normal","CSS launch: Normal","Script launch: Normal"
-        ];
-        function g() {
-            const a = document.createElement("div");
-            a.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;color:#fff;font-size:11px;display:flex;flex-direction:column;z-index:1000;";
-const b = `<svg viewBox="0 0 100 100" width="100%" height="100%" style="position:absolute;top:0;left:0;opacity:.2;">
-  <rect x="5" y="5" width="90" height="90" fill="none" stroke="#aaa" stroke-width="3"/>
-  <rect x="7" y="7" width="86" height="30" fill="none" stroke="#aaa" stroke-width="3"/>
-  <rect x="7" y="39" width="40" height="54" fill="none" stroke="#aaa" stroke-width="3"/>
-  <rect x="49" y="39" width="44" height="25" fill="none" stroke="#aaa" stroke-width="3"/>
-  <rect x="49" y="66" width="21" height="27" fill="none" stroke="#aaa" stroke-width="3"/>
-  <rect x="72" y="66" width="21" height="27" fill="none" stroke="#aaa" stroke-width="3"/>
-  <path d="M 7 37 L 93 37 M 47 39 L 47 93" stroke="#aaa" stroke-width="3" fill="none"/>
-</svg>`;
-            a.innerHTML = b;
-            const c = document.createElement("div");
-            c.style.cssText = "padding:20px;";
-            const d = document.createElement("div");
-            d.textContent = "DESU", d.style.cssText = "color:orange; font-size:220px;font-weight:700;", c.appendChild(d), a.appendChild(c);
-            const e = document.createElement("div");
-            e.id = "h", e.style.cssText = "flex-grow:1;padding:20px;", f.forEach(() => { const a = document.createElement("div"); a.style.cssText = "margin:8px 0;height:1em;opacity:.9;", e.appendChild(a) }), a.appendChild(e);
-            const g = `<svg width="100%" height="40" style="position:absolute;bottom:0;left:0;opacity:.5;"><defs><g id="i"><path d="M1 13L5 17L17 5L13 1L1 13Z M15 3L13 1L16 4M1 13L4 16" stroke="#aaa" stroke-width="1" fill="none"/></g><g id="j"><path d="M3 17L7 13L15 5L13 3L5 11L1 15L3 17Z M14 4L12 2L16 6" stroke="#aaa" stroke-width="1" fill="none"/></g><g id="k"><path d="M3 15C3 17 5 17 5 15C5 13 7 11 9 9C11 7 13 5 15 3M15 3L13 5M15 3L17 5" stroke="#aaa" stroke-width="1" fill="none"/></g></defs></svg>`, h = document.createElement("div");
-            h.style.cssText = "position:absolute;bottom:0;left:0;width:100%;height:40px;overflow:hidden;", h.innerHTML = g;
-            const l = 20, m = Math.ceil(window.innerWidth / l);
-            for (let a = 0; a < m; a++) { const b = document.createElementNS("http://www.w3.org/2000/svg", "use"); b.setAttributeNS(null, "href", `#${["i", "j", "k"][a % 3]}`), b.setAttributeNS(null, "x", a * l), b.setAttributeNS(null, "y", 10), h.querySelector("svg").appendChild(b) }
-            a.appendChild(h);
-            const p = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            p.setAttribute("width", "100"), p.setAttribute("height", "100"), p.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);";
-
-            const q = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            q.setAttribute("points", "50,10 90,30 90,70 50,90 10,70 10,30"), q.setAttribute("stroke", "#fff"), q.setAttribute("stroke-width", "2"), q.setAttribute("fill", "none");
-
-            const r = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-            return r.setAttribute("points", "50,25 75,75 25,75"), r.setAttribute("stroke", "#fff"), r.setAttribute("stroke-width", "2"), r.setAttribute("fill", "none"), r.style.transformOrigin = "center", r.style.animation = "n 1s linear infinite", p.appendChild(q), p.appendChild(r), a.appendChild(p), document.body.appendChild(a), { page: a, hexagon: q, triangle: r }
-        }
-        function h(a, b) {
-            let c = 0;
-            function d() { c < b.length && (a.textContent += b[c], c++, setTimeout(d, 5 + 5 * Math.random())) }
-            d()
-        }
-        function i(a, b) { a.setAttribute("stroke", "#ffa500"), b.setAttribute("stroke", "#ffa500") }
-
-        function k() {
-            const { page: a, hexagon: b, triangle: c } = g(), d = a.querySelectorAll("#h div");
-            f.forEach((a, b) => h(d[b], a));
-            const o = Date.now();
-
-            window.addEventListener('load', function () {
-                const p = Date.now(), q = Math.max(0, 500 - (p - o));
-                setTimeout(() => {
-                    i(b, c);
-                    a.remove();
-                    l();
-                }, q);
-            });
-        }
-        function l() {
-            $('desu-nav').style.display = 'flex',
-            $('head-id').style.display = 'flex',
-            $('btm-drawer').style.display = 'block'
-            $('a').style.display = 'none'
-            initResizeCanvas();
-        }
-        function n() { k() }
-        n();
-
-
-
-
-
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-YWPRKY7WKV');
-
-        function trackCustomEvent(eventCategory, eventAction, eventLabel, eventValue, additionalParams) {
-            gtag('event', eventAction, {
-                'event_category': eventCategory,
-                'event_label': eventLabel,
-                'value': eventValue,
-                ...additionalParams
-            });
-        }
-
-document.addEventListener('click', function (event) {
-    var element = event.target;
-    var elementId = element.id || 'no-id';
-    var elementClasses = getElementClasses(element);
-    var tagName = element.tagName.toLowerCase();
-    var textContent = (element.textContent || '').trim().substring(0, 10);
-    var clickX = event.clientX;
-    var clickY = event.clientY;
-    var pageUrl = window.location.href;
-    var parentTag = element.parentElement ? element.parentElement.tagName.toLowerCase() : 'no-parent';
-
-    trackCustomEvent(
-        'click_' + tagName,
-        elementId + ' | ' + elementClasses,
-        textContent,
-        1,
-        {
-            'click_x': clickX,
-            'click_y': clickY,
-            'page_url': pageUrl,
-            'parent_tag': parentTag
-        }
-    );
-});
-
-function getElementClasses(element) {
-    if (element.className && typeof element.className === 'string') {
-        return element.className.split(' ').join(', ');
-    } else if (element.classList && element.classList.length) {
-        return Array.from(element.classList).join(', ');
-    }
-    return 'no-class';
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+<style>
+:root {
+  --main-bg: #1a1a1a;
+  --header-bg: #121212;
+  --content-bg: #222;
+  --accent-color: #ff9800;
+  --hover-color: #ffb74d;
+  --text-color: #eee;
+  --alert-color: #ff3333;
 }
-        window.addEventListener('scroll', function () {
-            var scrollDepth = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-            trackCustomEvent('scroll', 'page_scroll', 'Scroll Depth', scrollDepth, {});
-        });
-
-        window.addEventListener('load', function () {
-            trackCustomEvent('page_load', 'page_load', 'Page Load', 1, {});
-        });
-
-        window.addEventListener('beforeunload', function () {
-            trackCustomEvent('page_unload', 'page_unload', 'Page Unload', 1, {});
-        });
-    </script>
-
-<link rel="stylesheet" href="css/core/main-component.css?v=7.2">
-<link rel="stylesheet" href="css/css2.css?v=7.2">
-<link rel="stylesheet" href="css/icon.css?v=7.2">
-<link rel="stylesheet" href="css/form.css?v=7.2">
-<link rel="stylesheet" href="css/controls-mini.css?v=7.2">
-<link rel="stylesheet" href="css/common.css?v=7.2">
-<link rel="stylesheet" href="css/components.css?v=7.2">
-<link rel="stylesheet" href="css/layout.css?v=7.2">
-<link rel="stylesheet" href="css/image-controle-manager.css?v=7.2">
-<!-- <link rel="stylesheet" href="css/anime.css?v=7.2"> -->
-<link rel="stylesheet" href="css/layout-layer.css?v=7.2">
-<link rel="stylesheet" href="css/toast.css?v=7.2">
-<link rel="stylesheet" href="css/ui/mode-change.css?v=7.2">
-<link rel="stylesheet" href="css/ui/object-menu.css?v=7.2">
-<link rel="stylesheet" href="css/ui/share.css?v=7.2">
-<link rel="stylesheet" href="css/ui/flowting-window.css?v=7.2">
-<link rel="stylesheet" href="css/ui/image-prompt-helper.css?v=7.2">
-<link rel="stylesheet" href="css/ui/overlay-progress.css?v=7.2">
-
-<link rel="stylesheet" href="third/tippy/tippy.css">
-<link rel="stylesheet" href="third/Bootstrup/bootstrap.min.css">
-<link rel="stylesheet" href="css/all.min.css?v=7.2">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="css/ui/blend.css?v=7.2">
-<link rel="stylesheet" href="css/ui/bottom-bar.css?v=7.2">
-<link rel="stylesheet" href="css/ui/custom-html-components.css?v=7.2">
-<link rel="stylesheet" href="css/tagify.css?v=7.2">
-
-<link rel="stylesheet" href="css/ui/font-manager.css?v=7.2">
-
-<script src="https://cdn.jsdelivr.net/npm/stacktrace-js/dist/stacktrace.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.31.3/tagify.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.31.3/tagify.min.css" rel="stylesheet" type="text/css" />
-<script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<link rel="stylesheet" href="css/comfyui-workflow-editor.css?v=7.2">
-
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans JP', 'Arial', sans-serif;
+  background-color: var(--main-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+header {
+  background-color: var(--header-bg);
+  box-shadow: 0 4px 12px rgba(255, 142, 0, 0.3);
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-color);
+  cursor: pointer;
+}
+.language-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.flag-btn {
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.flag-btn:hover {
+  transform: scale(1.1);
+}
+.flag-btn.active {
+  border-color: var(--accent-color);
+}
+.flag-icon {
+  width: 30px;
+  height: 20px;
+  display: block;
+}
+.main-content {
+  background-color: var(--content-bg);
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 30px;
+  box-shadow: 0 4px 15px rgba(255, 142, 0, 0.15);
+}
+.notice-box {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 15px;
+  margin: 20px 0;
+}
+h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.subtitle {
+  text-align: center;
+  font-size: 22px;
+  color: var(--alert-color);
+  margin: -10px 0 25px 0;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+  text-shadow: 0 0 10px rgba(255, 51, 51, 0.4);
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 26px solid var(--accent-color);
+  animation: spin 3s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+h2 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+p {
+  margin: 10px 0;
+}
+a {
+  color: var(--hover-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+.url-change {
+  background-color: #2c2c2c;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+  border: 1px solid #444;
+}
+.old-url {
+  display: block;
+  padding: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  margin: 5px 0;
+  word-break: break-all;
+}
+.new-url {
+  display: block;
+  padding: 15px;
+  background-color: #3a2a1a;
+  border-radius: 5px;
+  margin: 5px 0;
+  word-break: break-all;
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.new-url:hover {
+  background-color: #4a3a2a;
+}
+.arrow {
+  text-align: center;
+  color: var(--accent-color);
+  font-size: 14px;
+}
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  color: #aaa;
+  font-size: 14px;
+}
+#easter-egg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.95);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#easter-egg h2 {
+  color: var(--accent-color);
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+#easter-egg img {
+  max-width: 300px;
+  border-radius: 10px;
+  border: 5px solid var(--accent-color);
+  animation: bounce 1s infinite alternate;
+}
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .language-selector {
+    margin-top: 10px;
+  }
+  .main-content {
+    padding: 15px;
+  }
+}
+</style>
 </head>
-
 <body>
-
-    <div itemscope itemtype="http://schema.org/SoftwareApplication">
-        <meta itemprop="name" content="Manga Editor Desu">
-        <meta itemprop="description"
-            content="Discover Manga Editor Desu! Pro Edition, your ultimate online manga editing tool. Customize and enhance your manga with user-friendly panels, speech bubbles, and dynamic text effects.">
-        <meta itemprop="applicationCategory" content="Multimedia">
-
-
-<!-- Category:Menu -->
-        <nav id="desu-nav" class="navbar navbar-expand custom-navbar" style="display: none;">
-            <a class="navbar-brand" href="#">
-                <img src="02_images_svg/Logo/icon_full_192_192.png" alt="Manga Editor Desu! Pro Edition Official Logo"
-                    class="navbar-logo" id="navbar-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span data-i18n="file">File</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#" id="projectSave">
-                                    <i class="material-icons">folder_zip</i>
-                                    <span data-i18n="projectSave">Project Save</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="projectLoad">
-                                    <i class="material-icons">folder_zip</i> <span data-i18n="projectLoad">Project
-                                        Load</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="settingsSave">
-                                    <i class="material-icons">settings</i> <span data-i18n="settingsSave">Settings
-                                        Save</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="settingsLoad">
-                                    <i class="material-icons">settings</i> <span data-i18n="settingsLoad">Settings
-                                        Load</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="imageDownload" onclick="cropAndDownload()">
-                                    <span class="material-symbols-outlined">imagesmode</span> <span
-                                        data-i18n="imageDownload">Image Download</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="imageCopy" onclick="clipCopy()">
-                                    <i class="material-icons">content_copy</i> <span data-i18n="imageCopy">Image
-                                        Copy</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" id="svgDownload">
-                                    <span class="material-symbols-outlined">polyline</span>
-                                    <span data-i18n="SvgDownload">Svg Download</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#" onclick="allRemove()">
-                                    <i class="material-icons">delete</i> <span data-i18n="allRemove">All Remove</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span data-i18n="prompt">Prompt</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" onclick="openPromptChangeFloatingWindow()">
-                                    <i class="material-icons">manage_search</i> <span data-i18n="searchReplace">Search &
-                                        Replace</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" onclick="createImagePromptHelperFlotingWindow()">
-                                    <i class="material-icons">medical_information</i> <span
-                                        data-i18n="PromptHelper">Prompt Helper</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="intro_sdWebUI" data-i18n="externalServices"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <!--A1111-->
-                            <div class="A1111_api_content">
-                                <li>
-                                    <label>
-                                        <h5 data-i18n="">WebUI(A1111/Forge)</h5>
-                                    </label>
-                                    <label for="sdWebUIPageUrl">
-                                        <span data-i18n="apiUrl">API Page URL:</span>
-                                        <input type="text" id="sdWebUIPageUrl" value="http://127.0.0.1:7860">
-                                    </label>
-                                </li>
-                                <li>
-                                    <a href="html/API_Help/sd-api-guide.html" target="_blank">
-                                        <i class="material-icons">help_outline</i>
-                                        <span data-i18n="help_api_connect_settings">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <button id="sdWebUIPageUrlDefaultUrl">
-                                        <span data-i18n="DEFAULT">DEFAULT</span>
-                                    </button>
-                                </li>
-                            </div>
-                            <hr>
-                            <div class="Comfyui_api_content">
-                                <li>
-                                    <label>
-                                        <h5 data-i18n="comfyUI">ComfyUI</h5>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label for="comfyUIPageUrl">
-                                        <span data-i18n="apiUrl"></span>
-                                        <input type="text" id="comfyUIPageUrl" value="http://127.0.0.1:8188">
-                                    </label>
-                                </li>
-
-                                <li>
-                                    <a href="html/API_Help/comfyui_settings.html" target="_blank">
-                                        <i class="material-icons">help_outline</i>
-                                        <span data-i18n="help_api_connect_settings">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <button id="comfyUIPageUrlDefaultUrl">
-                                        <span data-i18n="DEFAULT">DEFAULT</span>
-                                    </button>
-                                </li>
-
-                        </div>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span data-i18n="canvas">Canvas</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item">
-                                <i class="material-icons">format_color_fill</i>
-                                <span data-i18n="canvasBG">Canvas BG</span>
-                                <input id="bg-color" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" >
-                            </a>
-
-                            <a class="dropdown-item">
-                                <i class="material-icons">photo_size_select_large</i> <span
-                                    data-i18n="downloadDpi">Download Dpi</span>
-                                <input type="number" id="outputDpi" class="dropdown-item-mini-text" value="300" min="96"
-                                    step="1">
-                            </a>
-                            <hr>
-                            <a class="dropdown-item" href="#" id="toggleGridButton">
-                                <i class="material-icons">grid_4x4</i>
-                                <span data-i18n="gridLine">Grid Line (Ctrl+G)</span>
-                            </a>
-                            <a class="dropdown-item">
-                                <i class="material-icons">format_line_spacing</i> <span data-i18n="gridLineSize">Grid
-                                    Line Size</span>
-                                <input type="number" id="gridSizeInput" class="dropdown-item-mini-text" value="10"
-                                    min="1">
-                            </a>
-                            <hr>
-                            <a class="dropdown-item">
-                                <i class="material-icons">fit_screen</i> <span data-i18n="marginFromPanel">Margin From
-                                    Panel</span>
-                                <input type="number" id="marginFromPanel" class="dropdown-item-mini-text" value="20"
-                                    step="1" min="0" max="100">
-                            </a>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span data-i18n="help">Help</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="html/Shortcut/shortcut.html" target="_blank">
-                                <i class="material-icons">switch_access_shortcut</i>
-                                <span data-i18n="shortcutPage">Shortcut Page</span>
-                            </a>
-
-                            <a class="dropdown-item" href="html/functionList.html" target="_blank">
-                                <i class="material-icons">functions</i>
-                                <span data-i18n="functionList">Function List</span>
-                            </a>
-
-                            <a class="dropdown-item" href="html/Minual/custom-speechBubble.html" target="_blank">
-                                <i class="material-icons">reviews</i>
-                                <span>Custom Bubble</span>
-                            </a>
-                            <a class="dropdown-item" href="html/Minual/screen-tone.html" target="_blank">
-                                <i class="material-icons">blur_linear</i>
-                                <span>Screen Tone</span>
-                            </a>
-                            <a class="dropdown-item" href="html/Minual/effect.html" target="_blank">
-                                <i class="material-icons">filter_b_and_w</i>
-                                <span>Effect</span>
-                            </a>
-                        </ul>
-                    </li>
-                </ul>
-
-
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="language" data-i18n="language" data-step="1" data-intro="">Language</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a id="Intro_Tutorial" class="dropdown-item" href="#" target="_blank">
-                                <i class="material-icons">volunteer_activism</i>
-                                <span data-i18n="Tutorial">Tutorial</span>
-                            </a>
-
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('en', event)">
-                                <span class="flag-icon flag-icon-us"></span> <span data-i18n="english">English</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('ja', event)">
-                                <span class="flag-icon flag-icon-jp"></span>
-                                <span data-i18n="japanese">日本語</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('ko', event)">
-                                <span class="flag-icon flag-icon-kr"></span> <span data-i18n="korean">한국어</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('zh', event)">
-                                <span class="flag-icon flag-icon-cn"></span> <span data-i18n="chinese">中文</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('fr', event)">
-                                <span class="flag-icon flag-icon-fr"></span> <span data-i18n="french">Français</span>
-                            </a>
-
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('ru', event)">
-                                <span class="flag-icon flag-icon-ru"></span> <span data-i18n="russian">Русский</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('es', event)">
-                                <span class="flag-icon flag-icon-es"></span> <span data-i18n="spanish">Español</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('pt', event)">
-                                <span class="flag-icon flag-icon-pt"></span> <span
-                                    data-i18n="portuguese">Português</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('th', event)">
-                                <span class="flag-icon flag-icon-th"></span> <span data-i18n="thailand">Thailand</span>
-                            </a>
-                            <a class="dropdown-item" href="#" target="_blank" onclick="changeLanguage('de', event)">
-                                <span class="flag-icon flag-icon-de"></span> <span data-i18n="Germany">Germany</span>
-                            </a>
-
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="intro_links" data-i18n="links">Links</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="https://new-sankaku.github.io/SP-MangaEditer/"
-                                target="_blank">
-                                <i class="material-icons">emoji_people</i>
-                                <span>MANGA EDITOR DESU!(Web)</span>
-                            </a>
-                            <a class="dropdown-item" href="https://new-sankaku.github.io/ImageTagSearcher/"
-                                target="_blank">
-                                <i class="material-icons">emoji_people</i>
-                                <span>Danbooru Tag Check</span>
-                            </a>
-
-                            <a class="dropdown-item" href="https://new-sankaku.github.io/desu-lz4-viewer/"
-                            target="_blank">
-                            <i class="material-icons">emoji_people</i>
-                            <span>Project File Viewer</span>
-                        </a>
-
-                            
-
-                            <a class="dropdown-item" href="https://discord.gg/zuU96TqNUb" target="_blank">
-                                <i class="fab fa-discord"></i>
-                                <span data-i18n="discord">Discord</span>
-                            </a>
-                            <a class="dropdown-item"
-                                href="https://github.com/new-sankaku/stable-diffusion-webui-simple-manga-maker"
-                                target="_blank">
-                                <i class="fab fa-github"></i>
-                                <span data-i18n="github">GitHub</span>
-                            </a>
-
-                            <a class="dropdown-item" href="html/PrivacyPolicy/i18n-privacy-dark-complete.html" target="_blank">
-                                <i class="material-icons">verified_user</i>
-                                <span>Privacy Policy</span>
-                            </a>
-
-                            
-                            <a class="dropdown-item" href="html/TermsOfService/terms-of-service.html" target="_blank">
-                                <i class="material-icons">verified_user</i>
-                                <span data-i18n="terms_of_service">Terms of Service</span>
-                            </a>
-
-                            <label data-i18n="DevelopmentDonations"></label>
-                            <a class="dropdown-item"
-                                href="https://github.com/sponsors/new-sankaku"
-                                target="_blank">
-                                <i class="fab fa-github"></i>
-                                <span>GitHub Sponsors</span>
-                            </a>
-                            <a class="dropdown-item"
-                                href="https://sankaku-desu.booth.pm/items/6399546"
-                                target="_blank">
-                                <span>[Japan] Booth</span>
-                            </a>
-                            <a class="dropdown-item"
-                                href="https://note.com/vivid_walrus6061/n/n40e38122c45b?from=notice"
-                                target="_blank">
-                                <span>[Japan] Note</span>
-                            </a>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="intro_links" data-i18n="Share">Share</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" target="_blank" onclick="snsTweet()">
-                                <i class="fab fa-twitter"></i>
-                                <span>Twitter</span>
-                            </a>
-                        </ul>
-                    </li>
-                </ul>
-
-
-
-                <ul class="navbar-nav ms-auto d-flex align-items-center py-2">
-                    <li class="nav-item d-flex" >
-                     <button data-i18n="pwa_install" id="pwa-install-button" class="btn btn-outline-secondary me-2" style="margin-top: 5px; padding-top: 0px; padding-bottom: 0px; padding-left: 10px;padding-right: 10px;"></button>
-                    </li>
-                    <li class="nav-item d-flex align-items-center my-2 d-none">
-                     <i class="fas fa-sun"></i>
-                     <label class="toggle-switchTermaMode mx-2">
-                      <input type="checkbox" id="mode-toggle">
-                      <span class="slider">
-                       <span class="mode-icons">
-                       </span>
-                      </span>
-                     </label>
-                     <i class="fas fa-moon"></i>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Link html-loader.js -->
-        <div id="head-id" style="display: none; flex-grow: 1;">
-            <div id="sidebar">
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_svg-container-vertical" onclick="toggleVisibility('svg-container-vertical')">crop_portrait</i>
-                 <span class="icon-label" data-i18n="side-label-template-vertical" onclick="toggleVisibility('svg-container-vertical')">ひな形 縦</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_svg-container-landscape" onclick="toggleVisibility('svg-container-landscape')">crop_16_9</i>
-                 <span class="icon-label" data-i18n="side-label-template-landscape" onclick="toggleVisibility('svg-container-landscape')">ひな形 横</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_page-manager-area" onclick="toggleVisibility('panel-manager-area')">dashboard</i>
-                 <span class="icon-label" data-i18n="side-label-page-manager" onclick="toggleVisibility('panel-manager-area')">ページ管理</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_custom-panel-manager-area" onclick="toggleVisibility('custom-panel-manager-area')">dashboard_customize</i>
-                 <span class="icon-label" data-i18n="side-label-panel-manager" onclick="toggleVisibility('custom-panel-manager-area')">コマ管理</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_auto-generate-area" onclick="toggleVisibility('auto-generate-area')">smart_toy</i>
-                 <span class="icon-label" data-i18n="auto_generate" onclick="toggleVisibility('auto-generate-area')">自動生成</span>
-                </div>
-                <hr>
-
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_prompt-manager-area" onclick="toggleVisibility('prompt-manager-area')">assignment</i>
-                 <span class="icon-label" data-i18n="prompt" onclick="toggleVisibility('prompt-manager-area')">プロンプト</span>
-                 </div>
-                <hr>
-  
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_speech-bubble-area1" onclick="toggleVisibility('speech-bubble-area1')">chat_bubble</i>
-                 <span class="icon-label" data-i18n="side-label-template-bubble" onclick="toggleVisibility('speech-bubble-area1')">ひな形💭</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_speech-bubble-area2" onclick="toggleVisibility('speech-bubble-area2')">reviews</i>
-                 <span class="icon-label" data-i18n="side-label-free-bubble" onclick="toggleVisibility('speech-bubble-area2')">自由💭</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_text-area" onclick="toggleVisibility('text-area')">text_format</i>
-                 <span class="icon-label" data-i18n="side-label-text" onclick="toggleVisibility('text-area')">テキスト</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_text-area2" onclick="toggleVisibility('text-area2')">text_increase</i>
-                 <span class="icon-label" data-i18n="side-label-image-text" onclick="toggleVisibility('text-area2')">画像テキスト</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_tool-area" onclick="toggleVisibility('tool-area')">brush</i>
-                 <span class="icon-label" data-i18n="side-label-pen" onclick="toggleVisibility('tool-area')">ペン</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_manga-tone-area" onclick="toggleVisibility('manga-tone-area')">blur_linear</i>
-                 <span class="icon-label" data-i18n="side-label-tone" onclick="toggleVisibility('manga-tone-area')">トーン</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_manga-effect-area" onclick="toggleVisibility('manga-effect-area')">filter_b_and_w</i>
-                 <span class="icon-label" data-i18n="side-label-effect" onclick="toggleVisibility('manga-effect-area')">効果</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_rough-manager-area" onclick="toggleVisibility('rough-manager-area')">stairs</i>
-                 <span class="icon-label" data-i18n="side_label_rough" onclick="toggleVisibility('rough-manager-area')">ラフ</span>
-                </div>
-                <hr>
-
-
-                
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_controle-area" onclick="toggleVisibility('controle-area')">videogame_asset</i>
-                 <span class="icon-label" data-i18n="side-label-control" onclick="toggleVisibility('controle-area')">操作</span>
-                </div>
-                <hr>
-                <div class="icon-wrapper">
-                 <i class="material-icons" id="intro_shape-area" onclick="toggleVisibility('shape-area')">interests</i>
-                 <span class="icon-label" data-i18n="side-label-shape" onclick="toggleVisibility('shape-area')">図形</span>
-                </div>
-               </div>
-
-<!-- Category:Vertical -->
-            <div class="left_area" id="svg-container-vertical" style="display: none;">
-                <div class="area-header" data-i18n="panelsVertical">Panels</div>
-                <div id="svg-preview-area-vertical"></div>
-            </div>
-
-<!-- Category:Landscape -->
-            <div class="left_area" id="svg-container-landscape" style="display: none;">
-                <div class="area-header" data-i18n="panelsLandscape">Panels</div>
-                <div id="svg-preview-area-landscape"></div>
-            </div>
-
-<!-- Category:PageManager -->
-            <div class="left_area" id="panel-manager-area" style="display: none;">
-                <div class="area-header" data-i18n="pageManager">Page Manager</div>
-                <div id="panel-manager-items">
-                    <div class="input-group">
-                        <button id="knifeModeButton">
-                            <span data-i18n="knifeMode">Knife Mode: OFF</span>
-                        </button>
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="spaceSizeLabel">
-                        <input type="range" id="knifePanelSpaceSize" name="knifePanelSpaceSize" min="0" max="75" step="1" value="20">
-                    </div>
-
-                    <hr>
-
-                    <button id="A4-H">
-                        <i class="material-icons">crop_portrait</i>
-                        <span data-i18n="A4-H-Scale">A4 Scale Panel</span>
-                    </button>
-                    <button id="A4-V">
-                        <i class="material-icons">crop_landscape</i>
-                        <span data-i18n="A4-V-Scale">A4 Scale Panel</span>
-                    </button>
-                    <button id="B4-H">
-                        <i class="material-icons">crop_portrait</i>
-                        <span data-i18n="B4-H-Scale">B4 Scale Panel</span>
-                    </button>
-                    <button id="B4-V">
-                        <i class="material-icons">crop_landscape</i>
-                        <span data-i18n="B4-V-Scale">B4 Scale Panel</span>
-                    </button>
-                    <hr>
-                    <button id="insta">
-                        <i class="fab fa-instagram"></i>
-                        <span data-i18n="instagram">IG</span>
-                    </button>
-                    <button id="insta-story">
-                        <i class="fab fa-instagram"></i>
-                        <span data-i18n="instagram_story">IG Story</span>
-                    </button>
-                    <button id="insta-portrait">
-                        <i class="fab fa-instagram"></i>
-                        <span data-i18n="instagram_portrait">IG Port</span>
-                    </button>
-                    <hr>
-
-                    <button id="fb-page-cover">
-                        <i class="fab fa-facebook"></i>
-                        <span data-i18n="fb_page_cover">FB Page</span>
-                    </button>
-                    <button id="fb-event">
-                        <i class="fab fa-facebook"></i>
-                        <span data-i18n="fb_event">FB Event</span>
-                    </button>
-                    <button id="fb-group-header">
-                        <i class="fab fa-facebook"></i>
-                        <span data-i18n="fb_group_header">FB Group</span>
-                    </button>
-                    <hr>
-
-                    <button id="youtube-thumbnail">
-                        <i class="fab fa-youtube"></i>
-                        <span data-i18n="youtube_thumbnail">YT Thumb</span>
-                    </button>
-                    <button id="youtube-profile">
-                        <i class="fab fa-youtube"></i>
-                        <span data-i18n="youtube_profile">YT Prof</span>
-                    </button>
-                    <button id="youtube-cover">
-                        <i class="fab fa-youtube"></i>
-                        <span data-i18n="youtube_cover">YT Cover</span>
-                    </button>
-                    <hr>
-
-                    <button id="twitter-profile">
-                        <i class="fab fa-twitter"></i>
-                        <span data-i18n="twitter_profile">TW Prof</span>
-                    </button>
-                    <button id="twitter-header">
-                        <i class="fab fa-twitter"></i>
-                        <span data-i18n="twitter_header">TW Head</span>
-                    </button>
-                    <hr>
-                    <div class="input-group">
-                        <label for="customPanelSizeX" data-i18n="customPanelSizeX">Width</label>
-                        <input type="number" id="customPanelSizeX" name="customPanelSizeX" min="1" max="4096" step="1"
-                            value="1380">
-                    </div>
-                    <div class="input-group">
-                        <label for="customPanelSizeY" data-i18n="customPanelSizeY">Height</label>
-                        <input type="number" id="customPanelSizeY" name="customPanelSizeY" min="1" max="4096" step="1"
-                            value="4000">
-                    </div>
-                    <button id="CustomPanelButton">
-                        <i class="material-icons">crop_landscape</i>
-                        <span data-i18n="customPanel">Custom Size</span>
-                    </button>
-
-                </div>
-            </div>
-
-<!-- Category:PanelManager -->
-            <div class="left_area" id="custom-panel-manager-area" style="display: none;">
-                <div class="area-header" data-i18n="panelManager">Panel Manager</div>
-                <div id="custom-panel-manager-items">
-
-                    <div class="input-group">
-                        <label for="panelStrokeColor" data-i18n="line">Line:</label>
-                        <input id="panelStrokeColor" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)" oninput="changePanelStrokeColor(this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label for="panelFillColor" data-i18n="fill">Fill:</label>
-                        <input id="panelFillColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" oninput="changePanelStrokeColor(this.value)">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="lineWidth">
-                        <input type="range" id="panelStrokeWidth" name="panelStrokeWidth" min="0.1" max="10" step="0.1" value="2" oninput="changePanelStrokeWidth(this.value)">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="panelOpacity">
-                        <input type="range" id="panelOpacity" name="panelOpacity" min="0" max="100" step="1" value="100" oninput="changePanelOpacity(this.value)">
-                    </div>
-
-
-                    <button id="add" onclick="panelAllChange()"><i class="material-icons">border_all</i> <span
-                            data-i18n="all_change">All Change</span></button>
-                    <button id="edit" onclick="Edit()"><i class="material-icons">edit_square</i> <span
-                            data-i18n="editingMode">Editing Mode</span></button>
-
-                    <hr>
-                    <div class="input-group">
-                        <label data-i18n="accept_ratio">Accept Ratio</label>
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="width">
-                        <input type="range" id="ar_width" name="ar_width" min="1" max="1000" step="1" value="3">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="height">
-                        <input type="range" id="ar_height" name="ar_height" min="1" max="1000" step="1" value="4">
-                    </div>
-
-                    <button id="addRect" onclick="addArRect()">
-                        <i class="material-icons">aspect_ratio</i>
-                        <span data-i18n="ar_Rect">AR Rect</span>
-                    </button>
-                    <hr>
-                    <button id="addSquare" onclick="addSquare()">
-                        <i class="material-icons">add_box</i>
-                        <span data-i18n="square">Square</span>
-                    </button>
-                    <button id="addTallRect" onclick="addTallRect()">
-                        <i class="material-icons">vertical_split</i>
-                        <span data-i18n="tallRect">Tall Rectangle</span>
-                    </button>
-                    <button id="addWideRect" onclick="addWideRect()">
-                        <i class="material-icons">horizontal_split</i>
-                        <span data-i18n="wideRect">Wide Rectangle</span>
-                    </button>
-
-                    <button id="addTrapezoid" onclick="addTrapezoid()">
-                        <i class="material-icons">filter_none</i>
-                        <span data-i18n="trapezoid">Trapezoid</span>
-                    </button>
-                    <button id="addTallRightLeaningTrapezoid" onclick="addTallRightLeaningTrapezoid()">
-                        <i class="material-icons">filter_none</i>
-                        <span data-i18n="tallTrapezoid">Tall Trapezoid</span>
-                    </button>
-                    <button id="addRightSlantingTrapezoid" onclick="addRightSlantingTrapezoid()">
-                        <i class="material-icons">filter_none</i>
-                        <span data-i18n="wideTrapezoid">Wide Trapezoid</span>
-                    </button>
-                    <button id="addTallTrap" onclick="addTallTrap()">
-                        <i class="material-icons">filter_none</i>
-                        <span data-i18n="tallTrap">Tall Trapezoid</span>
-                    </button>
-                    <button id="addWideTrap" onclick="addWideTrap()">
-                        <i class="material-icons">filter_none</i>
-                        <span data-i18n="wideTrap">Wide Trapezoid</span>
-                    </button>
-
-                    <button id="addTriangle" onclick="addTriangle()">
-                        <i class="material-icons">change_history</i>
-                        <span data-i18n="triangle">Triangle</span>
-                    </button>
-                    <button id="addRhombus" onclick="addRhombus()">
-                        <i class="material-icons">diamond</i>
-                        <span data-i18n="rhombus">Rhombus</span>
-                    </button>
-                    <button id="addPentagon" onclick="addPentagon()">
-                        <i class="material-icons">pentagon</i>
-                        <span data-i18n="pentagon">Pentagon</span>
-                    </button>
-                    <button id="addHexagon" onclick="addHexagon()">
-                        <i class="material-icons">hexagon</i>
-                        <span data-i18n="hexagon">Hexagon</span>
-                    </button>
-
-                    <button id="addCircle" onclick="addCircle()">
-                        <i class="material-icons">radio_button_unchecked</i>
-                        <span data-i18n="circle">Circle</span>
-                    </button>
-                    <button id="addEllipse" onclick="addEllipse()">
-                        <i class="material-icons">panorama_fish_eye</i>
-                        <span data-i18n="ellipse">Ellipse</span>
-                    </button>
-                    <button id="addOctagon" onclick="addOctagon()">
-                        <i class="material-icons">report</i>
-                        <span data-i18n="octagon">Octagon</span>
-                    </button>
-                    <button id="addStar" onclick="addStar()">
-                        <i class="material-icons">star</i>
-                        <span data-i18n="star">Star</span>
-                    </button>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Category:PromptManager -->
-            <div class="left_area" id="auto-generate-area" style="display: none;">
-                <div class="area-header" data-i18n="auto_generate">Auto Generate</div>
-                <div id="prompt-manager-items">
-                    <div class="input-group">
-                        <button id="panelRandamCutButton">
-                            <span data-i18n="panelRandamCut">Randam Cut</span>
-                        </button>
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="verticalRandomPanelCount">
-                        <input type="range" id="verticalRandomPanelCount" name="verticalRandomPanelCount" min="0" max="5" step="1" value="2">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="horizontalRandamPanelCount">
-                        <input type="range" id="horizontalRandamPanelCount" name="horizontalRandamPanelCount" min="0" max="5" step="1" value="3">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="tiltRandam">
-                        <input type="range" id="tiltRandam" name="tiltRandam" min="0" max="50" step="1" value="6">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="cutChangeRate">
-                        <input type="range" id="cutChangeRate" name="cutChangeRate" min="0" max="45" step="1" value="10">
-                    </div>
-
-                    <hr>
-                    <div class="input-group">
-                        <button id="multiPageGenerate">
-                            <span data-i18n="multiPageGenerate">Multi Page Generate</span>
-                        </button>
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="pageCount">
-                        <input type="range" id="pageCount" name="pageCount" min="2" max="50" step="1" value="18">
-                    </div>
-                    <div class="input-group-multi" data-group="multiPageType">
-                        <label>A4</label>
-                        <button id="mA4HButton" data-value="mA4H" onclick="changeSelected(this)" class="selected" >
-                            <i class="material-icons">crop_portrait</i>
-                        </button>
-                        <button id="mA4VButton" data-value="mA4V" onclick="changeSelected(this)">
-                            <i class="material-icons">crop_landscape</i>
-                        </button>
-                        <label>B4</label>
-                        <button id="mB4HButton" data-value="mB4H" onclick="changeSelected(this)">
-                            <i class="material-icons">crop_portrait</i>
-                        </button>
-                        <button id="mB4VButton" data-value="mB4V" onclick="changeSelected(this)">
-                            <i class="material-icons">crop_landscape</i>
-                        </button>
-                    </div>
-
-
-                    <hr>
-                    <div class="input-group">
-                        <label data-i18n="scenario"></label>
-                    </div>
-                    <div class="input-group">
-                        <select id="ScenarioPromptSelecter"></select>
-                    </div>
-
-                    <button id="" onclick="autoMultiPromptSet()">
-                        <i class="material-icons">generating_tokens</i>
-                        <span data-i18n="promptMultiAutoGenerate">Multi Prompt Generate</span>
-                    </button>
-                    <hr>
-
-                    <div class="input-container-leftSpace" data-i18n-label="onePanelGenerateNumber">
-                        <input type="range" id="onePanelGenerateNumber" name="onePanelGenerateNumber" min="1" max="10" step="1" value="1">
-                    </div>
-
-                    <button id="" onclick="autoMultiGenerate()">
-                        <i class="material-icons">all_inbox</i>
-                        <span data-i18n="pageMultiAutoGenerate">Multi Page Generate</span>
-                    </button>
-                    <hr>
-                </div>
-            </div>
-
-
-
-<!-- Category:PromptManager -->
-<div class="left_area" id="prompt-manager-area" style="display: none;">
-    <div class="area-header" data-i18n="prompt"></div>
-    <div id="prompt-manager-items">
-     <div class="input-group">
-      <button onclick="createImagePromptHelperFlotingWindow()">
-       <span data-i18n="prompt_gallery">Prompt Gallery</span>
-      </button>
-     </div>
-    </div>
-   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Category:SpeechBubble -->
-            <div class="left_area" id="speech-bubble-area1" style="display: none;">
-                <div class="area-header" data-i18n="bubble">Bubble</div>
-                <div id="speech-bubble-svg-preview-area1">
-                    <div class="input-group">
-                        <label data-i18n="line">Line</label>
-                        <input id="bubbleStrokeColor" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)" oninput="changeSpeechBubble()">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="background">Background</label>
-                        <input id="bubbleFillColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)"  oninput="changeSpeechBubble()">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="opacity">
-                        <input type="range" id="speechBubbleOpacity" name="speechBubbleOpacity" min="0" max="100" step="1" value="100" oninput="changeSpeechBubble()">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_line_width">
-                        <input type="range" id="bubbleStrokewidht" name="stroke" min="0" max="40" step="0.1" value="4.0" oninput="changeSpeechBubble()">
-                    </div>
-
-                    <div class="input-group-multi" data-group="sbTextGroup">
-                        <button id="sbNothingText" onclick="sbTextChange('Nothing', this)" data-value="Nothing">
-                            <i class="material-icons">do_not_disturb</i>
-                            <i class="material-icons">text_fields</i>
-                        </button>
-                        <button id="sbHorizontalText" onclick="sbTextChange('Horizontal', this)" class="selected" data-value="Horizontal">
-                            <i class="material-icons">east</i>
-                            <i class="material-icons">text_fields</i>
-                        </button>
-                        <button id="sbVerticalText" onclick="sbTextChange('Vertical', this)" data-value="Vertical">
-                            <i class="material-icons">south</i>
-                            <i class="material-icons">text_fields</i>
-                        </button>
-                    </div>
-
-                    <label style="display: none;">Line Size</label>
-                    <input style="display: none;" type="range" id="speechBubbleLineSizeSlider" min="1" max="10" value="3">
-                    <hr>
-                </div>
-                <div id="speech-bubble-preview">
-
-                </div>
-            </div>
-
-<!-- Category:CustomSpeechBubble -->
-            <div class="left_area" id="speech-bubble-area2" style="display: none;">
-                <div class="area-header">
-                    <a href="html/Minual/custom-speechBubble.html" target="_blank" data-i18n="custom_bubble">
-                        Custom Bubble (Help)
-                    </a>
-                </div>
-                <div id="speech-bubble-svg-preview-area1">
-                    <div class="input-group">
-                        <button id="sbSelectButton" data-i18n="sbSelectmode">Select Mode</button>
-                        <button id="sbPointButton" data-i18n="sbPointMode">Point Mode</button>
-                        <button id="sbFreehandButton" data-i18n="sbFreehandMode">Free Hand</button>
-                        <button id="sbMoveButton" data-i18n="sbMoveMode">Move Point</button>
-                        <button id="sbDeleteButton" data-i18n="sbDeleteMode">Delete Point</button>
-                    </div>
-                    <hr>
-                    <div class="input-group">
-                        <label for="sbStrokeColor" data-i18n="line">Line</label>
-                        <input id="sbStrokeColor" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)" oninput="changePanelStrokeColor(this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label for="sbFillColor" data-i18n="fill">Fill</label>
-                        <input id="sbFillColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" oninput="changePanelStrokeColor(this.value)">
-
-                    </div>                    
-                    <div class="input-group">
-                        <label for="sbSmoothing" data-i18n="smooth">Smooth</label>
-                        <input type="checkbox" id="sbSmoothing" checked>
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="lineWidth">
-                        <input type="range" id="sbStrokeWidth" min="1" max="20" value="1" step="0.1">
-                    </div>
-                    
-                    <div class="input-container-leftSpace" data-i18n-label="pointSpace">
-                        <input type="range" id="sbPointSpace" min="0" max="100" value="4">
-                    </div>
-                    
-                    <div class="input-container-leftSpace" data-i18n-label="panelOpacity">
-                        <input type="range" id="sbFillOpacity" min="0" max="100" value="100">
-                    </div>
-
-
-                    <div class="input-container-leftSpace" data-i18n-label="cornerRadius">
-                        <input type="range" id="sbSornerRadius" min="0" max="15" value="0">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="panelOpacity">
-                        <input type="range" id="sbFillOpacity" min="0" max="100" value="100">
-                    </div>
-
-                    <hr>
-                    <button id="sb_aButton" onclick="switchSBLine('sb_a')">
-                        <img src="03_images/preset/line/a.png">
-                    </button>
-                    <button id="sb_bButton" onclick="switchSBLine('sb_b')">
-                        <img src="03_images/preset/line/b.png">
-                    </button>
-                    <button id="sb_cButton" onclick="switchSBLine('sb_c')">
-                        <img src="03_images/preset/line/c.png">
-                    </button>
-                    <button id="sb_dButton" onclick="switchSBLine('sb_d')">
-                        <img src="03_images/preset/line/d.png">
-                    </button>
-                    <button id="sb_eButton" onclick="switchSBLine('sb_e')">
-                        <img src="03_images/preset/line/e.png">
-                    </button>
-                    <button id="sb_fButton" onclick="switchSBLine('sb_f')">
-                        <img src="03_images/preset/line/f.png">
-                    </button>
-                    <button id="sb_gButton" onclick="switchSBLine('sb_g')">
-                        <img src="03_images/preset/line/g.png">
-                    </button>
-                </div>
-            </div>
-
-            <div class="left_area" id="text-area" style="display: none;">
-                <div class="area-header" data-i18n="text">Text</div>
-                <div id="text-preview-area">
-
-
-                    <div class="input-group">
-                        <button onclick="fontManager.openUserFontManager()" data-i18n="add_font">add font</button>
-                    </div>
-                    <hr>
-
-                    <div class="input-group">
-                        <div id="fontSelector"></div>
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="textColor">Text</label>
-                        <input id="textColorPicker" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)" oninput="changeTextColor(this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="outlineColor">Outline</label>
-                        <input id="textOutlineColorPicker" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" oninput="changeOutlineTextColor(this.value)">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="fontSize">
-                        <input type="range" id="fontSizeSlider" min="7" max="150" value="14" oninput="changeFontSize(this.value)">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="outlineSize">
-                        <input type="range" id="fontStrokeWidthSlider" min="0" max="5" step="1" value="0" oninput="changeStrokeWidthSize(this.value)">
-                    </div>
-
-                    <div class="input-group-multi" data-group="align_group">
-                        <button id="align-left" data-value="left" class="selected" onclick="alignText('left', this)">
-                            <i class="material-icons">format_align_left</i>
-                        </button>
-                        <button id="align-center" data-value="center" onclick="alignText('center', this)">
-                            <i class="material-icons">format_align_center</i>
-                        </button>
-                        <button id="align-right" data-value="right" onclick="alignText('right', this)">
-                            <i class="material-icons">format_align_right</i>
-                        </button>
-                    </div>
-                    <hr>
-                    <button onclick="createTextbox()">
-                        <i class="material-icons">text_fields</i>
-                        <i class="material-icons">east</i>
-                        <span data-i18n="HorizontalText"></span>
-                    </button>
-                    <button id="verticalText">
-                        <i class="material-icons">text_fields</i>
-                        <i class="material-icons">south</i>
-                        <span data-i18n="VerticalText"></span>
-                    </button>
-                    <button onclick="toggleBold()">
-                        <i class="material-icons">format_bold</i>
-                        <span data-i18n="bold">Bold</span>
-                    </button>
-                    <hr>
-                    <label data-i18n="effects">Effects</label>
-                    <div class="input-group">
-                        <label data-i18n="firstColor">First Color:</label>
-                        <input id="firstTextEffectColorPicker" class="jscolor-color-picker" data-initial-color="rgba(0,255,0,1)"  oninput="changeNeonColor(this.value)">
-
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="secondColor">Second Color:</label>
-                        <input id="secondTextEffectColorPicker" class="jscolor-color-picker" data-initial-color="rgba(0,0,255,1)"  oninput="changeNeonColor(this.value)">
-                        </div>
-                    <hr>
-                    <button onclick="applyCSSTextEffect()">
-                        <i class="material-icons">deblur</i>
-                        <span data-i18n="shadow">Shadow</span>
-                    </button>
-                    <button onclick="applyVividGradientEffect()">
-                        <i class="material-icons">filter</i>
-                        <span data-i18n="vividGradient">Vivid Gradient</span>
-                    </button>
-                    <button onclick="applyNeonEffect()">
-                        <i class="material-icons">flare</i>
-                        <span data-i18n="neon">Neon</span>
-                    </button>
-                </div>
-            </div>
-
-
-            <div class="left_area" id="text-area2" style="display: none;">
-                <div class="area-header" data-i18n="image_text">
-                    <a href="html/Minual/custom-text.html" target="_blank">
-                        Custom Text(Help)
-                    </a>
-                </div>
-
-                <div id="tool-buttons">
-                    <div id="text-preview-area2">
-                        <button id="shadowButton" onclick="switchText2('shadow')">
-                            <span data-i18n="shadow">Shadow</span>
-                            <img src="03_images/preset/text/t2_shadow.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="wildButton" onclick="switchText2('wild')">
-                            <span data-i18n="wild">wild</span>
-                            <img src="03_images/preset/text/t2_wild.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="scratchButton" onclick="switchText2('scratch')">
-                            <span data-i18n="scratch">scratch</span>
-                            <img src="03_images/preset/text/t2_scratch.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="brokenButton" onclick="switchText2('broken')">
-                            <span data-i18n="broken">broken</span>
-                            <img src="03_images/preset/text/t2_broken.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="cloudButton" onclick="switchText2('cloud')">
-                            <span data-i18n="cloud">cloud</span>
-                            <img src="03_images/preset/text/t2_cloud.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="layeredButton" onclick="switchText2('layered')">
-                            <span data-i18n="layered">layered</span>
-                            <img src="03_images/preset/text/t2_layered.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="meshButton" onclick="switchText2('mesh')">
-                            <span data-i18n="mesh">mesh</span>
-                            <img src="03_images/preset/text/t2_mesh.webp" style="width: 100%;">
-                        </button>
-                    </div>
-
-                    <div id="text-preview-area2">
-                        <button id="thrillButton" onclick="switchText2('thrill')">
-                            <span data-i18n="thrill">thrill</span>
-                            <img src="03_images/preset/text/t2_thrill.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                    <div id="text-preview-area2">
-                        <button id="zebraButton" onclick="switchText2('zebra')">
-                            <span data-i18n="zebra">zebra</span>
-                            <img src="03_images/preset/text/t2_zebra.webp" style="width: 100%;">
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div id="text-area2-settings"></div>
-            </div>
-
-
-
-
-
-            <div class="left_area" id="manga-effect-area">
-                <div class="area-header">
-                    <a href="html/Minual/effect.html" target="_blank">
-                        Fast Effect (Help)
-                    </a>
-                </div>
-                <div id="manga-effect-buttons">
-
-                    <button id="Color2BlackWhiteLightButton" onclick="switchMangaEffect('Color2BlackWhiteLight')">
-                        <span data-i18n="Color2BlackWhiteLight">Color2BlackWhiteLight</span>
-                        <img src="03_images/preset/effect/color2monoLight.webp" style="width: 100%;">
-                    </button>
-                    <button id="Color2BlackWhiteDarkButton" onclick="switchMangaEffect('Color2BlackWhiteDark')">
-                        <span data-i18n="Color2BlackWhiteDark">Color2BlackWhiteDark</span>
-                        <img src="03_images/preset/effect/color2monoDark.webp" style="width: 100%;">
-                    </button>
-                    <button id="Color2BlackWhiteNoDotButton" onclick="switchMangaEffect('Color2BlackWhiteRough')">
-                        <span data-i18n="Color2BlackWhiteRough">Color2BlackWhiteRough</span>
-                        <img src="03_images/preset/effect/color2monoRough.webp" style="width: 100%;">
-                    </button>
-                    <button id="Color2BlackWhiteNoDotButton" onclick="switchMangaEffect('Color2BlackWhiteSimple')">
-                        <span data-i18n="Color2BlackWhiteSimple">Color2BlackWhiteSimple</span>
-                        <img src="03_images/preset/effect/color2monoSimple.webp" style="width: 100%;">
-                    </button>
-
-                    <button id="Color2BlackLightColorButton" onclick="switchMangaEffect('Color2BlackLightColor')">
-                        <span data-i18n="Color2BlackLightColor">Color2BlackLightColor</span>
-                        <img src="03_images/preset/effect/Color2BlackLightColor.webp" style="width: 100%;">
-                    </button>
-
-
-                    <button id="EnhanceDarkButton" onclick="switchMangaEffect('EnhanceDark')">
-                        <span data-i18n="EnhanceDark">EnhanceDark</span>
-                        <img src="03_images/preset/effect/enhanceDark.webp" style="width: 100%;">
-                    </button>
-
-
-                    <button id="blendButton" onclick="switchMangaEffect('EffectBlend')">
-                        <span data-i18n="25blends"></span>
-                        <img src="03_images/preset/effect/25_blend.webp" style="width: 100%;">
-                    </button>
-                    <button id="EffectGlowButton" onclick="switchMangaEffect('EffectGlow')">
-                        <span data-i18n="Glow"></span>
-                        <img src="03_images/preset/effect/glow.webp" style="width: 100%;">
-                    </button>
-                    <button id="EffectGLFXButton" onclick="switchMangaEffect('EffectGLFX')">
-                        <span data-i18n="GLFX"></span>
-                        <img src="03_images/preset/effect/glfx.webp" style="width: 100%;">
-                    </button>
-                </div>
-                <hr>
-                <div id="manga-effect-settings"></div>
-            </div>
-
-
-
-
-<!-- Category:PromptManager -->
-<div class="left_area" id="rough-manager-area" style="display: none;">
-    <div class="area-header" data-i18n="Rough"></div>
-    <div id="prompt-manager-items">
-
-        <button id="toggle-rough" data-i18n="rough_on">ラフ化ON/OFF</button>
-
-        <div class="param-group" style="border-left:3px solid #FF9800;">
-            <div style="font-weight:bold;margin-bottom:5px;color:#FF9800;font-size:12px;" data-i18n="fill_style"></div>
-            <div class="input-group">
-                <label data-i18n="fillStyle"></label>
-            </div>
-            <div class="input-group">
-                <select id="fillStyle">
-                    <option value="cross-hatch">cross-hatch</option>
-                    <option value="hachure">hachure</option>
-                    <option value="solid">solid</option>
-                    <option value="zigzag">zigzag</option>
-                    <option value="dots">dots</option>
-                    <option value="dashed">dashed</option>
-                    <option value="zigzag-line">zigzag-line</option>
-                </select>
-            </div>
-
-
-            <div style="margin-bottom:5px;">
-             <label for="fillColor" data-i18n="fill" 
-                    style="display:block;margin-bottom:2px;font-size:12px;">
-                    fillColor:
-             </label>
-             <input id="fillColor" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)"/>
-            </div>
-
-            <div class="input-container-leftSpace" data-i18n-label="fillWeight">
-                <input type="range" id="fillWeight"  min="0" max="5" step="0.1" value="1">
-            </div>
-        </div>
-           
-        <div class="param-group" style="border-left:3px solid #2196F3;">
-            <div style="font-weight:bold;margin-bottom:5px;color:#2196F3;font-size:12px;" data-i18n="rough_style"></div>
- 
-            <div class="input-container-leftSpace" data-i18n-label="roughness">
-                <input type="range" id="roughness" min="0" max="10" step="0.1" value="0.4" >
-            </div>
-            <div class="input-container-leftSpace" data-i18n-label="bowing">
-                <input type="range" id="bowing" min="0" max="10" step="0.1" value="1" >
-            </div>
-            <div class="input-container-leftSpace" data-i18n-label="strokeWidth">
-                <input type="range" id="strokeWidth" min="0.1" max="10" step="0.1" value="0.5">
-            </div>
-
-            <div style="margin-bottom:5px;">
-             <label for="strokeColor" data-i18n="strokeColor" style="display:block;margin-bottom:2px;font-size:12px;">strokeColor:</label>
-             <input id="strokeColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" >
-
-            </div>
-            <div style="display:none">
-             <input type="number" id="seed" min="1" max="10000" value="1">
-            </div>
-
-            <div class="input-group" style="display: none;">
-                <label>
-                    <input type="checkbox" id="disableMultiStroke" checked>
-                    Multi
-                </label>
-            </div>
-
-        </div>
-           
-        <div id="hachureParams" class="param-group" style="border-left:3px solid #9C27B0;">
-            <div style="font-weight:bold;margin-bottom:5px;color:#9C27B0;font-size:12px;" data-i18n="rough_hachure"></div>
-
-            <div class="input-container-leftSpace" data-i18n-label="hachureAngle">
-                <input type="range" id="hachureAngle" min="-180" max="180" step="1" value="-41">
-            </div>
-            <div class="input-container-leftSpace" data-i18n-label="hachureGap">
-                <input type="range" id="hachureGap" min="0" max="20" step="0.1" value="0.8" >
-            </div>
-            
-            <div class="input-group" style="display: none;">
-                <label>
-                    <input type="checkbox" id="disableMultiStrokeFill" checked>
-                    MultiFill
-                </label>
-            </div>
-
-        </div>
-           
-        <div class="param-group" style="border-left:3px solid #795548;">
-            <div style="font-weight:bold;margin-bottom:5px;color:#795548;font-size:12px;" data-i18n="rough_curve"></div>
-
-            <div class="input-container-leftSpace" data-i18n-label="curveStepCount">
-                <input type="range" id="curveStepCount" min="1" max="20" value="9" >
-            </div>
-            <div class="input-container-leftSpace" data-i18n-label="curveFitting">
-                <input type="range" id="curveFitting" min="0" max="1" step="0.01" value="0.95" >
-            </div>
-            <div class="input-container-leftSpace" data-i18n-label="simplification">
-                <input type="range" id="simplification" min="0" max="1" step="0.01" value="0">
-            </div>
-        </div>
-
-    </div>
+<div id="easter-egg">
+  <h2>秘密の漫画エディター！</h2>
+  <img src="03_images/00086-402120379.png" alt="隠し画像">
 </div>
 
-
-
-
-
-
-            <div class="left_area" id="tool-area" style="display: none;">
-                <div class="area-header" data-i18n="tools">Tools</div>
-                <div id="tool-buttons">
-                    <button id="MarkerButton" onclick="switchPencilType('Marker')">
-                        <span data-i18n="Marker">Marker</span>
-                        <img src="03_images/preset/brush/Marker.webp" alt="Marker Icon" style="width: 100%;">
-                    </button>
-                    <button id="InkButton" onclick="switchPencilType('Ink')">
-                        <span data-i18n="ink">Ink</span>
-                        <img src="03_images/preset/brush/Ink.webp" alt="Ink Icon" style="width: 100%;">
-                    </button>
-                    <button id="CrayonButton" onclick="switchPencilType('Crayon')">
-                        <span data-i18n="crayon">Crayon</span>
-                        <img src="03_images/preset/brush/Crayon.webp" alt="Crayon Icon" style="width: 100%;">
-                    </button>
-                    <button id="PencilButton" onclick="switchPencilType('Pencil')">
-                        <span data-i18n="Pencil">Pencil</span>
-                        <img src="03_images/preset/brush/Pencil.webp" alt="Pencil Icon" style="width: 100%;">
-                    </button>
-                    <!-- <button id="OutlinePenButton" onclick="switchPencilType('OutlinePen')">
-                        <span data-i18n="OutlinePen">OutlinePen</span>
-                        <img src="03_images/preset/brush/OutlinePen.webp" alt="OutlinePen Icon" style="width: 100%;">
-                    </button> -->
-                    <button id="CircleButton" onclick="switchPencilType('Circle')">
-                        <span data-i18n="Circle">Circle</span>
-                        <img src="03_images/preset/brush/Circle.webp" alt="Circle Icon" style="width: 100%;">
-                    </button>
-
-                    <button id="MosaicButton" onclick="switchPencilType('Mosaic')">
-                        <span data-i18n="Mosaic">Mosaic</span>
-                        <img src="03_images/preset/brush/Mosaic1.webp" alt="Mosaic Icon" style="width: 100%;">
-                    </button>
-                    <button id="EraserButton" onclick="switchPencilType('Eraser')">
-                        <span data-i18n="Eraser">Eraser</span>
-                        <img src="03_images/preset/brush/Eraser.webp" alt="Mosaic Icon" style="width: 100%;">
-                    </button>
-
-                </div>
-                <hr>
-                <div id="tool-settings"></div>
-            </div>
-
-
-
-
-
-            <div class="left_area" id="manga-tone-area">
-                <div class="area-header">
-                    <a href="html/Minual/screen-tone.html" target="_blank">
-                        Screen Tone (Help)
-                    </a>
-                </div>
-                <div id="manga-tone-buttons">
-                    <button id="ToneButton" onclick="switchMangaTone('Tone')">
-                        <span data-i18n="Tone">Tone</span>
-                        <img src="03_images/preset/tone/Tone.webp" style="width: 100%;">
-                    </button>
-                    <button id="ToneNoiseButton" onclick="switchMangaTone('ToneNoise')">
-                        <span data-i18n="ToneNoise">Noise Tone</span>
-                        <img src="03_images/preset/tone/ToneNoise.webp" style="width: 100%;">
-                    </button>
-                    <button id="ToneSnowButton" onclick="switchMangaTone('ToneSnow')">
-                        <span data-i18n="ToneSnow">Snow Tone</span>
-                        <img src="03_images/preset/tone/ToneSnow.webp" style="width: 100%;">
-                    </button>
-                    <button id="SpeedLineButton" onclick="switchMangaTone('SpeedLine')">
-                        <span data-i18n="SpeedLine">Speed Line</span>
-                        <img src="03_images/preset/tone/SpeedLine.webp" style="width: 100%;">
-                    </button>
-                    <button id="FocusingLineButton" onclick="switchMangaTone('FocusingLine')">
-                        <span data-i18n="FocusingLine">Focusing Line</span>
-                        <img src="03_images/preset/tone/FocusingLine.webp" style="width: 100%;">
-                    </button>
-                </div>
-                <hr>
-                <div id="manga-tone-settings"></div>
-            </div>
-
-
-
-
-            <div class="left_area" id="controle-area" style="display: none;">
-                <div class="area-header" data-i18n="Controle">Controle</div>
-                <div id="controle-preview-area">
-                    <div class="input-group">
-                        <label>
-                            <input type="checkbox" id="InfomationFPS" checked>
-                            FPS :0
-                        </label>
-                    </div>
-                    <div class="input-group">
-                        <label>
-                            <input type="checkbox" id="InfomationCoordinate" checked>
-                            X:0.0 Y:0.0
-                        </label>
-                    </div>
-
-                    <hr>
-
-                    <div class="input-container-leftSpace" data-i18n-label="angle">
-                        <input type="range" id="angle-control" min="0" max="360" value="0">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="scale">
-                        <input type="range" id="scale-control" min="0.01" max="10.0" step="0.01" value="1.00">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="top">
-                        <input type="range" id="top-control" min="-300" max="600" value="100">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="left">
-                        <input type="range" id="left-control" min="-300" max="600" value="100">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="skewX">
-                        <input type="range" id="skewX-control" min="-60" max="60" value="0">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="skewY">
-                        <input type="range" id="skewY-control" min="-60" max="60" value="0">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="opacity">
-                        <input type="range" id="opacity-control" min="0" max="100" step="0.1" value="100">
-                    </div>
-                    <hr>
-
-                    <div class="input-group-multi">
-                        <button onclick="flipHorizontally()">
-                            <i class="material-icons">swap_horiz</i> 
-                        </button>
-                        <button onclick="flipVertically()">
-                            <i class="material-icons">swap_vert</i> 
-                        </button>
-                        <button style="visibility: hidden;">
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-
-            <div class="left_area" id="shape-area" style="display: none;">
-                <div class="area-header" data-i18n="shape">Shape</div>
-                <div id="shape-preview-area">
-                    <div class="input-group">
-                        <input type="text" id="svg_icon_searchInput" placeholder="Enter icon name"
-                            data-i18n="svg_icon_search_placeholder"
-                            onkeydown="if (event.key === 'Enter') searchIcon();">
-                        <button onclick="searchIcon()" data-i18n="svg_icon_search_button">Search</button>
-                    </div>
-                    <hr>
-                    <div class="input-group">
-                        <label for="svg_icon_iconStyle" data-i18n="svg_icon_icon_style">Style</label>
-                        <select id="svg_icon_iconStyle" onchange="searchInitialIcons()">
-                            <option value="filled" data-i18n="svg_icon_filled">Filled</option>
-                            <option value="outlined" data-i18n="svg_icon_outlined">Outlined</option>
-                            <option value="rounded" data-i18n="svg_icon_rounded">Rounded</option>
-                            <option value="twotone" data-i18n="svg_icon_twotone">Two-tone</option>
-                        </select>
-                    </div>
-
-
-                    <div class="input-group">
-                        <label for="svg_icon_lineColor" data-i18n="svg_icon_line_color">Line</label>
-                        <input id="svg_icon_lineColor" class="jscolor-color-picker" data-initial-color="rgba(0,0,0,1)"  oninput="updateSVGStyles()">
-                    </div>
-                    <div class="input-group">
-                        <label for="svg_icon_fillColor" data-i18n="svg_icon_fill_color">Fill</label>
-                        <input id="svg_icon_fillColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" oninput="updateSVGStyles()">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_line_width">
-                        <input type="range" id="svg_icon_lineWidth" min="0" max="5" step="1" value="1" oninput="updateSVGStyles()">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_fill_opacity">
-                        <input type="range" id="svg_icon_fillOpacity" min="0" max="1" step="0.1" value="1" oninput="updateSVGStyles()">
-                    </div>
-
-                    <hr>
-                    <label>Shadow</label>
-                    <div class="input-group">
-                        <label for="svg_icon_shadowColor" data-i18n="svg_icon_shadow_color">Color</label>
-                        <input id="svg_icon_shadowColor" class="jscolor-color-picker" data-initial-color="rgba(255,255,255,1)" oninput="updateSVGStyles(this.value)">
-                    </div>
-
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_shadow_blur">
-                        <input type="range" id="svg_icon_shadowBlur" min="0" max="100" step="0.1" value="3" oninput="updateSVGStyles()">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_shadow_offset_x">
-                        <input type="range" id="svg_icon_shadowOffsetX" min="-20" max="20" step="1" value="0" oninput="updateSVGStyles()">
-                    </div>
-                    <div class="input-container-leftSpace" data-i18n-label="svg_icon_shadow_offset_y">
-                        <input type="range" id="svg_icon_shadowOffsetY" min="-20" max="20" step="1" value="0" oninput="updateSVGStyles()">
-                    </div>
-
-                    <hr>
-                    <div id="svg_icon_results"></div>
-                    <hr>
-                    <a
-                        href="https://fonts.google.com/icons?icon.size=24&icon.color=%235f6368&icon.query=Loading&icon.set=Material+Icons&icon.style=Filled">Google
-                        Icon</a>
-                    <hr>
-                    <button id="addTv" onclick="addTv()">
-                        <i class="material-icons">tv</i>
-                        <span data-i18n="tv">tv</span>
-                    </button>
-                    <button id="addRefinedRazerKishiController" onclick="addRefinedRazerKishiController()">
-                        <i class="material-icons">videogame_asset</i>
-                        <span data-i18n="videogame_asset">videogame_asset</span>
-                    </button>
-
-                </div>
-            </div>
-
-
-
-            <div id="canvas-area">
-                <div class="area-header">
-
-
-                    <button id="inputImageFile" onclick="inputImageFile()">
-                        <span class="material-symbols-outlined">image</span>
-                        <input type="file" id="imageInput" multiple style="display: none;" accept="image/*">
-                        <label data-i18n="インポート" style="margin: 0px; ">
-                            Import
-                        </label>
-                    </button>
-
-                    <button id="cropMode">
-                        <i class="material-icons">crop_free</i>
-                        <label data-i18n="cropButton" style="margin: 0px; ">
-                            切り抜き
-                        </label>
-                    </button>
-                    <button id="crop" anim="glow" class="toggled">
-                        <i class="material-icons">crop</i>
-                        <label data-i18n="cropButton" style="margin: 0px; ">
-                            切り抜き
-                        </label>
-                    </button>
-
-
-                    <button id="clearMode" onclick="operationModeClear()">
-                        <span class="material-symbols-outlined">cancel_presentation</span>
-                        <label data-i18n="モード解除" style="margin: 0px; ">
-                            モード解除
-                        </label>
-                    </button>
-
-                    <label data-i18n="view_Layer" style="margin-top: 0px; margin-bottom: 0px;">
-                        Layer
-                    </label>
-                    <input type="checkbox" id="view_layers_checkbox" checked
-                        style="margin-top: 0px; margin-bottom: 0px;">
-
-                    <label data-i18n="view_AI" style="margin-top: 0px; margin-bottom: 0px;">
-                        AI
-                    </label>
-                    <input type="checkbox" id="view_controles_checkbox" checked
-                        style="margin-top: 0px; margin-bottom: 0px;">
-
-                    <button id="zoomIn" onclick="zoomIn()">
-                        <span class="material-symbols-outlined">zoom_in</span>
-                    </button>
-                    <button id="zoomOut" onclick="zoomOut()">
-                        <span class="material-symbols-outlined">zoom_out</span>
-                    </button>
-                    <button id="zoomFit" onclick="zoomFit()">
-                        <span class="material-symbols-outlined">1x_mobiledata_badge</span>
-                    </button>
-                </div>
-
-                <div id="intro_content" class="content">
-                    <div class="resizable-container" id="resizable-container">
-                        <div class="canvas-container" id="canvas-container">
-                            <canvas id="mangaImageCanvas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="layer-panel">
-                <div class="area-header" >
-                        <button onclick="LayersUp()"><i class="material-icons">arrow_upward</i></button>
-                        <button onclick="LayersDown()"><i class="material-icons">arrow_downward</i></button>
-                        <button id="undo" onclick="undo()"><i class="material-icons">undo</i></button>
-                        <button id="redo" onclick="redo()"><i class="material-icons">redo</i></button>
-                        <label data-i18n="layers">
-                            Layers
-                        </label>
-                </div>
-                <div id="layer-content"></div>
-
-                <div id="canvas-buttons">
-    
-                    <div id="layer-buttons">
-                        <button onclick="AllRun()">
-                            <i class="material-icons">collections</i>
-                            <span data-i18n="T2I_AllRun">All Run</span>
-                        </button>
-                        <button onclick="View()">
-                            <i class="material-icons">document_scanner</i>
-                            <span data-i18n="promptView">View</span>
-                        </button>
-                    </div>                    
-                </div>
-            </div>
-
-
-            <div id="controls">
-
-                <div class="panel" id="esApiControlsPanel">
-                    <div class="area-header" data-i18n="esApiControls" onclick='changeHiddenById("esApi-controls-mini", "esApiControls", "esApiControlsByClose")'>
-                    </div>
-                    <div id="esApi-controls-mini" class="controls-mini">
-                        <div class="input-group" data-group="externalApiGroup">
-                            <button id="sdWebUIButton" data-value="sdWebUIButton" onclick='changeExternalAPI(this)' class="selected" >
-                                WebUI or Forge
-                            </button>
-                            <button id="comfyUIButton" data-value="comfyUIButton" onclick="changeExternalAPI(this)">
-                                ComfyUI(β ver)
-                            </button>
-
-                            <div id="apiSettingsUrlHelpe">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label id="SD_WebUI_pingCheck_Label">
-                            <input type="checkbox" id="apiHeartbeatCheckbox" checked>
-                            AI Check
-                        </label>
-                        <label id="ExternalService_Heartbeat_Label">SD WebUI Check…</label>
-
-                    </div>
-
-                </div>
-
-
-                <hr>
-
-                <div class="panel" id="baseControlsPanel">
-
-
-                    <div class="area-header" data-i18n="baseControls" onclick='changeHiddenById("base-controls-mini", "baseControls", "baseControlsByClose")'>
-                    </div>
-                    <div id="base-controls-mini" class="controls-mini">
-
-
-                        <div id="comfyUIWorkflowId" class="controls-mini">
-                            <div class="input-group" data-group="comfyUIWorkflowGroup">
-                                <button id="openWorkflowButton">Workflow's</button>
-                            </div>
-                        </div>
-
-                        
-
-                        <div  id="prompt-A" class="control textarea-control">
-                            <div class="textarea-label-wrapper">
-                                <label class="textarea-label" for="textarea">Prompt</label>
-                            </div>
-                            <textarea id="basePrompt_prompt" name="textarea" placeholder=" "></textarea>
-                        </div>
-                        <div id="negativeAreaId" class="control textarea-control">
-                            <div class="textarea-label-wrapper">
-                                <label class="textarea-label" for="textarea">Negative</label>
-                            </div>
-                            <textarea id="basePrompt_negative" name="textarea" placeholder=" "></textarea>
-                        </div>
-                        <hr>
-
-                        <div id="manualSelectModelId" class="controls-mini">
-                            <div class="input-group" data-group="generateModelGroup">
-                                <button id="SDButton" onclick="changeAiModelType(this)" data-value="SD" class="selected" >
-                                    SD(1.5 XL)
-                                </button>
-                                <button id="FluxButton" onclick="changeAiModelType(this)" data-value="Flux">
-                                    Flux
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="manualSelectWorkflowId" class="controls-mini">
-                            <div class="input-group" data-group="generateWorkflow">
-                                <button id="SimpleButton" onclick="changeWorkflowType(this)" data-value="Simple" class="selected" >
-                                    Simple
-                                </button>
-                                <button id="DiffutionButton" onclick="changeWorkflowType(this)" data-value="Diffution">
-                                    Diffution
-                                </button>
-                                <button id="NF4Button" onclick="changeWorkflowType(this)" data-value="NF4">
-                                    NF4
-                                </button>
-                            </div>
-                        </div>
-                        <div id="prompt-B" class="control">
-                            <select id="basePrompt_model" name="dropdown">
-                            </select>
-                            <span class="label">Model</span>
-                        </div>
-                        <div id="prompt-C" class="dual-number-control">
-                            <div class="control" id="clipDropdownControle">
-                                <input id="clipDropdownId">
-                                <span class="label">Clip</span>
-                            </div>
-                            <div class="control" id="vaeDropdownControle">
-                                <select id="vaeDropdownId" name="dropdown"></select>
-                                <span class="label">Vae</span>
-                            </div>
-                        </div>
-
-
-                        <hr id="prompt-J">
-
-                        <div id="prompt-D" class="dual-number-control">
-                            <div class="control">
-                                <input type="number" id="basePrompt_samplingSteps" name="number-input-1" placeholder=" ">
-                                <span class="label">Steps</span>
-                            </div>
-                            <div class="control">
-                                <select id="basePrompt_samplingMethod" name="dropdown">
-                                </select>
-                                <span class="label">Method</span>
-                            </div>
-                        </div>
-                    
-                        <div id="prompt-E" class="dual-number-control">
-                            <div class="control">
-                                <input type="number" id="basePrompt_width" name="number-input-1" placeholder=" " step="8">
-                                <span class="label">Width</span>
-                            </div>
-                            <div class="control">
-                                <input type="number" id="basePrompt_height" name="number-input-1" placeholder=" " step="8">
-                                <span class="label">Height</span>
-                            </div>
-                        </div>
-                    
-                        <div id="prompt-F" class="dual-number-control">
-                            <div class="control">
-                                <input type="number" id="basePrompt_seed" name="number-input-1" placeholder=" ">
-                                <span class="label">Seed</span>
-                            </div>
-                            <div id="prompt-I" class="control">
-                                <input type="number" id="basePrompt_cfg_scale" name="number-input-1" placeholder=" " min="1" max="30" step="0.1" >
-                                <span class="label">CFG</span>
-                            </div>
-                        </div>
-                        <hr id="prompt-K">
-                        <div id="prompt-G"  class="dual-number-control">
-                            <div class="control">
-                                <select id="text2img_hr_upscaler" name="dropdown">
-                                </select>
-                                <span class="label">Upscaler</span>
-                            </div>
-                            <div class="control">
-                                <input type="number" id="text2img_hr_step" name="number-input-1" placeholder=" ">
-                                <span class="label">Step</span>
-                            </div>
-                        </div>
-                        <div id="prompt-H"  class="dual-number-control">
-                            <div class="control">
-                                <input type="number" id="text2img_hr_denoise" name="number-input-1" placeholder=" ">
-                                <span class="label">Denoising</span>
-                            </div>
-                            <div class="control">
-                                <input type="number" id="text2img_hr_scale" name="number-input-1" placeholder=" ">
-                                <span class="label">Scale</span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="control textarea-control" style="display: none;">
-                            <label>Adetailer</label>
-                            <input type="checkbox" id="AdetailerCheck">
-                        </div>
-                        <div class="control textarea-control" style="display: none;">
-                            <div class="textarea-label-wrapper">
-                                <label class="textarea-label" for="textarea">Adetiler</label>
-                            </div>
-                            <textarea id="AdetilerModels" name="textarea" placeholder=" "></textarea>
-                        </div>
-                        <div class="control textarea-control" style="display: none;">
-                            <div class="textarea-label-wrapper">
-                                <label class="textarea-label" for="textarea">Prompt</label>
-                            </div>
-                            <textarea id="AdetilerModelsPrompt" name="textarea" placeholder=" "></textarea>
-                        </div>
-                        <div class="control textarea-control" style="display: none;">
-                            <div class="textarea-label-wrapper">
-                                <label class="textarea-label" for="textarea">Negative</label>
-                            </div>
-                            <textarea id="AdetilerModelsNegative" name="textarea" placeholder=" "></textarea>
-                        </div>
-                        <label id="checSD_WebUI_Announce" style="font-size: 10px;" data-i18n="checSD_WebUI_Announce"/>
-                    </div>
-                </div>
-
-                <div class="panel" id="otherControlsPanel">
-                    <div class="area-header" data-i18n="otherControls" onclick='changeHiddenById("other-controls-mini", "otherControls", "otherControlsByClose")'>
-                    </div>
-                    <div id="other-controls-mini" class="controls-mini">
-                        <label>Panel or Image Prpmpt…</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header>
+  <div class="header-content">
+    <div class="logo">Manga Editor Desu</div>
+    <div class="language-selector">
+      <span class="flag-btn active" data-lang="ja"><span class="fi fi-jp"></span></span>
+      <span class="flag-btn" data-lang="en"><span class="fi fi-gb"></span></span>
+      <span class="flag-btn" data-lang="zh"><span class="fi fi-cn"></span></span>
+      <span class="flag-btn" data-lang="ko"><span class="fi fi-kr"></span></span>
+      <span class="flag-btn" data-lang="fr"><span class="fi fi-fr"></span></span>
+      <span class="flag-btn" data-lang="ru"><span class="fi fi-ru"></span></span>
+      <span class="flag-btn" data-lang="es"><span class="fi fi-es"></span></span>
+      <span class="flag-btn" data-lang="pt"><span class="fi fi-pt"></span></span>
+      <span class="flag-btn" data-lang="th"><span class="fi fi-th"></span></span>
+      <span class="flag-btn" data-lang="de"><span class="fi fi-de"></span></span>
+      <span id="current-lang" style="font-size:14px;color:#ddd;margin-left:10px;">日本語</span>
     </div>
+  </div>
+</header>
 
-    <div id="btm-drawer" class="btm-drawer btm-closed" style="display: none;">
-        <div id="btm-drawer-handle" class="btm-drawer-handle neon-text">
-            OPEN
-        </div>
-        <div class="btm-drawer-content">
-            <div id="btm-image-container" class="btm-image-container"></div>
-            <button id="btm-scroll-left" class="btm-scroll-btn btm-scroll-left" style="display: none;">&lt;</button>
-            <button id="btm-scroll-right" class="btm-scroll-btn btm-scroll-right" style="display: none;">&gt;</button>
-        </div>
+<div class="container">
+  <div class="main-content">
+    <h3><span class="triangle"></span><span data-i18n="title">Manga Editor Desuからのお知らせ</span><span class="triangle"></span></h3>
+    <div class="subtitle">移転しました</div>
+    
+    <div class="notice-box">
+      <h2 data-i18n="url_change">Web版のURLを変更しました</h2>
+      <div class="url-change">
+        <p data-i18n="old_url_label">変更前：</p>
+        <span class="old-url">https://new-sankaku.github.io/SP-MangaEditer/</span>
+        <div class="arrow">↓</div>
+        <p data-i18n="new_url_label">変更後：</p>
+        <a href="https://new-sankaku.github.io/manga-editor-desu/" target="_blank" class="new-url">https://new-sankaku.github.io/manga-editor-desu/</a>
+      </div>
+      <p data-i18n="url_change_message">リポジトリの統一によってURLが変わっています。今後は変更後のURLをお使いください。</p>
     </div>
-
-    <div id="sp-manga-toastContainer" class="position-fixed bottom-0 end-0 p-3" style="min-width: 250px;">
+    
+    <div class="notice-box">
+      <h2 data-i18n="repo_change">リポジトリの変更について</h2>
+      <p data-i18n="repo_change_detail">Stable Diffusion WebUIのExtension版を廃止し、リポジトリ名を変更しました。今後のソース更新は変更後のリポジトリに一元化されます。</p>
+      <div class="url-change">
+        <p data-i18n="old_repo_label">変更前：</p>
+        <span class="old-url">https://github.com/new-sankaku/stable-diffusion-webui-simple-manga-maker</span>
+        <div class="arrow">↓</div>
+        <p data-i18n="new_repo_label">変更後：</p>
+        <a href="https://github.com/new-sankaku/manga-editor-desu" target="_blank" class="new-url">https://github.com/new-sankaku/manga-editor-desu</a>
+      </div>
     </div>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Manga Editor Desu</p>
+  </footer>
+</div>
 
-    <link rel="stylesheet" href="third/intro/introjs.min.css">
-    <link rel="stylesheet" href="css/ui/intro.css?">
-    <link rel="stylesheet" href="css/styles-css.css?v=7.2">
-
-    <script src="third/lz4/wasm.js"></script>
-    <script src="third/lz4/lz4asm.js"></script>
-    <script src="third/lz4/lz4wasm.js"></script>
-
-    <script src="third/pixi.min.js" defer></script>
-    <script src="third/advanced-blend-modes.min.js" defer></script>
-    <script src="third/interact.min.js" defer></script>
-    <script src="third/glfx/glfx.js"></script>
-    <script src="third/Fabric.js/fabric.min.js"></script>
-    <script src="third/Fabric.js/fabric.min_PlusEraser.js"></script>
-    <script src="third/i18next/i18next.min.js"></script>
-    <script src="third/jsts/jsts.min.js"></script>
-    <script src="third/browser-image-compression/browser-image-compression.js"></script>
-    <script src="third/intro/intro.min.js"></script>
-    <script src="third/lodash/lodash.min.js" defer></script>
-    <script src="third/hotkeys/hotkeys.min.js" defer></script>
-    <script src="third/tippy/popper.min.js"></script>
-    <script src="third/tippy/tippy-bundle.umd.min.js"></script>
-    <script src="third/jszip/jszip.min.js" defer></script>
-    <script src="third/crypto-js/crypto-js.min.js"></script>
-    <script src="third/Bootstrup/bootstrap.bundle.min.js"></script>
-    <script src="third/font-awesome/all.min.js"></script>
-    <script src="third/localforage/localforage.min.js"></script>
-
-    <script src="js/sidebar/pen/fabric/dist/fabric-brush.min.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/crayon_brush.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/ink_brush.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/marker_brush.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/spray_brush.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/drip.js?v=7.2"></script>
-    <script src="js/sidebar/pen/fabric/brushes/stroke.js?v=7.2"></script>
-    <script src="js/core/settings.js?v=7.2" defer></script>
-    <script src="js/core/logger.js?v=7.2" defer></script>
-    
-    <script src="js/ui/glfx-ui.js?v=7.2" defer></script>
-    <script src="js/ui/canvas-object-menu.js?v=7.2" defer></script>
-    <script src="js/ui/third/intro.js?v=7.2" defer></script>
-    <script src="js/ui/toast.js?v=7.2" defer></script>
-    <script src="js/ui/util/ui-util.js?v=7.2" defer></script>
-    <script src="js/ui/third/tippy.js?v=7.2" defer></script>
-
-    <script src="js/ui/third/base-translation/base-de.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-en.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-es.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-fr.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-ja.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-ko.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-pt.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-ru.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-th.js?v=7.2" defer></script>
-    <script src="js/ui/third/base-translation/base-zh.js?v=7.2" defer></script>
-    <script src="js/ui/third/i18next.js?v=7.2" defer></script>
-
-    <script src="js/ui/util/mode-change.js?v=7.2" defer></script>
-    <script src="js/ui/util/tagify-util.js?v=7.2" defer></script>
-    <script src="js/ui/imagePromptHelper/prompt-helper.js?v=7.2" defer></script>
-    <script src="js/ui/imagePromptHelper/hc-image-prompt-helper.js?v=7.2" defer></script>
-    <script src="js/ui/imagePromptHelper/image-prompt-helper.js?v=7.2" defer></script>
-    <script src="js/ui/ai/auto-prompt-ui.js?v=7.2" defer></script>
-    <script src="js/ui/overlay-progress.js?v=7.2" defer></script>
-    <script src="js/ui/custom-html-component.js?v=7.2" defer></script>
-
-    <script src="js/core/util/load-util.js?v=7.2" defer></script>
-    <script src="js/core/util/js-util.js?v=7.2" defer></script>
-    <script src="js/core/util/fabric-util.js?v=7.2" defer></script>
-    <script src="js/core/util/image-util.js?v=7.2" defer></script>
-    <script src="js/core/util/anime-util.js?v=7.2" defer></script>
-    <script src="js/core/util/share-util.js?v=7.2" defer></script>
-    <script src="js/core/util/log-util.js?v=7.2" defer></script>
-    <script src="js/core/util/image-analyzer-util.js?v=7.2" defer></script>
-    <script src="js/canvas-manager.js?v=7.2" defer></script>
-    <script src="js/project-management.js?v=7.2" defer></script>
-    <script src="js/shortcut.js?v=7.2" defer></script>
-    <script src="js/panel/grid.js?v=7.2" defer></script>
-    <script src="js/panel/randam-cut.js?v=7.2" defer></script>
-    <script src="js/sidebar/panel/panel-manager.js?v=7.2" defer></script>
-    <script src="js/sidebar/panel/panel-template.js?v=7.2" defer></script>
-    <script src="js/ui/prompt-manager.js?v=7.2" defer></script>
-    <script src="js/ai/role/ai-roles.js?v=7.2" defer></script>
-    <script src="js/ai/queue/spinner.js?v=7.2" defer></script>
-    <script src="js/ai/queue/task-queue.js?v=7.2" defer></script>
-    <script src="js/ai/sdwebui/sdwebui-settings.js?v=7.2" defer></script>
-    <script src="js/ai/sdwebui/sdwebui-multi-call-api.js?v=7.2" defer></script>
-    <script src="js/ai/sdwebui/sdwebui-single-call-api.js?v=7.2" defer></script>
-    <script src="js/ai/comfyui/util/comfyui-util.js?v=7.2" defer></script>
-    <script src="js/ai/comfyui/util/comfyui-workflow-builder.js?v=7.2" defer></script>
-    <script src="js/ai/comfyui/comfyui-management.js?v=7.2" defer></script>
-    <script src="js/ai/ai-settings.js?v=7.2" defer></script>
-    <script src="js/ai/ai-management.js?v=7.2" defer></script>
-    <script src="js/ai/ui/ai-ui-util.js?v=7.2" defer></script>
-    <script src="js/ai/prompt/base-event-listener.js?v=7.2" defer></script>
-    <script src="js/layer/floating-window-management.js?v=7.2" defer></script>
-    <script src="js/layer/layer-button.js?v=7.2" defer></script>
-    <script src="js/layer/layer-management.js?v=7.2" defer></script>
-    <script src="js/layer/image-history-management.js?v=7.2" defer></script>
-    <script src="js/layer/blend/blend.js?v=7.2" defer></script>
-    
-    <script src="js/sidebar/sidebar-ui.js?v=7.2" defer></script>
-    <script src="js/sidebar/sidebar.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/text-effect.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/vertical-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/vertical-textbox.js?v=7.2"></script>
-    <script src="js/sidebar/speechBubble/speech-bubble-effect.js?v=7.2" defer></script>
-    <script src="js/sidebar/speechBubble/speech-bubble-freehand.js?v=7.2" defer></script>
-    <script src="js/sidebar/speechBubble/speech-bubble-text.js?v=7.2" defer></script>    
-    <script src="js/sidebar/pen/original-brush.js?v=7.2" defer></script>
-    <script src="js/sidebar/pen/pen-tools.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/tone-manager.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/speedline.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/focusline.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/tone.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/tone-noise.js?v=7.2" defer></script>
-    <script src="js/sidebar/tone/snow-tone.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/text-2-manager.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/custom-text-util.js?7.0" defer></script>
-    <script src="js/sidebar/text/custom/optimized-aurora-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-broken-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-cloud-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-layered-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-mesh-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-scratch-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-shadow-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-thrill-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-wild-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/text/custom/optimized-zebra-text.js?v=7.2" defer></script>
-    <script src="js/sidebar/effect/effect-manager.js?v=7.2" defer></script>
-    <script src="js/sidebar/effect/c2bw_tone.js?v=7.2" defer></script>
-    <script src="js/sidebar/effect/c2c.js?v=7.2" defer></script>
-    <script src="js/sidebar/panel/knife.js?v=7.2" defer></script>
-
-    <script src="js/ui/controle/common-controle-management.js?v=7.2" defer></script>
-    <script src="js/ui/controle/image-controle-manager.js?v=7.2" defer></script>
-    <script src="js/ui/controle/infomation-controle.js?v=7.2" defer></script>
-    <script src="js/ui/controle/glfx-controle.js?v=7.2" defer></script>
-    <script src="js/fabric/fabric-management.js?v=7.2" defer></script>
-    <script src="js/core/svg/google-icon-names.js?v=7.2"></script>
-    <script src="js/core/svg/google-icon-helper.js?v=7.2"></script>
-    <script src="js/svg/manga-panels-image-landscape.js?v=7.2" defer></script>
-    <script src="js/svg/manga-panels-image-vertical.js?v=7.2" defer></script>
-    <script src="js/svg/speechbubble.js?v=7.2" defer></script>
-    <script src="js/ui/bottom-bar.js?v=7.2" defer></script>
-
-    <script src="js/ai/prompt/auto/prompt-map.js?v=7.2" defer></script>
-    <script src="js/ai/prompt/auto/story-prompt-map.js?v=7.2" defer></script>
-    <script src="js/ai/prompt/auto/auto-prompt-util.js?v=7.2" defer></script>
-    <script src="js/ai/prompt/auto/auto-generation.js?v=7.2" defer></script>
-
-    <script src="js/db/user-font-repository.js?v=7.2" defer></script>
-    <script src="js/ui/font/user-font-manager.js?v=7.2" defer></script>
-    <script src="js/core/font/font-manager-core.js?v=7.2" defer></script>
-    <script src="js/core/font/font-dropdown.js?v=7.2" defer></script>
-
-    <script src="service-worker.js?v=7.2" defer></script>
-    <script src="js/core/service/worker-register.js?v=7.2" defer></script>
-
-    <script src="js/core/compression/lz4.js?v=7.2"></script>
-    <script src="js/core/util/array-buffer-utils.js?v=7.2"></script>
-    <script src="js/core/compression/project-compression.js?v=7.2"></script>
-
-    <script src="js/ai/comfyui/v2/comfyui_workflow/comfyui-upscale-default-workflows.js?v=7.3"></script>
-    <script src="js/ai/comfyui/v2/comfyui_workflow/comfyui-rembg-default-workflows.js?v=7.3"></script>
-    <script src="js/ai/comfyui/v2/comfyui_workflow/comfyui-t2i-sd-default-workflows.js?v=7.3"></script>
-    <script src="js/ai/comfyui/v2/comfyui_workflow/comfyui-t2i-flux-default-workflows.js?v=7.3"></script>
-    <script src="js/ai/comfyui/v2/comfyui_workflow/comfyui-default-workflows.js?v=7.3"></script>
-
-    <script src="js/ai/comfyui/v2/comfyui-default-object-info.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-workflow-repository.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-object-info-repository.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-util-v2.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-workflow-editor-tab.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-workflow-editor.js"></script>
-    <script src="js/ai/comfyui/v2/comfyui-workflow-interact.js"></script>
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/roughjs@4.5.2/bundled/rough.js"></script> -->
-    <script src="js/sidebar/rough/rough_manager.js?v=7.2"></script>
-    <script src="js/sidebar/rough/rough.js?v=7.2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
-    
+<script src="https://cdn.jsdelivr.net/npm/i18next@21.6.10/i18next.min.js"></script>
 <script>
-function autoResize(event) {
-    event.target.style.height = 'auto';
-    event.target.style.height = event.target.scrollHeight + 'px';
-}
 
-function setAutoSizeingControlMini() {
-    var controlsMinis = document.querySelectorAll('.controls-mini');
-    controlsMinis.forEach(function(controlsMini) {
-        var textareas = controlsMini.querySelectorAll('textarea');
-        textareas.forEach(function(textarea) {
-            textarea.removeEventListener('input', autoResize);
-            textarea.addEventListener('input', autoResize);
-        });
-    });
-}
-setAutoSizeingControlMini();
-
-
-
-
-
-
-
-
-        let tagifyAdetailer;
-        function initTagify(whitelist = []) {
-            const input = document.getElementById('AdetilerModels');
-            if (tagifyAdetailer) {
-                tagifyAdetailer.destroy();
-            }
-            tagifyAdetailer = new Tagify(input, {
-                enforceWhitelist: true,
-                whitelist: whitelist,
-                dropdown: {
-                    enabled: 0,
-                    maxItems: 100,
-                    position: "text",
-                    closeOnSelect: false,
-                    highlightFirst: true,
-                    showAllSuggestions: true
-                }
-            });
-            input.addEventListener('focus', () => {
-                tagifyAdetailer.dropdown.show();
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            initTagify();
-        });
-
-    function getAdetailerList() {
-        if (!tagifyAdetailer) {
-            return [];
-        }
-        return tagifyAdetailer.value.map(tag => tag.value);
+const resources = {
+  ja: {
+    translation: {
+      title: "Manga Editor Desuからのお知らせ",
+      url_change: "Web版のURLを変更しました",
+      old_url_label: "変更前：",
+      new_url_label: "変更後：",
+      url_change_message: "リポジトリの統一によってURLが変わっています。今後は変更後のURLをお使いください。",
+      repo_change: "リポジトリの変更について",
+      repo_change_detail: "Stable Diffusion WebUIのExtension版を廃止し、リポジトリ名を変更しました。今後のソース更新は変更後のリポジトリに一元化されます。",
+      old_repo_label: "変更前：",
+      new_repo_label: "変更後："
     }
+  },
+  en: {
+    translation: {
+      title: "Notice from Manga Editor Desu",
+      url_change: "Web Version URL Change",
+      old_url_label: "Old URL:",
+      new_url_label: "New URL:",
+      url_change_message: "The URL has changed due to repository unification. Please use the new URL from now on.",
+      repo_change: "Repository Change",
+      repo_change_detail: "The Stable Diffusion WebUI Extension version has been discontinued, and the repository name has been changed. Future source updates will be unified to the new repository.",
+      old_repo_label: "Old Repository:",
+      new_repo_label: "New Repository:"
+    }
+  },
+  zh: {
+    translation: {
+      title: "Manga Editor Desu通知",
+      url_change: "网页版URL变更",
+      old_url_label: "变更前：",
+      new_url_label: "变更后：",
+      url_change_message: "由于代码库统一，URL已更改。今后请使用变更后的URL。",
+      repo_change: "代码库变更",
+      repo_change_detail: "Stable Diffusion WebUI扩展版已停用，代码库名称已更改。今后的源代码更新将统一到变更后的代码库。",
+      old_repo_label: "变更前：",
+      new_repo_label: "变更后："
+    }
+  },
+  ko: {
+    translation: {
+      title: "Manga Editor Desu 공지사항",
+      url_change: "웹 버전 URL 변경",
+      old_url_label: "변경 전:",
+      new_url_label: "변경 후:",
+      url_change_message: "저장소 통합으로 인해 URL이 변경되었습니다. 앞으로는 변경된 URL을 사용해 주세요.",
+      repo_change: "저장소 변경 안내",
+      repo_change_detail: "Stable Diffusion WebUI 확장 버전이 중단되고, 저장소 이름이 변경되었습니다. 향후 소스 업데이트는 변경된 저장소로 일원화됩니다.",
+      old_repo_label: "변경 전:",
+      new_repo_label: "변경 후:"
+    }
+  },
+  fr: {
+    translation: {
+      title: "Avis de Manga Editor Desu",
+      url_change: "Changement d'URL de la version Web",
+      old_url_label: "Ancienne URL :",
+      new_url_label: "Nouvelle URL :",
+      url_change_message: "L'URL a changé en raison de l'unification des dépôts. Veuillez utiliser la nouvelle URL à partir de maintenant.",
+      repo_change: "Changement de dépôt",
+      repo_change_detail: "La version Extension de Stable Diffusion WebUI a été abandonnée et le nom du dépôt a été modifié. Les futures mises à jour du code source seront unifiées dans le nouveau dépôt.",
+      old_repo_label: "Ancien dépôt :",
+      new_repo_label: "Nouveau dépôt :"
+    }
+  },
+  ru: {
+    translation: {
+      title: "Уведомление от Manga Editor Desu",
+      url_change: "Изменение URL веб-версии",
+      old_url_label: "Старый URL:",
+      new_url_label: "Новый URL:",
+      url_change_message: "URL изменен из-за объединения репозиториев. Пожалуйста, используйте новый URL с этого момента.",
+      repo_change: "Изменение репозитория",
+      repo_change_detail: "Версия расширения Stable Diffusion WebUI прекращена, и название репозитория изменено. Будущие обновления исходного кода будут объединены в новом репозитории.",
+      old_repo_label: "Старый репозиторий:",
+      new_repo_label: "Новый репозиторий:"
+    }
+  },
+  es: {
+    translation: {
+      title: "Aviso de Manga Editor Desu",
+      url_change: "Cambio de URL de la versión web",
+      old_url_label: "URL anterior:",
+      new_url_label: "URL nueva:",
+      url_change_message: "La URL ha cambiado debido a la unificación de repositorios. Por favor, utilice la nueva URL a partir de ahora.",
+      repo_change: "Cambio de repositorio",
+      repo_change_detail: "La versión de extensión de Stable Diffusion WebUI ha sido descontinuada y el nombre del repositorio ha cambiado. Las futuras actualizaciones del código fuente se unificarán en el nuevo repositorio.",
+      old_repo_label: "Repositorio anterior:",
+      new_repo_label: "Repositorio nuevo:"
+    }
+  },
+  pt: {
+    translation: {
+      title: "Aviso do Manga Editor Desu",
+      url_change: "Alteração de URL da versão Web",
+      old_url_label: "URL antiga:",
+      new_url_label: "URL nova:",
+      url_change_message: "A URL foi alterada devido à unificação do repositório. Por favor, use a nova URL a partir de agora.",
+      repo_change: "Alteração de repositório",
+      repo_change_detail: "A versão de extensão do Stable Diffusion WebUI foi descontinuada e o nome do repositório foi alterado. As futuras atualizações do código-fonte serão unificadas no novo repositório.",
+      old_repo_label: "Repositório antigo:",
+      new_repo_label: "Repositório novo:"
+    }
+  },
+  th: {
+    translation: {
+      title: "ประกาศจาก Manga Editor Desu",
+      url_change: "การเปลี่ยนแปลง URL เวอร์ชันเว็บ",
+      old_url_label: "URL เดิม:",
+      new_url_label: "URL ใหม่:",
+      url_change_message: "URL เปลี่ยนแปลงเนื่องจากการรวมที่เก็บ โปรดใช้ URL ใหม่ตั้งแต่นี้เป็นต้นไป",
+      repo_change: "การเปลี่ยนแปลงที่เก็บ",
+      repo_change_detail: "เวอร์ชันส่วนขยาย Stable Diffusion WebUI ได้ถูกยกเลิกและชื่อที่เก็บได้เปลี่ยนแปลง การอัปเดตซอร์สโค้ดในอนาคตจะถูกรวมไว้ในที่เก็บใหม่",
+      old_repo_label: "ที่เก็บเดิม:",
+      new_repo_label: "ที่เก็บใหม่:"
+    }
+  },
+  de: {
+    translation: {
+      title: "Mitteilung von Manga Editor Desu",
+      url_change: "URL-Änderung der Web-Version",
+      old_url_label: "Alte URL:",
+      new_url_label: "Neue URL:",
+      url_change_message: "Die URL wurde aufgrund der Repository-Vereinheitlichung geändert. Bitte verwenden Sie ab sofort die neue URL.",
+      repo_change: "Repository-Änderung",
+      repo_change_detail: "Die Stable Diffusion WebUI-Erweiterungsversion wurde eingestellt und der Repository-Name wurde geändert. Zukünftige Quellcode-Updates werden im neuen Repository vereinheitlicht.",
+      old_repo_label: "Altes Repository:",
+      new_repo_label: "Neues Repository:"
+    }
+  }
+};
 
+
+i18next.init({
+  lng: 'ja',
+  resources: resources,
+  interpolation: { escapeValue: false }
+}).then(function(t) {
+  updateContent();
+});
+
+
+function updateContent() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = i18next.t(key);
+  });
+}
+
+
+document.querySelectorAll('.flag-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const lang = this.getAttribute('data-lang');
+    i18next.changeLanguage(lang).then(() => {
+      updateContent();
+      document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelector('#current-lang').textContent = {
+        ja: '日本語',
+        en: 'English',
+        zh: '简体中文',
+        ko: '한국어',
+        fr: 'Français',
+        ru: 'Русский',
+        es: 'Español',
+        pt: 'Português',
+        th: 'ภาษาไทย',
+        de: 'Deutsch'
+      }[lang];
+    });
+  });
+});
+
+
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiCodePosition = 0;
+
+document.addEventListener('keydown', function(e) {
+  const key = e.key.toLowerCase();
+  const expectedKey = konamiCode[konamiCodePosition].toLowerCase();
+  
+  if (key === expectedKey) {
+    konamiCodePosition++;
+    
+    if (konamiCodePosition === konamiCode.length) {
+      activateEasterEgg();
+      konamiCodePosition = 0;
+    }
+  } else {
+    konamiCodePosition = 0;
+  }
+});
+
+function activateEasterEgg() {
+  const easterEgg = document.getElementById('easter-egg');
+  easterEgg.style.display = 'flex';
+  
+  setTimeout(() => {
+    easterEgg.style.display = 'none';
+  }, 5000);
+}
+
+
+let clickCount = 0;
+const logoColors = ['#ff9800', '#e91e63', '#4caf50', '#2196f3', '#9c27b0'];
+
+document.querySelector('.logo').addEventListener('click', function() {
+  clickCount++;
+  if (clickCount >= logoColors.length) clickCount = 0;
+  
+  const newColor = logoColors[clickCount];
+  document.documentElement.style.setProperty('--accent-color', newColor);
+  
+  if (newColor === '#ff9800') {
+    document.documentElement.style.setProperty('--hover-color', '#ffb74d');
+  } else {
+    document.documentElement.style.setProperty('--hover-color', newColor + '99');
+  }
+});
 </script>
-
-
 </body>
-
 </html>

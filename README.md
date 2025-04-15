@@ -1,4 +1,4 @@
-# 📢 移転のお知らせ | Relocation Notice
+# 📢 Relocation Notice
 
 <table>
   <tr>
